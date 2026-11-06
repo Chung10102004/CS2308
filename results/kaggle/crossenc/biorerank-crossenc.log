@@ -1,0 +1,20 @@
+[{"stream_name":"stdout","time":7.354181203,"data":"GPU 0: Tesla T4 (UUID: GPU-07139dc3-d369-f474-8a47-d68a5734f2d7)\n"}
+,{"stream_name":"stdout","time":7.354230997,"data":"GPU 1: Tesla T4 (UUID: GPU-47c86af1-bfe1-cd21-ed4a-c8fd4feba3b0)\n"}
+,{"stream_name":"stderr","time":39.523432834,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":44.337860602,"data":"\rLoading weights:   0%|          | 0/201 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 201/201 [00:00\u003c00:00, 12376.94it/s]\n"}
+,{"stream_name":"stdout","time":75.045321336,"data":"medcpt_ce    trec-covid    medcpt_ce              50 truy vấn\n"}
+,{"stream_name":"stderr","time":77.602473592,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":77.602949273,"data":"  File \"/kaggle/src/script.py\", line 22, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":77.602969844,"data":"    importlib.import_module(\"src.kaggle_tasks.crossenc\").main()\n"}
+,{"stream_name":"stderr","time":77.602974981,"data":"    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n"}
+,{"stream_name":"stderr","time":77.602979273,"data":"  File \"/kaggle/tmp/pack/code/src/kaggle_tasks/crossenc.py\", line 79, in main\n"}
+,{"stream_name":"stderr","time":77.602983696,"data":"    dids = [d for d, _ in cand[qid]]\n"}
+,{"stream_name":"stderr","time":77.602987748,"data":"                          ~~~~^^^^^\n"}
+,{"stream_name":"stderr","time":77.602991837,"data":"KeyError: 'PLAIN-1098'\n"}
+,{"stream_name":"stderr","time":83.760402758,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":83.760452037,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":84.016095752,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":84.016137799,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":84.774212245,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":85.757765714,"data":"[NbConvertApp] Writing 278672 bytes to __results__.html\n"}
+]

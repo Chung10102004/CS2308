@@ -1,0 +1,27 @@
+# Giá USD cho mỗi 1M token. KHÔNG hardcode giá trong code; mọi ước tính đọc từ file này.
+openai:
+  retrieved: 2026-11-06
+  source: https://developers.openai.com/api/docs/pricing (Standard, short context; Batch = 50%)
+  models:
+    gpt-6-luna:   {input: 0.10, cached_input: 0.01, output: 0.50}
+    gpt-6.1-terra: {input: 1.00, cached_input: 0.05, output: 5.00}
+    gpt-6.1-sol:  {input: 2.00, cached_input: 0.10, output: 10.00}
+    gpt-6-astra:  {input: 10.00, cached_input: 1.00, output: 50.00}
+  batch_discount: 0.5
+
+jev:
+  retrieved: 2026-11-06
+  # TODO: xác minh trên trang chính thức của TypeSafe; số này lấy từ các bài trích lại giá trên trang chủ TypeSafe
+  # ("$42 per billion input tokens"): https://www.eesel.ai/blog/typesafe-jev-pricing, https://flaviocopes.com/jev-pricing/
+  source: secondary (eesel.ai, flaviocopes.com) citing typesafe.ai homepage
+  input: 0.042
+  output: 0.0
+
+# Giá thuê GPU để quy đổi chi phí model local (ước lượng, ghi rõ trong báo cáo).
+gpu:
+  retrieved: 2026-11-06
+  note: ước lượng; Kaggle miễn phí nhưng quy ra giá thuê T4 tương đương để so sánh
+  t4_usd_per_hour: 0.35
+
+guard:
+  confirm_above_usd: 5.0

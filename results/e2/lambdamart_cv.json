@@ -1,0 +1,76 @@
+{
+  "M0": {
+    "features": [
+      "bm25",
+      "bm25_rank",
+      "bm25_norm",
+      "tfidf",
+      "medcpt",
+      "medcpt_z",
+      "q_overlap",
+      "title_overlap",
+      "doc_len",
+      "q_len",
+      "has_title"
+    ],
+    "importance_gain": {
+      "bm25": 0.0422,
+      "bm25_rank": 0.0871,
+      "bm25_norm": 0.0784,
+      "tfidf": 0.071,
+      "medcpt": 0.2573,
+      "medcpt_z": 0.3621,
+      "q_overlap": 0.0171,
+      "title_overlap": 0.029,
+      "doc_len": 0.0472,
+      "q_len": 0.0084,
+      "has_title": 0.0
+    }
+  },
+  "M1": {
+    "features": [
+      "bm25",
+      "bm25_rank",
+      "bm25_norm",
+      "tfidf",
+      "medcpt",
+      "medcpt_z",
+      "q_overlap",
+      "title_overlap",
+      "doc_len",
+      "q_len",
+      "has_title",
+      "year",
+      "is_2020",
+      "has_mesh",
+      "n_mesh",
+      "mesh_overlap",
+      "pt_review",
+      "pt_trial",
+      "pt_case",
+      "has_pmid"
+    ],
+    "importance_gain": {
+      "bm25": 0.0446,
+      "bm25_rank": 0.0782,
+      "bm25_norm": 0.0688,
+      "tfidf": 0.0795,
+      "medcpt": 0.2059,
+      "medcpt_z": 0.3772,
+      "q_overlap": 0.0193,
+      "title_overlap": 0.0305,
+      "doc_len": 0.0573,
+      "q_len": 0.0088,
+      "has_title": 0.0,
+      "year": 0.0129,
+      "is_2020": 0.0037,
+      "has_mesh": 0.0007,
+      "n_mesh": 0.0057,
+      "mesh_overlap": 0.0043,
+      "pt_review": 0.0008,
+      "pt_trial": 0.0,
+      "pt_case": 0.0,
+      "has_pmid": 0.0019
+    }
+  }
+}

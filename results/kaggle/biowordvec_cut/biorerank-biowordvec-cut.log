@@ -1,0 +1,25 @@
+[{"stream_name":"stdout","time":10.740737732,"data":"0/16545452 từ, 0 khớp, 0.0 GB, 0s\n"}
+,{"stream_name":"stdout","time":17.027833164,"data":"1000000/16545452 từ, 127470 khớp, 0.8 GB, 6s\n"}
+,{"stream_name":"stdout","time":25.286226757,"data":"2000000/16545452 từ, 137833 khớp, 1.6 GB, 15s\n"}
+,{"stream_name":"stdout","time":33.369832675,"data":"3000000/16545452 từ, 142600 khớp, 2.4 GB, 23s\n"}
+,{"stream_name":"stdout","time":41.982218972,"data":"4000000/16545452 từ, 145611 khớp, 3.2 GB, 31s\n"}
+,{"stream_name":"stdout","time":50.487238537,"data":"5000000/16545452 từ, 147919 khớp, 4.1 GB, 40s\n"}
+,{"stream_name":"stdout","time":60.092409154,"data":"6000000/16545452 từ, 149795 khớp, 4.9 GB, 49s\n"}
+,{"stream_name":"stdout","time":68.108478504,"data":"7000000/16545452 từ, 151484 khớp, 5.7 GB, 57s\n"}
+,{"stream_name":"stdout","time":77.445553302,"data":"8000000/16545452 từ, 152471 khớp, 6.5 GB, 67s\n"}
+,{"stream_name":"stdout","time":87.207282513,"data":"9000000/16545452 từ, 153200 khớp, 7.3 GB, 76s\n"}
+,{"stream_name":"stdout","time":97.273774627,"data":"10000000/16545452 từ, 153538 khớp, 8.1 GB, 87s\n"}
+,{"stream_name":"stdout","time":105.743471828,"data":"11000000/16545452 từ, 154538 khớp, 8.9 GB, 95s\n"}
+,{"stream_name":"stdout","time":115.563633289,"data":"12000000/16545452 từ, 155337 khớp, 9.8 GB, 105s\n"}
+,{"stream_name":"stdout","time":128.654709157,"data":"13000000/16545452 từ, 156063 khớp, 10.6 GB, 118s\n"}
+,{"stream_name":"stdout","time":139.185890008,"data":"14000000/16545452 từ, 156766 khớp, 11.4 GB, 128s\n"}
+,{"stream_name":"stdout","time":150.147145061,"data":"15000000/16545452 từ, 157875 khớp, 12.2 GB, 139s\n"}
+,{"stream_name":"stdout","time":162.428185754,"data":"16000000/16545452 từ, 158845 khớp, 13.0 GB, 152s\n"}
+,{"stream_name":"stdout","time":169.135503315,"data":"{'bioWordVec_words': 16545452, 'dim': 200, 'vocab': 168345, 'found': 159423, 'coverage': 0.947, 'smoke': False, 'seconds': 158}\n"}
+,{"stream_name":"stderr","time":171.958870193,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":171.958916828,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":172.447190193,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":172.447220073,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":173.656486201,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":175.131632741,"data":"[NbConvertApp] Writing 278678 bytes to __results__.html\n"}
+]

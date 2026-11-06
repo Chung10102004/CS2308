@@ -1,0 +1,139 @@
+{
+  "sizes": {
+    "trec-covid": {
+      "test": 50
+    },
+    "nfcorpus": {
+      "train": 2586,
+      "dev": 324,
+      "test": 323
+    },
+    "scifact": {
+      "train": 632,
+      "dev": 162,
+      "test": 300
+    },
+    "scifact-open": {
+      "test": 279
+    }
+  },
+  "claim_id_checks": {
+    "beir_scifact_test_is_orig_dev": true,
+    "scifact_open_subset_of_orig_test": true,
+    "train_overlap_beir_test": 0,
+    "train_overlap_scifact_open": 0
+  },
+  "near_duplicate_threshold": 0.9,
+  "dropped_from_train": 19,
+  "dropped_by_dataset": {
+    "nfcorpus": 4,
+    "scifact": 15
+  },
+  "dropped_examples": [
+    {
+      "train": "nfcorpus:PLAIN-1070",
+      "train_text": "dragon's blood",
+      "test": "nfcorpus:PLAIN-3053",
+      "test_text": "Dragon's Blood",
+      "cos": 1.0
+    },
+    {
+      "train": "nfcorpus:PLAIN-1126",
+      "train_text": "EPIC Study",
+      "test": "nfcorpus:PLAIN-3251",
+      "test_text": "EPIC Study",
+      "cos": 1.0
+    },
+    {
+      "train": "nfcorpus:PLAIN-24",
+      "train_text": "Alkylphenol Endocrine Disruptors and Allergies",
+      "test": "nfcorpus:PLAIN-2630",
+      "test_text": "Alkylphenol Endocrine Disruptors and Allergies",
+      "cos": 1.0
+    },
+    {
+      "train": "nfcorpus:PLAIN-3470",
+      "train_text": "More Than an Apple a Day: Combating Common Diseases",
+      "test": "nfcorpus:PLAIN-2440",
+      "test_text": "More Than an Apple a Day: Combating Common Diseases",
+      "cos": 1.0
+    },
+    {
+      "train": "scifact:88",
+      "train_text": "Adult tissue-resident macrophages possess a self-renewing capacity.",
+      "test": "scifact-open:87",
+      "test_text": "Adult tissue-resident macrophages possess a self-renewing capacity.",
+      "cos": 1.0
+    },
+    {
+      "train": "scifact:181",
+      "train_text": "Blocking the interaction between TDP-43 and respiratory complex I proteins ND3 and ND6 prevents TDP-43-induced neuronal loss.",
+      "test": "scifact:180",
+      "test_text": "Blocking the interaction between TDP-43 and respiratory complex I proteins ND3 and ND6 leads to increased TDP-43-induced neuronal loss.",
+      "cos": 0.902
+    },
+    {
+      "train": "scifact:293",
+      "train_text": "Crossover hot spots are found within gene promoters in Saccharomyces cerevisiae.",
+      "test": "scifact:294",
+      "test_text": "Crossover hot spots are not found within gene promoters in Saccharomyces cerevisiae.",
+      "cos": 0.915
+    },
+    {
+      "train": "scifact:550",
+      "train_text": "ITAM phosphorylation allows for the transfer of the T cell receptor (TCR) signal from the echo-domain to the cytoplasmic tail of the T cell receptor (TCR).",
+      "test": "scifact:551",
+      "test_text": "ITAM phosphorylation prevents the transfer of the T cell receptor (TCR) signal from the echo-domain to the cytoplasmic tail of the T cell receptor (TCR).",
+      "cos": 0.93
+    },
+    {
+      "train": "scifact:590",
+      "train_text": "In young and middle-aged adults, current or remote uses of ADHD medications increase the risk of serious cardiovascular events.",
+      "test": "scifact:589",
+      "test_text": "In young and middle-aged adults, current or remote uses of ADHD medications do not increase the risk of serious cardiovascular events.",
+      "cos": 0.923
+    },
+    {
+      "train": "scifact:638",
+      "train_text": "Input from  mental and physical health care professionals is not effective at decreasing homelessness.",
+      "test": "scifact:637",
+      "test_text": "Input from  mental and physical health care professionals is effective at decreasing homelessness.",
+      "cos": 0.932
+    },
+    {
+      "train": "scifact:774",
+      "train_text": "Mice defective for deoxyribonucleic acid (DNA) polymerase I (polI) fail to reveal increased sensitivity to ionizing radiation (IR).",
+      "test": "scifact:775",
+      "test_text": "Mice defective for deoxyribonucleic acid (DNA) polymerase I (polI) reveal increased sensitivity to ionizing radiation (IR).",
+      "cos": 0.9
+    },
+    {
+      "train": "scifact:813",
+      "train_text": "Mutations in G-Beta protein GNB1 are present in many cancers, resulting in loss of interaction with G-alpha subunits and concomitant activation of AKT pathway.",
+      "test": "scifact:814",
+      "test_text": "Mutations in G-Beta protein GNB2 are present in many cancers, resulting in loss of interaction with G-alpha subunits and concomitant activation of AKT pathway.",
+      "cos": 0.917
+    },
+    {
+      "train": "scifact:871",
+      "train_text": "Obesity decreases life quality.",
+      "test": "scifact:870",
+      "test_text": "Obesity decreases life quality.",
+      "cos": 1.0
+    },
+    {
+      "train": "scifact:972",
+      "train_text": "Primary cervical cancer screening with HPV detection has lower longitudinal sensitivity than conventional cytology to detect cervical intraepithelial neoplasia grade 2.",
+      "test": "scifact:971",
+      "test_text": "Primary cervical cancer screening with HPV detection has higher longitudinal sensitivity than conventional cytology to detect cervical intraepithelial neoplasia grade 2.",
+      "cos": 0.926
+    },
+    {
+      "train": "scifact:1103",
+      "train_text": "Stroke patients with prior use of direct oral anticoagulants have a higher risk of in-hospital mortality than stroke patients with prior use of warfarin.",
+      "test": "scifact:1104",
+      "test_text": "Stroke patients with prior use of direct oral anticoagulants have a lower risk of in-hospital mortality than stroke patients with prior use of warfarin.",
+      "cos": 0.954
+    }
+  ]
+}

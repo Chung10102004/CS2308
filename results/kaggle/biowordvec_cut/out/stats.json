@@ -1,0 +1,9 @@
+{
+ "bioWordVec_words": 16545452,
+ "dim": 200,
+ "vocab": 168345,
+ "found": 159423,
+ "coverage": 0.947,
+ "smoke": false,
+ "seconds": 158
+}

@@ -1,0 +1,20 @@
+[{"stream_name":"stdout","time":15.028898365,"data":"GPU 0: Tesla T4 (UUID: GPU-80c94910-0c5f-2ea5-895f-5fcb2ab93d4e)\n"}
+,{"stream_name":"stdout","time":15.028960873,"data":"GPU 1: Tesla T4 (UUID: GPU-98f3d1a1-e05f-91d7-a41a-0051cba92dc3)\n"}
+,{"stream_name":"stderr","time":37.547223574,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":45.22286848,"data":"\rLoading weights:   0%|          | 0/199 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 199/199 [00:00\u003c00:00, 2797.07it/s]\n"}
+,{"stream_name":"stderr","time":49.060079667,"data":"\rLoading weights:   0%|          | 0/199 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 199/199 [00:00\u003c00:00, 2536.20it/s]\n"}
+,{"stream_name":"stdout","time":84.060786283,"data":"trec-covid    test  50 truy vấn\n"}
+,{"stream_name":"stdout","time":115.804971915,"data":"nfcorpus      train 2470 truy vấn\n"}
+,{"stream_name":"stdout","time":115.916402212,"data":"nfcorpus      dev   304 truy vấn\n"}
+,{"stream_name":"stdout","time":116.034553522,"data":"nfcorpus      test  308 truy vấn\n"}
+,{"stream_name":"stdout","time":157.002599051,"data":"scifact       train 632 truy vấn\n"}
+,{"stream_name":"stdout","time":157.107992271,"data":"scifact       dev   162 truy vấn\n"}
+,{"stream_name":"stdout","time":157.32116844,"data":"scifact       test  300 truy vấn\n"}
+,{"stream_name":"stdout","time":343.556573258,"data":"scifact-open  test  279 truy vấn\n"}
+,{"stream_name":"stderr","time":348.794622284,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":348.794650462,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":349.005112199,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":349.005141453,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":349.771756973,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":350.675420641,"data":"[NbConvertApp] Writing 278675 bytes to __results__.html\n"}
+]

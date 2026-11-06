@@ -1,0 +1,16 @@
+{
+  "n_docs": 9604,
+  "in_cord19_metadata": 9604,
+  "has_pubmed_id": 4587,
+  "has_mesh": 3848,
+  "has_pub_types": 4558,
+  "has_journal": 8270,
+  "has_year": 9604,
+  "topics_with_mesh": 50,
+  "pct_in_cord19_metadata": 100.0,
+  "pct_has_pubmed_id": 47.8,
+  "pct_has_mesh": 40.1,
+  "pct_has_pub_types": 47.5,
+  "pct_has_journal": 86.1,
+  "pct_has_year": 100.0
+}

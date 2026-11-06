@@ -1,0 +1,28 @@
+# Model ID ghim cho mọi lần chạy. Lấy từ https://developers.openai.com/api/docs/pricing ngày 2026-11-06.
+# `make check-api` gọi models.list() để xác nhận các ID này còn tồn tại với key của bạn.
+openai:
+  gpt_small:
+    id: gpt-6-luna          # rẻ nhất thế hệ GPT-6; chạy trượt cửa sổ trên toàn bộ top-100
+    reasoning_effort: none  # luna hỗ trợ none|low|medium|high|xhigh|max
+  gpt_large:
+    id: gpt-6.1-sol         # tầng giữa; KHÔNG dùng gpt-6-astra (đắt gấp 5 lần)
+    reasoning_effort: low   # sol không hỗ trợ "none"
+    # Giống RankGPT gpt-4†: model lớn chỉ xếp lại top-30 do model nhỏ đã xếp.
+    rerank_depth: 30
+  demo_generator:
+    id: gpt-6-luna
+    reasoning_effort: low
+
+jev:
+  model: jev-latest         # tên model mặc định của jev-reranker; ghi lại tên thật từ detail=True
+  split_state_budget: 26000
+
+huggingface:
+  medcpt_cross: ncbi/MedCPT-Cross-Encoder
+  medcpt_query: ncbi/MedCPT-Query-Encoder
+  medcpt_article: ncbi/MedCPT-Article-Encoder
+  bge_v2_m3: BAAI/bge-reranker-v2-m3
+  bge_base: BAAI/bge-reranker-base
+  bge_large: BAAI/bge-reranker-large
+  monot5_base: castorini/monot5-base-msmarco-10k
+  mxbai_base: mixedbread-ai/mxbai-rerank-base-v1

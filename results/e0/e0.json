@@ -1,0 +1,140 @@
+[
+  {
+    "system": "R0",
+    "label": "BM25 (Pyserini flat)",
+    "ds": "trec-covid",
+    "ours": 59.47,
+    "paper": 59.47,
+    "diff": -0.0,
+    "tol": 0.5,
+    "pass": true,
+    "pyserini_2cr": 59.5
+  },
+  {
+    "system": "R0",
+    "label": "BM25 (Pyserini flat)",
+    "ds": "nfcorpus",
+    "ours": 32.18,
+    "paper": 30.75,
+    "diff": 1.43,
+    "tol": 0.5,
+    "pass": false,
+    "pyserini_2cr": 32.2
+  },
+  {
+    "system": "R0",
+    "label": "BM25 (Pyserini flat)",
+    "ds": "scifact",
+    "ours": 67.89,
+    "paper": 67.89,
+    "diff": 0.0,
+    "tol": 0.5,
+    "pass": true,
+    "pyserini_2cr": null
+  },
+  {
+    "system": "R4",
+    "label": "bge-reranker-v2-m3",
+    "ds": "trec-covid",
+    "ours": null,
+    "paper": 74.79
+  },
+  {
+    "system": "R4",
+    "label": "bge-reranker-v2-m3",
+    "ds": "nfcorpus",
+    "ours": null,
+    "paper": 33.84
+  },
+  {
+    "system": "R4",
+    "label": "bge-reranker-v2-m3",
+    "ds": "scifact",
+    "ours": null,
+    "paper": 73.48
+  },
+  {
+    "system": "X1",
+    "label": "bge-reranker-base",
+    "ds": "trec-covid",
+    "ours": null,
+    "paper": 67.5
+  },
+  {
+    "system": "X1",
+    "label": "bge-reranker-base",
+    "ds": "nfcorpus",
+    "ours": null,
+    "paper": 31.1
+  },
+  {
+    "system": "X1",
+    "label": "bge-reranker-base",
+    "ds": "scifact",
+    "ours": null,
+    "paper": 70.6
+  },
+  {
+    "system": "X2",
+    "label": "bge-reranker-large",
+    "ds": "trec-covid",
+    "ours": null,
+    "paper": 74.3
+  },
+  {
+    "system": "X2",
+    "label": "bge-reranker-large",
+    "ds": "nfcorpus",
+    "ours": null,
+    "paper": 34.8
+  },
+  {
+    "system": "X2",
+    "label": "bge-reranker-large",
+    "ds": "scifact",
+    "ours": null,
+    "paper": 74.1
+  },
+  {
+    "system": "X3",
+    "label": "mxbai-rerank-base",
+    "ds": "trec-covid",
+    "ours": null,
+    "paper": 84.0
+  },
+  {
+    "system": "X3",
+    "label": "mxbai-rerank-base",
+    "ds": "nfcorpus",
+    "ours": null,
+    "paper": 35.64
+  },
+  {
+    "system": "X3",
+    "label": "mxbai-rerank-base",
+    "ds": "scifact",
+    "ours": null,
+    "paper": 72.33
+  },
+  {
+    "system": "X4",
+    "label": "MonoT5-base",
+    "ds": "trec-covid",
+    "ours": null,
+    "paper": 72.24
+  },
+  {
+    "system": "X4",
+    "label": "MonoT5-base",
+    "ds": "nfcorpus",
+    "ours": null,
+    "paper": 34.81
+  },
+  {
+    "system": "X4",
+    "label": "MonoT5-base",
+    "ds": "scifact",
+    "ours": null,
+    "paper": 73.14
+  }
+]

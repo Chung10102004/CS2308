@@ -1,0 +1,3 @@
+# Kaggle đã có sẵn torch, transformers, numpy, pandas, pyyaml. Chỉ cài thêm phần thiếu.
+sentencepiece
+protobuf

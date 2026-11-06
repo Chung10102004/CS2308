@@ -1,0 +1,19 @@
+{
+  "R3": {
+    "kind": "local-gpu",
+    "device": "Tesla T4 (Kaggle)",
+    "n": 53,
+    "p50_ms": 533.43,
+    "p95_ms": 609.8059999999999,
+    "p99_ms": 2378.3691999999883,
+    "usd_per_1k": 0.05872313941299789,
+    "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
+    "mean_ndcg10_beir3": null
+  },
+  "R0": {
+    "kind": "local-cpu",
+    "p50_ms": null,
+    "usd_per_1k": 0.0,
+    "mean_ndcg10_beir3": 0.5317950834523747
+  }
+}

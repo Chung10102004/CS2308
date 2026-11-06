@@ -1,0 +1,68 @@
+{
+  "features": [
+    "bm25",
+    "bm25_rank",
+    "bm25_norm",
+    "tfidf",
+    "medcpt",
+    "medcpt_z",
+    "q_overlap",
+    "title_overlap",
+    "doc_len",
+    "q_len",
+    "has_title"
+  ],
+  "seeds": {
+    "0": {
+      "best_iteration": 252,
+      "dev_ndcg10": 0.7484468340218317,
+      "importance_gain": {
+        "bm25": 5222.22,
+        "bm25_rank": 6254.28,
+        "bm25_norm": 21533.73,
+        "tfidf": 4874.37,
+        "medcpt": 37364.55,
+        "medcpt_z": 65186.39,
+        "q_overlap": 1823.08,
+        "title_overlap": 1324.68,
+        "doc_len": 4543.52,
+        "q_len": 3282.54,
+        "has_title": 0.0
+      }
+    },
+    "1": {
+      "best_iteration": 122,
+      "dev_ndcg10": 0.7463894109589048,
+      "importance_gain": {
+        "bm25": 3290.58,
+        "bm25_rank": 3229.17,
+        "bm25_norm": 17573.89,
+        "tfidf": 3646.19,
+        "medcpt": 24337.16,
+        "medcpt_z": 79589.99,
+        "q_overlap": 1230.19,
+        "title_overlap": 741.91,
+        "doc_len": 2822.97,
+        "q_len": 2076.71,
+        "has_title": 0.0
+      }
+    },
+    "2": {
+      "best_iteration": 100,
+      "dev_ndcg10": 0.7433907924698501,
+      "importance_gain": {
+        "bm25": 2455.56,
+        "bm25_rank": 4360.83,
+        "bm25_norm": 14851.07,
+        "tfidf": 3161.16,
+        "medcpt": 27134.04,
+        "medcpt_z": 77582.45,
+        "q_overlap": 1042.71,
+        "title_overlap": 722.28,
+        "doc_len": 1979.28,
+        "q_len": 2549.64,
+        "has_title": 0.0
+      }
+    }
+  }
+}

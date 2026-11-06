@@ -1,0 +1,292 @@
+{
+  "trec-covid": {
+    "n_test_queries": 50,
+    "n_docs": 171332,
+    "query_len_mean": 10.62,
+    "query_len_median": 10.0,
+    "doc_len_mean": 164.19232250834636,
+    "doc_len_median": 170.0,
+    "no_text_docs_pct": 24.5955221441412,
+    "relevant_per_query_mean": 493.46,
+    "relevant_per_query_median": 478.0,
+    "label_levels": {
+      "-1": 2,
+      "0": 41661,
+      "1": 10456,
+      "2": 14217
+    },
+    "bm25_recall@100": 0.1090979738798375,
+    "bm25_judged@10": 0.9119999999999999,
+    "bm25_judged@100": 0.7394000000000002,
+    "queries_without_bm25_hits": 0,
+    "overlap_relevant_mean": 0.6093493678381342,
+    "overlap_nonrelevant_mean": 0.49741710391085625
+  },
+  "nfcorpus": {
+    "n_test_queries": 323,
+    "n_docs": 3633,
+    "query_len_mean": 3.2879256965944275,
+    "query_len_median": 2.0,
+    "doc_len_mean": 239.5849160473438,
+    "doc_len_median": 243.0,
+    "no_text_docs_pct": 0.0,
+    "relevant_per_query_mean": 38.18575851393189,
+    "relevant_per_query_median": 16.0,
+    "label_levels": {
+      "1": 11758,
+      "2": 576
+    },
+    "bm25_recall@100": 0.24567317497356,
+    "bm25_judged@10": 0.29700599538060796,
+    "bm25_judged@100": 0.18550981961771718,
+    "queries_without_bm25_hits": 15,
+    "overlap_relevant_mean": 0.5985573058691847,
+    "overlap_nonrelevant_mean": 0.35025182422119405
+  },
+  "scifact": {
+    "n_test_queries": 300,
+    "n_docs": 5183,
+    "query_len_mean": 12.58,
+    "query_len_median": 12.0,
+    "doc_len_mean": 218.013698630137,
+    "doc_len_median": 207.0,
+    "no_text_docs_pct": 0.0,
+    "relevant_per_query_mean": 1.13,
+    "relevant_per_query_median": 1.0,
+    "label_levels": {
+      "1": 339
+    },
+    "bm25_recall@100": 0.9253333333333335,
+    "bm25_judged@10": 0.08833333333333364,
+    "bm25_judged@100": 0.010483838383838323,
+    "queries_without_bm25_hits": 0,
+    "overlap_relevant_mean": 0.49713028588395863,
+    "overlap_nonrelevant_mean": 0.2436528006837756
+  },
+  "scifact-open": {
+    "n_claims": 279,
+    "evidence_citation": 209,
+    "evidence_pooling": 251,
+    "evidence_total": 460,
+    "claims_with_evidence_orig": 190,
+    "claims_with_evidence_open": 206,
+    "claims_in_both": 190,
+    "claims_gaining_evidence": 81,
+    "note_negatives": "repo không phát hành cặp đã chấm nhưng không phải bằng chứng (chỉ có claims/corpus/retrievals/predictions)"
+  },
+  "trec-covid-rounds": {
+    "n_judgments": 69318,
+    "judgments_by_iteration": {
+      "0.5": 2557,
+      "1.0": 5971,
+      "1.5": 5632,
+      "2.0": 6178,
+      "2.5": 5103,
+      "3.0": 7473,
+      "3.5": 4676,
+      "4.0": 8577,
+      "4.5": 5954,
+      "5.0": 17197
+    },
+    "n_topics_round1": 30,
+    "round1_topics": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30"
+    ],
+    "pairs_with_conflicting_labels": 0,
+    "shallow_pairs": 7569,
+    "shallow_relevant": 2038,
+    "full_pairs_round1_topics": 43576,
+    "full_relevant_round1_topics": 16164
+  },
+  "trec-covid-metadata": {
+    "years": {
+      "1972": 1,
+      "1975": 1,
+      "1976": 1,
+      "1977": 2,
+      "1979": 1,
+      "1980": 2,
+      "1981": 4,
+      "1982": 1,
+      "1983": 2,
+      "1984": 3,
+      "1985": 5,
+      "1986": 5,
+      "1987": 4,
+      "1988": 5,
+      "1989": 8,
+      "1990": 6,
+      "1991": 7,
+      "1992": 9,
+      "1993": 7,
+      "1994": 8,
+      "1995": 9,
+      "1996": 5,
+      "1997": 7,
+      "1998": 11,
+      "1999": 5,
+      "2000": 13,
+      "2001": 9,
+      "2002": 13,
+      "2003": 36,
+      "2004": 77,
+      "2005": 90,
+      "2006": 50,
+      "2007": 69,
+      "2008": 84,
+      "2009": 70,
+      "2010": 81,
+      "2011": 76,
+      "2012": 84,
+      "2013": 89,
+      "2014": 133,
+      "2015": 119,
+      "2016": 125,
+      "2017": 133,
+      "2018": 163,
+      "2019": 192,
+      "2020": 7779
+    },
+    "top_pub_types": [
+      [
+        "Journal Article",
+        4324
+      ],
+      [
+        "Research Support, Non-U.S. Gov't",
+        1177
+      ],
+      [
+        "Review",
+        959
+      ],
+      [
+        "Research Support, N.I.H., Extramural",
+        293
+      ],
+      [
+        "Comparative Study",
+        171
+      ],
+      [
+        "Preprint",
+        164
+      ],
+      [
+        "Systematic Review",
+        162
+      ],
+      [
+        "Letter",
+        139
+      ],
+      [
+        "Case Reports",
+        124
+      ],
+      [
+        "Research Support, U.S. Gov't, P.H.S.",
+        93
+      ],
+      [
+        "Research Support, U.S. Gov't, Non-P.H.S.",
+        87
+      ],
+      [
+        "Editorial",
+        82
+      ]
+    ],
+    "top_major_mesh": [
+      [
+        "Betacoronavirus",
+        533
+      ],
+      [
+        "Pandemics",
+        452
+      ],
+      [
+        "Coronavirus Infections",
+        314
+      ],
+      [
+        "Pneumonia, Viral",
+        303
+      ],
+      [
+        "Disease Outbreaks",
+        92
+      ],
+      [
+        "COVID-19",
+        88
+      ],
+      [
+        "Genome, Viral",
+        50
+      ],
+      [
+        "Coronavirus",
+        50
+      ],
+      [
+        "COVID-19 Drug Treatment",
+        41
+      ],
+      [
+        "Influenza A Virus, H1N1 Subtype",
+        38
+      ],
+      [
+        "SARS-CoV-2",
+        37
+      ],
+      [
+        "Health Knowledge, Attitudes, Practice",
+        31
+      ],
+      [
+        "Mental Health",
+        30
+      ],
+      [
+        "Masks",
+        27
+      ],
+      [
+        "Drug Repositioning",
+        25
+      ]
+    ]
+  }
+}
