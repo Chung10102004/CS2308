@@ -8,7 +8,7 @@ SKIP_LARGE ?= 0
 API_FLAGS := $(if $(filter 1,$(CONFIRM)),--confirm,) $(if $(filter 1,$(SKIP_LARGE)),--skip-large,)
 
 .PHONY: help setup data bm25 metadata pack local kaggle-upload kaggle-run kaggle-pull lambdamart eval tables figures \
-        corpus report demo test check-api api-dry api-run all-after-api
+        corpus errors report demo test check-api api-dry api-run all-after-api
 
 help:
 	@grep -E '^[a-z0-9-]+:.*## ' Makefile | sed 's/:.*## /\t/' | column -t -s $$'\t'
@@ -58,7 +58,10 @@ figures: ## Hình → report/figures/
 corpus: ## Phân tích ngữ liệu → report/figures/fig_data_*.png
 	$(PY) scripts/corpus_analysis.py
 
-report: eval tables figures corpus ## Chấm lại + sinh lại toàn bộ bảng và hình
+report: eval tables figures corpus errors ## Chấm lại + sinh lại toàn bộ bảng và hình
+
+errors: ## Ca tốt / ca không tốt so với BM25
+	$(PY) scripts/error_analysis.py
 
 demo: ## Demo RAG Gradio tại http://127.0.0.1:7860
 	$(PY) -m src.demo.rag_app
