@@ -21,6 +21,13 @@ MODELS = {  # tên: (HF id, kiểu, fp16?)
 }
 E2_MODELS = ("medcpt_ce", "bge_v2_m3")
 MAX_LEN, BATCH = 512, int(os.environ.get("CE_BATCH", "32"))
+# Chế độ "giống Rankify" (để kiểm E0): chỉ đưa abstract (không tiêu đề), fp32, không cắt ở 512 với cross-encoder.
+DOCFMT = os.environ.get("CE_DOCFMT", "title_text")          # title_text | text
+FP32 = os.environ.get("CE_FP32", "0") == "1"
+MAXLEN_MODEL = os.environ.get("CE_MAXLEN", "512") == "model"
+TAG = os.environ.get("CE_TAG", "")                          # hậu tố tên run, vd. ".rk"
+SETS = os.environ.get("CE_SETS")                           # vd. "trec-covid,nfcorpus,scifact"
+WITH_E2 = os.environ.get("CE_E2", "1") == "1"
 
 
 class CrossEncoder:
@@ -34,8 +41,11 @@ class CrossEncoder:
             self.false_id = self.tok.convert_tokens_to_ids("▁false")
         else:
             self.model = AutoModelForSequenceClassification.from_pretrained(hf_id)
-        if fp16 and self.dev == "cuda":
+        if fp16 and self.dev == "cuda" and not FP32:
             self.model = self.model.half()
+        self.max_len = MAX_LEN
+        if MAXLEN_MODEL and kind != "monot5":
+            self.max_len = min(int(self.tok.model_max_length), 8192)
         self.model.to(self.dev).eval()
 
     @torch.inference_mode()
@@ -46,13 +56,13 @@ class CrossEncoder:
             idx = order[s:s + BATCH]
             if self.kind == "monot5":
                 texts = [f"Query: {query} Document: {docs[i]} Relevant:" for i in idx]
-                enc = self.tok(texts, truncation=True, max_length=MAX_LEN, padding=True, return_tensors="pt").to(self.dev)
+                enc = self.tok(texts, truncation=True, max_length=self.max_len, padding=True, return_tensors="pt").to(self.dev)
                 dec = torch.full((len(idx), 1), self.model.config.decoder_start_token_id, device=self.dev)
                 logits = self.model(**enc, decoder_input_ids=dec).logits[:, 0, [self.false_id, self.true_id]]
                 sc = torch.log_softmax(logits.float(), dim=-1)[:, 1]
             else:
                 enc = self.tok([query] * len(idx), [docs[i] for i in idx], truncation="only_second",
-                               max_length=MAX_LEN, padding=True, return_tensors="pt").to(self.dev)
+                               max_length=self.max_len, padding=True, return_tensors="pt").to(self.dev)
                 sc = self.model(**enc).logits.float().view(-1)
             for i, v in zip(idx, sc.tolist()):
                 out[i] = v
@@ -68,8 +78,8 @@ def main():
     for name in names:
         hf_id, kind, fp16 = MODELS[name]
         ce = CrossEncoder(hf_id, kind, fp16)
-        jobs = [(ds, split, "Q-q", False) for ds, split in TEST_SETS]
-        if name in E2_MODELS:
+        jobs = [(ds, split, "Q-q", False) for ds, split in TEST_SETS if not SETS or ds in SETS.split(",")]
+        if name in E2_MODELS and WITH_E2:
             jobs += [("trec-covid", "test", v, m) for v, m in E2_VARIANTS]
         for ds, split, variant, meta in jobs:
             corpus, cand = pack.corpus(ds), pack.run(ds, split)
@@ -79,7 +89,8 @@ def main():
                 dids = [d for d, _ in cand.get(qid, [])]
                 if not dids:          # BM25 không trả về bài nào (vd. 15 truy vấn NFCorpus) → bỏ qua, tính 0 khi chấm
                     continue
-                texts = [doc_text(corpus[d], with_meta=meta) for d in dids]
+                texts = [(corpus[d].get("text") or corpus[d].get("title") or "") if DOCFMT == "text"
+                         else doc_text(corpus[d], with_meta=meta) for d in dids]
                 if torch.cuda.is_available():
                     torch.cuda.synchronize()
                 with Timer() as t:
@@ -87,9 +98,9 @@ def main():
                     if torch.cuda.is_available():
                         torch.cuda.synchronize()
                 run[qid] = dict(zip(dids, sc))
-                lat.write(json.dumps({"model": name, "ds": ds, "variant": run_name(name, variant, meta), "qid": qid,
+                lat.write(json.dumps({"model": name, "ds": ds, "variant": run_name(name, variant, meta) + TAG, "qid": qid,
                                       "n_docs": len(dids), "ms": round(t.ms, 2), "device": gpu}) + "\n")
-            rn = run_name(name, variant, meta)
+            rn = run_name(name, variant, meta) + TAG
             write_run(out / "runs" / ds / split / f"{rn}.trec", run, rn)
             print(f"{name:12s} {ds:13s} {rn:22s} {len(run)} truy vấn", flush=True)
         del ce

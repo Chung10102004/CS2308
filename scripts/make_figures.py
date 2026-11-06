@@ -171,13 +171,21 @@ def fig_pareto():
         return
     fig, ax = plt.subplots(figsize=(7.5, 4.8))
     xmin = 1e-4
-    for sid, v in pts:
+    placed = []  # (log10 x, y) của nhãn đã đặt — tránh đè chữ
+    for sid, v in sorted(pts, key=lambda p: -p[1]["mean_ndcg10_beir3"]):
         x = max(v["usd_per_1k"], xmin)
+        y = 100 * v["mean_ndcg10_beir3"]
         kind = "repro" if BY_ID.get(sid) and BY_ID[sid].anchor else "new"
         size = 30 + (v.get("p95_ms") or 0) / 40
-        ax.scatter(x, 100 * v["mean_ndcg10_beir3"], s=size, color=C[kind], edgecolor=C["surface"], linewidth=1.5, zorder=3)
-        ax.annotate(f"{sid} {BY_ID[sid].label if sid in BY_ID else sid}", (x, 100 * v["mean_ndcg10_beir3"]),
-                    xytext=(6, 3), textcoords="offset points", fontsize=7.5)
+        ax.scatter(x, y, s=size, color=C[kind], edgecolor=C["surface"], linewidth=1.5, zorder=3)
+        dy = 3
+        while any(abs(np.log10(x) - px) < 0.6 and abs((y + dy / 9) - py) < 0.45 for px, py in placed):
+            dy -= 11
+        placed.append((np.log10(x), y + dy / 9))
+        ax.annotate(f"{sid} {BY_ID[sid].label if sid in BY_ID else sid}", (x, y),
+                    xytext=(6, dy), textcoords="offset points", fontsize=7.5)
+    handles = [plt.Line2D([], [], marker="o", linestyle="", markersize=7, color=C[k]) for k in ("repro", "new")]
+    ax.legend(handles, ["Có trong bảng công bố", "Mới của nhóm"], loc="lower right")
     ax.set_xscale("log")
     ax.set_xlabel(f"USD / 1.000 truy vấn (thang log; ≤ {xmin} vẽ tại {xmin})")
     ax.set_ylabel("nDCG@10 TB 3 bộ × 100")

@@ -30,7 +30,12 @@ TASKS = {
     "medcpt_feat": (True, [], {}),
     "biowordvec_cut": (False, [], {}),
     "bilstm": (True, ["biowordvec_cut"], {}),
+    # kiểm E0: cấu hình giống Rankify (bài báo) — chỉ abstract, fp32, không cắt 512 với cross-encoder
+    "crossenc_rankify": (True, [], {"CE_DOCFMT": "text", "CE_FP32": "1", "CE_MAXLEN": "model", "CE_TAG": ".rk",
+                                     "CE_SETS": "trec-covid,nfcorpus,scifact", "CE_E2": "0",
+                                     "CE_MODELS": "bge_v2_m3,monot5_base,bge_base,bge_large,mxbai_base", "CE_BATCH": "16"}),
 }
+TASK_MODULE = {"crossenc_rankify": "crossenc"}
 
 
 def slug(task):
@@ -96,7 +101,7 @@ def push(task, smoke=False):
     env = {**env, "BIORERANK_SMOKE": "1" if smoke else "0"}
     d = KERNELS / task
     d.mkdir(parents=True, exist_ok=True)
-    (d / "kernel.py").write_text(KERNEL_PY.format(env=env, task=task), encoding="utf-8")
+    (d / "kernel.py").write_text(KERNEL_PY.format(env=env, task=TASK_MODULE.get(task, task)), encoding="utf-8")
     meta = {
         "id": f"{OWNER}/{slug(task)}", "title": slug(task), "code_file": "kernel.py", "language": "python",
         "kernel_type": "script", "is_private": True, "enable_gpu": gpu, "enable_internet": True,

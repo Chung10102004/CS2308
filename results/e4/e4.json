@@ -2,13 +2,79 @@
   "R3": {
     "kind": "local-gpu",
     "device": "Tesla T4 (Kaggle)",
-    "n": 53,
-    "p50_ms": 533.43,
-    "p95_ms": 609.8059999999999,
-    "p99_ms": 2378.3691999999883,
-    "usd_per_1k": 0.05872313941299789,
+    "n": 549,
+    "p50_ms": 643.26,
+    "p95_ms": 765.0200000000001,
+    "p99_ms": 807.4132000000001,
+    "usd_per_1k": 0.06336421144505161,
     "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
-    "mean_ndcg10_beir3": null
+    "mean_ndcg10_beir3": 0.6101752692150587
+  },
+  "R4": {
+    "kind": "local-gpu",
+    "device": "Tesla T4 (Kaggle)",
+    "n": 549,
+    "p50_ms": 2274.86,
+    "p95_ms": 2459.322,
+    "p99_ms": 2490.6724,
+    "usd_per_1k": 0.2200509555251973,
+    "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
+    "mean_ndcg10_beir3": 0.6208406873011335
+  },
+  "X1": {
+    "kind": "local-gpu",
+    "device": "Tesla T4 (Kaggle)",
+    "n": 549,
+    "p50_ms": 733.62,
+    "p95_ms": 798.824,
+    "p99_ms": 815.5924,
+    "usd_per_1k": 0.07112332397287997,
+    "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
+    "mean_ndcg10_beir3": 0.5723583954864786
+  },
+  "X2": {
+    "kind": "local-gpu",
+    "device": "Tesla T4 (Kaggle)",
+    "n": 549,
+    "p50_ms": 2246.86,
+    "p95_ms": 2426.748,
+    "p99_ms": 2466.7244,
+    "usd_per_1k": 0.2171875769075086,
+    "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
+    "mean_ndcg10_beir3": 0.6075074439805787
+  },
+  "X3": {
+    "kind": "local-gpu",
+    "device": "Tesla T4 (Kaggle)",
+    "n": 549,
+    "p50_ms": 1741.84,
+    "p95_ms": 2043.534,
+    "p99_ms": 2205.3787999999995,
+    "usd_per_1k": 0.17034504073062126,
+    "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
+    "mean_ndcg10_beir3": 0.6352029879895458
+  },
+  "X4": {
+    "kind": "local-gpu",
+    "device": "Tesla T4 (Kaggle)",
+    "n": 549,
+    "p50_ms": 4318.08,
+    "p95_ms": 4640.774,
+    "p99_ms": 4695.808,
+    "usd_per_1k": 0.41814504781420775,
+    "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
+    "mean_ndcg10_beir3": 0.6079231714559256
+  },
+  "R2": {
+    "kind": "local-gpu",
+    "device": "Tesla T4 (Kaggle)",
+    "n": 549,
+    "p50_ms": 56.74,
+    "p95_ms": 64.056,
+    "p99_ms": 67.65639999999999,
+    "usd_per_1k": 0.005576615310665857,
+    "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
+    "mean_ndcg10_beir3": 0.5137586808147395
   },
   "R0": {
     "kind": "local-cpu",

@@ -1,20 +1,50 @@
-[{"stream_name":"stdout","time":7.354181203,"data":"GPU 0: Tesla T4 (UUID: GPU-07139dc3-d369-f474-8a47-d68a5734f2d7)\n"}
-,{"stream_name":"stdout","time":7.354230997,"data":"GPU 1: Tesla T4 (UUID: GPU-47c86af1-bfe1-cd21-ed4a-c8fd4feba3b0)\n"}
-,{"stream_name":"stderr","time":39.523432834,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
-,{"stream_name":"stderr","time":44.337860602,"data":"\rLoading weights:   0%|          | 0/201 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 201/201 [00:00\u003c00:00, 12376.94it/s]\n"}
-,{"stream_name":"stdout","time":75.045321336,"data":"medcpt_ce    trec-covid    medcpt_ce              50 truy vấn\n"}
-,{"stream_name":"stderr","time":77.602473592,"data":"Traceback (most recent call last):\n"}
-,{"stream_name":"stderr","time":77.602949273,"data":"  File \"/kaggle/src/script.py\", line 22, in \u003cmodule\u003e\n"}
-,{"stream_name":"stderr","time":77.602969844,"data":"    importlib.import_module(\"src.kaggle_tasks.crossenc\").main()\n"}
-,{"stream_name":"stderr","time":77.602974981,"data":"    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n"}
-,{"stream_name":"stderr","time":77.602979273,"data":"  File \"/kaggle/tmp/pack/code/src/kaggle_tasks/crossenc.py\", line 79, in main\n"}
-,{"stream_name":"stderr","time":77.602983696,"data":"    dids = [d for d, _ in cand[qid]]\n"}
-,{"stream_name":"stderr","time":77.602987748,"data":"                          ~~~~^^^^^\n"}
-,{"stream_name":"stderr","time":77.602991837,"data":"KeyError: 'PLAIN-1098'\n"}
-,{"stream_name":"stderr","time":83.760402758,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":83.760452037,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":84.016095752,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":84.016137799,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":84.774212245,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
-,{"stream_name":"stderr","time":85.757765714,"data":"[NbConvertApp] Writing 278672 bytes to __results__.html\n"}
+[{"stream_name":"stdout","time":10.039598041,"data":"GPU 0: Tesla T4 (UUID: GPU-594fb6d4-b8c5-b537-4d66-aa94956c802a)\n"}
+,{"stream_name":"stdout","time":10.039656389,"data":"GPU 1: Tesla T4 (UUID: GPU-122c4fa6-e80d-b493-04e9-f2dcbcf0e42b)\n"}
+,{"stream_name":"stderr","time":39.575278961,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":44.049462397,"data":"\rLoading weights:   0%|          | 0/201 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 201/201 [00:00\u003c00:00, 9179.21it/s]\n"}
+,{"stream_name":"stdout","time":73.99467572,"data":"medcpt_ce    trec-covid    medcpt_ce              50 truy vấn\n"}
+,{"stream_name":"stdout","time":220.100599602,"data":"medcpt_ce    nfcorpus      medcpt_ce              308 truy vấn\n"}
+,{"stream_name":"stdout","time":417.3445029,"data":"medcpt_ce    scifact       medcpt_ce              300 truy vấn\n"}
+,{"stream_name":"stdout","time":606.732241904,"data":"medcpt_ce    scifact-open  medcpt_ce              279 truy vấn\n"}
+,{"stream_name":"stdout","time":638.248050317,"data":"medcpt_ce    trec-covid    medcpt_ce.Q-kw         50 truy vấn\n"}
+,{"stream_name":"stdout","time":671.933563981,"data":"medcpt_ce    trec-covid    medcpt_ce.Q-qn         50 truy vấn\n"}
+,{"stream_name":"stdout","time":705.276991613,"data":"medcpt_ce    trec-covid    medcpt_ce.M1           50 truy vấn\n"}
+,{"stream_name":"stdout","time":738.126177642,"data":"medcpt_ce    trec-covid    medcpt_ce.Q-kw.M1      50 truy vấn\n"}
+,{"stream_name":"stdout","time":773.173550975,"data":"medcpt_ce    trec-covid    medcpt_ce.Q-qn.M1      50 truy vấn\n"}
+,{"stream_name":"stderr","time":791.428077535,"data":"\rLoading weights:   0%|          | 0/393 [00:00\u003c?, ?it/s]\rLoading weights:  66%|██████▋   | 261/393 [00:00\u003c00:00, 2607.36it/s]\rLoading weights: 100%|██████████| 393/393 [00:00\u003c00:00, 2696.67it/s]\n"}
+,{"stream_name":"stdout","time":899.375106731,"data":"bge_v2_m3    trec-covid    bge_v2_m3              50 truy vấn\n"}
+,{"stream_name":"stdout","time":1397.827216049,"data":"bge_v2_m3    nfcorpus      bge_v2_m3              308 truy vấn\n"}
+,{"stream_name":"stdout","time":2083.996131135,"data":"bge_v2_m3    scifact       bge_v2_m3              300 truy vấn\n"}
+,{"stream_name":"stdout","time":2735.445852626,"data":"bge_v2_m3    scifact-open  bge_v2_m3              279 truy vấn\n"}
+,{"stream_name":"stdout","time":2839.39419489,"data":"bge_v2_m3    trec-covid    bge_v2_m3.Q-kw         50 truy vấn\n"}
+,{"stream_name":"stdout","time":2951.143444075,"data":"bge_v2_m3    trec-covid    bge_v2_m3.Q-qn         50 truy vấn\n"}
+,{"stream_name":"stdout","time":3061.900414916,"data":"bge_v2_m3    trec-covid    bge_v2_m3.M1           50 truy vấn\n"}
+,{"stream_name":"stdout","time":3171.172770412,"data":"bge_v2_m3    trec-covid    bge_v2_m3.Q-kw.M1      50 truy vấn\n"}
+,{"stream_name":"stdout","time":3285.876631729,"data":"bge_v2_m3    trec-covid    bge_v2_m3.Q-qn.M1      50 truy vấn\n"}
+,{"stream_name":"stderr","time":3296.302905266,"data":"\rLoading weights:   0%|          | 0/201 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 201/201 [00:00\u003c00:00, 2770.82it/s]\n"}
+,{"stream_name":"stdout","time":3331.677945154,"data":"bge_base     trec-covid    bge_base               50 truy vấn\n"}
+,{"stream_name":"stdout","time":3492.007272552,"data":"bge_base     nfcorpus      bge_base               308 truy vấn\n"}
+,{"stream_name":"stdout","time":3714.394523078,"data":"bge_base     scifact       bge_base               300 truy vấn\n"}
+,{"stream_name":"stdout","time":3925.766616338,"data":"bge_base     scifact-open  bge_base               279 truy vấn\n"}
+,{"stream_name":"stderr","time":3942.72786487,"data":"\rLoading weights:   0%|          | 0/393 [00:00\u003c?, ?it/s]\rLoading weights:  69%|██████▊   | 270/393 [00:00\u003c00:00, 2681.77it/s]\rLoading weights: 100%|██████████| 393/393 [00:00\u003c00:00, 2677.24it/s]\n"}
+,{"stream_name":"stdout","time":4049.259160658,"data":"bge_large    trec-covid    bge_large              50 truy vấn\n"}
+,{"stream_name":"stdout","time":4541.751303719,"data":"bge_large    nfcorpus      bge_large              308 truy vấn\n"}
+,{"stream_name":"stdout","time":5218.663390245,"data":"bge_large    scifact       bge_large              300 truy vấn\n"}
+,{"stream_name":"stdout","time":5862.224310934,"data":"bge_large    scifact-open  bge_large              279 truy vấn\n"}
+,{"stream_name":"stderr","time":5867.068591016,"data":"\rLoading weights:   0%|          | 0/202 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 202/202 [00:00\u003c00:00, 2779.78it/s]\n"}
+,{"stream_name":"stdout","time":5950.562602129,"data":"mxbai_base   trec-covid    mxbai_base             50 truy vấn\n"}
+,{"stream_name":"stdout","time":6344.149082417,"data":"mxbai_base   nfcorpus      mxbai_base             308 truy vấn\n"}
+,{"stream_name":"stdout","time":6869.305712525,"data":"mxbai_base   scifact       mxbai_base             300 truy vấn\n"}
+,{"stream_name":"stdout","time":7378.272574247,"data":"mxbai_base   scifact-open  mxbai_base             279 truy vấn\n"}
+,{"stream_name":"stderr","time":7385.666181022,"data":"\rLoading weights:   0%|          | 0/260 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 260/260 [00:00\u003c00:00, 7869.69it/s]\n"}
+,{"stream_name":"stdout","time":7590.194235628,"data":"monot5_base  trec-covid    monot5_base            50 truy vấn\n"}
+,{"stream_name":"stdout","time":8537.303728575,"data":"monot5_base  nfcorpus      monot5_base            308 truy vấn\n"}
+,{"stream_name":"stdout","time":9840.60531641,"data":"monot5_base  scifact       monot5_base            300 truy vấn\n"}
+,{"stream_name":"stdout","time":11083.149957336,"data":"monot5_base  scifact-open  monot5_base            279 truy vấn\n"}
+,{"stream_name":"stderr","time":11089.219039925,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":11089.219070266,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":11089.484282399,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":11089.484314056,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":11090.266424361,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":11091.304517508,"data":"[NbConvertApp] Writing 278672 bytes to __results__.html\n"}
 ]

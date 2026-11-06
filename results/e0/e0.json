@@ -36,105 +36,165 @@
     "system": "R4",
     "label": "bge-reranker-v2-m3",
     "ds": "trec-covid",
-    "ours": null,
-    "paper": 74.79
+    "ours": 78.57,
+    "paper": 74.79,
+    "diff": 3.78,
+    "tol": 1.0,
+    "pass": false,
+    "pyserini_2cr": null
   },
   {
     "system": "R4",
     "label": "bge-reranker-v2-m3",
     "ds": "nfcorpus",
-    "ours": null,
-    "paper": 33.84
+    "ours": 33.69,
+    "paper": 33.84,
+    "diff": -0.15,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "R4",
     "label": "bge-reranker-v2-m3",
     "ds": "scifact",
-    "ours": null,
-    "paper": 73.48
+    "ours": 73.99,
+    "paper": 73.48,
+    "diff": 0.51,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X1",
     "label": "bge-reranker-base",
     "ds": "trec-covid",
-    "ours": null,
-    "paper": 67.5
+    "ours": 68.61,
+    "paper": 67.5,
+    "diff": 1.11,
+    "tol": 1.0,
+    "pass": false,
+    "pyserini_2cr": null
   },
   {
     "system": "X1",
     "label": "bge-reranker-base",
     "ds": "nfcorpus",
-    "ours": null,
-    "paper": 31.1
+    "ours": 31.55,
+    "paper": 31.1,
+    "diff": 0.45,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X1",
     "label": "bge-reranker-base",
     "ds": "scifact",
-    "ours": null,
-    "paper": 70.6
+    "ours": 71.55,
+    "paper": 70.6,
+    "diff": 0.95,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X2",
     "label": "bge-reranker-large",
     "ds": "trec-covid",
-    "ours": null,
-    "paper": 74.3
+    "ours": 74.23,
+    "paper": 74.3,
+    "diff": -0.07,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X2",
     "label": "bge-reranker-large",
     "ds": "nfcorpus",
-    "ours": null,
-    "paper": 34.8
+    "ours": 33.83,
+    "paper": 34.8,
+    "diff": -0.97,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X2",
     "label": "bge-reranker-large",
     "ds": "scifact",
-    "ours": null,
-    "paper": 74.1
+    "ours": 74.2,
+    "paper": 74.1,
+    "diff": 0.1,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X3",
     "label": "mxbai-rerank-base",
     "ds": "trec-covid",
-    "ours": null,
-    "paper": 84.0
+    "ours": 83.06,
+    "paper": 84.0,
+    "diff": -0.94,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X3",
     "label": "mxbai-rerank-base",
     "ds": "nfcorpus",
-    "ours": null,
-    "paper": 35.64
+    "ours": 35.48,
+    "paper": 35.64,
+    "diff": -0.16,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X3",
     "label": "mxbai-rerank-base",
     "ds": "scifact",
-    "ours": null,
-    "paper": 72.33
+    "ours": 72.03,
+    "paper": 72.33,
+    "diff": -0.3,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X4",
     "label": "MonoT5-base",
     "ds": "trec-covid",
-    "ours": null,
-    "paper": 72.24
+    "ours": 74.08,
+    "paper": 72.24,
+    "diff": 1.84,
+    "tol": 1.0,
+    "pass": false,
+    "pyserini_2cr": null
   },
   {
     "system": "X4",
     "label": "MonoT5-base",
     "ds": "nfcorpus",
-    "ours": null,
-    "paper": 34.81
+    "ours": 35.06,
+    "paper": 34.81,
+    "diff": 0.25,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   },
   {
     "system": "X4",
     "label": "MonoT5-base",
     "ds": "scifact",
-    "ours": null,
-    "paper": 73.14
+    "ours": 73.24,
+    "paper": 73.14,
+    "diff": 0.1,
+    "tol": 1.0,
+    "pass": true,
+    "pyserini_2cr": null
   }
 ]
