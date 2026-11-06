@@ -467,7 +467,7 @@ Deadline: **TODO, người dùng cung cấp**.
 - [x] R1 LambdaMART (3 seed; dev nDCG@10 ≈ 0,745) + bản CV 5-fold M0/M1 trên TREC-COVID.
 - [ ] R3 MedCPT-CE, R4, 4 reranker phụ (Kaggle `crossenc`).
 - [x] BioWordVec cắt theo vocab: phủ 94,7% (159.423/168.345 từ).
-- [ ] R2 BiLSTM-ESIM, 3 seed (Kaggle `bilstm`). **Đạt khi** nDCG@10 trên dev cao hơn R0, hoặc đã phân tích lý do.
+- [x] R2 BiLSTM-ESIM, 3 seed (Kaggle `bilstm`). Dev ≈ BM25 (0,48–0,505 so với 0,498). Test: SciFact 72,30 (hơn BM25), TREC-COVID 55,38, NFCorpus 26,44. **Đã phân tích lý do:** OOV của từ vựng COVID trong BioWordVec (78% truy vấn TREC-COVID), truy vấn NFCorpus quá ngắn, chưa hội tụ hẳn. RRF(BM25, R2) hơn BM25 trên cả 3 bộ.
 - [x] Metric, bootstrap + Holm, Kendall τ, Judged@10, `published.py`.
 
 ### Giai đoạn 3 — Reranker API (chờ key)

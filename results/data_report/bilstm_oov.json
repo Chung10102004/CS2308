@@ -1,0 +1,58 @@
+{
+  "trec-covid": {
+    "query_tokens": 531,
+    "oov_rate": 0.0734,
+    "queries_with_oov": 0.78,
+    "top_oov": [
+      [
+        "covid-19",
+        31
+      ],
+      [
+        "sars-cov-2",
+        7
+      ],
+      [
+        "2019-ncov",
+        1
+      ]
+    ]
+  },
+  "nfcorpus": {
+    "query_tokens": 1062,
+    "oov_rate": 0.0,
+    "queries_with_oov": 0.0,
+    "top_oov": []
+  },
+  "scifact": {
+    "query_tokens": 3774,
+    "oov_rate": 0.005,
+    "queries_with_oov": 0.063,
+    "top_oov": [
+      [
+        "chenodeosycholic",
+        2
+      ],
+      [
+        "admpchordin",
+        1
+      ],
+      [
+        "4-biphosphate",
+        1
+      ],
+      [
+        "comymv",
+        1
+      ],
+      [
+        "hsct-t",
+        1
+      ],
+      [
+        "panicprone",
+        1
+      ]
+    ]
+  }
+}

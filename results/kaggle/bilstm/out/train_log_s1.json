@@ -1,0 +1,103 @@
+{
+ "seed": 1,
+ "epochs": [
+  {
+   "epoch": 0,
+   "loss": 2.017644510929843,
+   "dev_ndcg10": 0.08299801855398199,
+   "dev_parts": {
+    "nfcorpus__dev": 0.12465112148993746,
+    "scifact__dev": 0.041344915618026536
+   },
+   "n_groups": 5297,
+   "seconds": 118
+  },
+  {
+   "epoch": 1,
+   "loss": 1.5400845173252635,
+   "dev_ndcg10": 0.42548063214277554,
+   "dev_parts": {
+    "nfcorpus__dev": 0.19426207022835631,
+    "scifact__dev": 0.6566991940571948
+   },
+   "n_groups": 5297,
+   "seconds": 118
+  },
+  {
+   "epoch": 2,
+   "loss": 1.125235095081559,
+   "dev_ndcg10": 0.4096415381103933,
+   "dev_parts": {
+    "nfcorpus__dev": 0.17572998243350907,
+    "scifact__dev": 0.6435530937872774
+   },
+   "n_groups": 5297,
+   "seconds": 118
+  },
+  {
+   "epoch": 3,
+   "loss": 0.929934266181831,
+   "dev_ndcg10": 0.4753666453590606,
+   "dev_parts": {
+    "nfcorpus__dev": 0.21555354991313883,
+    "scifact__dev": 0.7351797408049824
+   },
+   "n_groups": 5297,
+   "seconds": 118
+  },
+  {
+   "epoch": 4,
+   "loss": 0.8499750944235956,
+   "dev_ndcg10": 0.46128948645521417,
+   "dev_parts": {
+    "nfcorpus__dev": 0.20098164603859975,
+    "scifact__dev": 0.7215973268718286
+   },
+   "n_groups": 5297,
+   "seconds": 118
+  },
+  {
+   "epoch": 5,
+   "loss": 0.7540053256215101,
+   "dev_ndcg10": 0.4945006760872448,
+   "dev_parts": {
+    "nfcorpus__dev": 0.2450494095752224,
+    "scifact__dev": 0.7439519425992672
+   },
+   "n_groups": 5297,
+   "seconds": 118
+  },
+  {
+   "epoch": 6,
+   "loss": 0.7010075541953724,
+   "dev_ndcg10": 0.504987620112163,
+   "dev_parts": {
+    "nfcorpus__dev": 0.2439532690386063,
+    "scifact__dev": 0.7660219711857197
+   },
+   "n_groups": 5297,
+   "seconds": 118
+  },
+  {
+   "epoch": 7,
+   "loss": 0.6622274750731436,
+   "dev_ndcg10": 0.47433608282740936,
+   "dev_parts": {
+    "nfcorpus__dev": 0.2160762614809857,
+    "scifact__dev": 0.732595904173833
+   },
+   "n_groups": 5297,
+   "seconds": 119
+  }
+ ],
+ "config": {
+  "QLEN": 64,
+  "DLEN": 256,
+  "GROUP": 8,
+  "BATCH": 16,
+  "LR": 0.0004,
+  "HIDDEN": 200,
+  "DROPOUT": 0.3
+ },
+ "best_dev_ndcg10": 0.504987620112163
+}

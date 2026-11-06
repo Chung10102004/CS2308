@@ -150,7 +150,23 @@ LambdaMART (R1) đạt các mức sau, đều hơn BM25 có ý nghĩa thống k�
 
 Phần lớn sức mạnh của R1 đến từ đặc trưng MedCPT bi-encoder: hai đặc trưng `medcpt_z` và `medcpt` chiếm khoảng 68% tổng gain ở seed 0 (`results/e1/lambdamart_train.json`).
 
-⟦R2–R6⟧
+**BiLSTM-ESIM (R2), 3 seed:**
+
+| Bộ | R2 | So với BM25 (p sau hiệu chỉnh Holm) |
+|---|---:|---|
+| SciFact | 72,30 ± 0,45 | +4,41 (p = 0,008) |
+| TREC-COVID | 55,38 ± 3,10 | −4,09, không có ý nghĩa |
+| NFCorpus | 26,44 ± 1,52 | −5,74 (p < 0,001) |
+
+Trên dev, điểm tốt nhất của R2 (0,48–0,505) xấp xỉ BM25 (0,498): hơn ở SciFact dev (0,72–0,77 so với 0,707), kém ở NFCorpus dev (0,23–0,26 so với 0,289). Ba nguyên nhân, đã kiểm bằng số liệu (`results/data_report/bilstm_oov.json`):
+
+1. **TREC-COVID — từ vựng mới.** BioWordVec được huấn luyện trước đại dịch. 78% truy vấn TREC-COVID chứa ít nhất một từ không có vector ("covid-19" xuất hiện 31 lần, "sars-cov-2" 7 lần), và vì embedding bị giữ cố định nên khái niệm trung tâm của mọi truy vấn chỉ là vector ngẫu nhiên. NFCorpus không có từ OOV nào; SciFact có 0,5% token OOV.
+2. **NFCorpus — truy vấn rất ngắn, tín hiệu từ vựng mạnh.** Truy vấn trung bình 3,3 token bằng ngôn ngữ phổ thông, nên căn chỉnh mềm có rất ít để căn. Ở đây BM25 phân biệt tốt (độ trùng từ 0,60 với bài đúng so với 0,35 với bài sai), trong khi ESIM không có đặc trưng khớp chính xác.
+3. **Chưa hội tụ hẳn.** Seed 0 vẫn tăng ở epoch cuối (epoch 7, giới hạn 8 epoch).
+
+Dù vậy, R2 mang tín hiệu bổ sung cho BM25. Ghép hai danh sách bằng RRF (k = 60, không chỉnh tham số) cho 62,43 / 33,05 / 73,55 trên TREC-COVID / NFCorpus / SciFact, hơn BM25 ở cả ba bộ.
+
+⟦R3–R6⟧
 
 ### 5.3 Metadata và tiêu chí (E2) — `report/tables/e2_metadata.md`
 

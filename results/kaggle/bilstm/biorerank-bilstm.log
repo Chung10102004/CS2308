@@ -1,0 +1,33 @@
+[{"stream_name":"stdout","time":15.022687979,"data":"GPU 0: Tesla T4 (UUID: GPU-48a33afd-624a-1171-1338-5d00bcc1e5e9)\n"}
+,{"stream_name":"stdout","time":15.022749291,"data":"GPU 1: Tesla T4 (UUID: GPU-7ef6ec15-6a6e-1266-33c9-7413309182ee)\n"}
+,{"stream_name":"stdout","time":152.72790128,"data":"seed 0 epoch 0: loss 1.9940 dev nDCG@10 0.0786 (122s)\n"}
+,{"stream_name":"stdout","time":270.233180516,"data":"seed 0 epoch 1: loss 1.5092 dev nDCG@10 0.4020 (118s)\n"}
+,{"stream_name":"stdout","time":387.694661328,"data":"seed 0 epoch 2: loss 1.0855 dev nDCG@10 0.4530 (117s)\n"}
+,{"stream_name":"stdout","time":505.653732255,"data":"seed 0 epoch 3: loss 0.9265 dev nDCG@10 0.4636 (118s)\n"}
+,{"stream_name":"stdout","time":623.272989213,"data":"seed 0 epoch 4: loss 0.7880 dev nDCG@10 0.4792 (118s)\n"}
+,{"stream_name":"stdout","time":741.007526381,"data":"seed 0 epoch 5: loss 0.7263 dev nDCG@10 0.4683 (118s)\n"}
+,{"stream_name":"stdout","time":858.799245954,"data":"seed 0 epoch 6: loss 0.7032 dev nDCG@10 0.4841 (118s)\n"}
+,{"stream_name":"stdout","time":976.659384259,"data":"seed 0 epoch 7: loss 0.6303 dev nDCG@10 0.4983 (118s)\n"}
+,{"stream_name":"stdout","time":1162.717049872,"data":"seed 1 epoch 0: loss 2.0176 dev nDCG@10 0.0830 (118s)\n"}
+,{"stream_name":"stdout","time":1281.171938542,"data":"seed 1 epoch 1: loss 1.5401 dev nDCG@10 0.4255 (118s)\n"}
+,{"stream_name":"stdout","time":1399.526019208,"data":"seed 1 epoch 2: loss 1.1252 dev nDCG@10 0.4096 (118s)\n"}
+,{"stream_name":"stdout","time":1517.464166391,"data":"seed 1 epoch 3: loss 0.9299 dev nDCG@10 0.4754 (118s)\n"}
+,{"stream_name":"stdout","time":1635.469311287,"data":"seed 1 epoch 4: loss 0.8500 dev nDCG@10 0.4613 (118s)\n"}
+,{"stream_name":"stdout","time":1753.376234561,"data":"seed 1 epoch 5: loss 0.7540 dev nDCG@10 0.4945 (118s)\n"}
+,{"stream_name":"stdout","time":1871.31034068,"data":"seed 1 epoch 6: loss 0.7010 dev nDCG@10 0.5050 (118s)\n"}
+,{"stream_name":"stdout","time":1989.837871575,"data":"seed 1 epoch 7: loss 0.6622 dev nDCG@10 0.4743 (119s)\n"}
+,{"stream_name":"stdout","time":2171.817916377,"data":"seed 2 epoch 0: loss 2.0214 dev nDCG@10 0.0764 (118s)\n"}
+,{"stream_name":"stdout","time":2289.74928847,"data":"seed 2 epoch 1: loss 1.6479 dev nDCG@10 0.4031 (118s)\n"}
+,{"stream_name":"stdout","time":2407.616361641,"data":"seed 2 epoch 2: loss 1.1690 dev nDCG@10 0.4460 (118s)\n"}
+,{"stream_name":"stdout","time":2525.602572032,"data":"seed 2 epoch 3: loss 0.9664 dev nDCG@10 0.4218 (118s)\n"}
+,{"stream_name":"stdout","time":2644.171537303,"data":"seed 2 epoch 4: loss 0.8588 dev nDCG@10 0.4697 (119s)\n"}
+,{"stream_name":"stdout","time":2761.834394594,"data":"seed 2 epoch 5: loss 0.7567 dev nDCG@10 0.4681 (118s)\n"}
+,{"stream_name":"stdout","time":2879.623206436,"data":"seed 2 epoch 6: loss 0.6984 dev nDCG@10 0.4763 (118s)\n"}
+,{"stream_name":"stdout","time":2997.705040491,"data":"seed 2 epoch 7: loss 0.6583 dev nDCG@10 0.4703 (118s)\n"}
+,{"stream_name":"stderr","time":3068.592576757,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3068.592609223,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3068.889004435,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3068.889029277,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3069.718848074,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3070.746762396,"data":"[NbConvertApp] Writing 278670 bytes to __results__.html\n"}
+]
