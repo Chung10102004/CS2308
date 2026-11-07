@@ -56,6 +56,7 @@ def main():
         cand = {m: dev_score(chosen + [m], dev_runs, dev_qrels) for m in avail if m not in chosen}
         if not cand:
             break
+        trace[-1]["next_candidates"] = {k: round(v, 4) for k, v in sorted(cand.items(), key=lambda x: -x[1])}
         m, sc = max(cand.items(), key=lambda x: x[1])
         if sc < best + MIN_GAIN:
             break
@@ -64,9 +65,13 @@ def main():
         trace.append({"members": list(chosen), "dev_ndcg10": sc})
     test = {}
     for ds in TEST:
+        out = RUNS / ds / "test" / f"{NAME}.trec"
         paths = [RUNS / ds / "test" / f"{m}.trec" for m in chosen]
+        if len(chosen) < 2:          # không tổ hợp nào hơn hệ thống tốt nhất trên dev → không có dòng ensemble riêng
+            out.unlink(missing_ok=True)
+            continue
         if all(p.exists() for p in paths):
-            write_run(RUNS / ds / "test" / f"{NAME}.trec", rrf([read_run(p) for p in paths]), NAME)
+            write_run(out, rrf([read_run(p) for p in paths]), NAME)
             test[ds] = True
     rep = {"candidates_available": avail, "single_dev_ndcg10": singles, "chosen": chosen, "dev_ndcg10": best,
            "selection_trace": trace, "k": K, "written_test": test,

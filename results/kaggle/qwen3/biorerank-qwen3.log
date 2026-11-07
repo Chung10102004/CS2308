@@ -1,20 +1,20 @@
-[{"stream_name":"stdout","time":19.863782408,"data":"GPU 0: Tesla T4 (UUID: GPU-0708c06f-7c9b-6542-32b3-2260e75df090)\n"}
-,{"stream_name":"stdout","time":19.863844644,"data":"GPU 1: Tesla T4 (UUID: GPU-8d8432e1-389d-bab1-4dd7-aa8b8b3c1607)\n"}
-,{"stream_name":"stderr","time":19.874086883,"data":"Traceback (most recent call last):\n"}
-,{"stream_name":"stderr","time":19.87474297,"data":"  File \"/kaggle/src/script.py\", line 22, in \u003cmodule\u003e\n"}
-,{"stream_name":"stderr","time":19.874759094,"data":"    importlib.import_module(\"src.kaggle_tasks.qwen3\").main()\n"}
-,{"stream_name":"stderr","time":19.874764405,"data":"    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
-,{"stream_name":"stderr","time":19.87476993,"data":"  File \"/usr/lib/python3.13/importlib/__init__.py\", line 88, in import_module\n"}
-,{"stream_name":"stderr","time":19.87477438,"data":"    return _bootstrap._gcd_import(name[level:], package, level)\n"}
-,{"stream_name":"stderr","time":19.8747791,"data":"           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
-,{"stream_name":"stderr","time":19.874783346,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1404, in _gcd_import\n"}
-,{"stream_name":"stderr","time":19.874787657,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1369, in _find_and_load\n"}
-,{"stream_name":"stderr","time":19.87479188,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1333, in _find_and_load_unlocked\n"}
-,{"stream_name":"stderr","time":19.874796619,"data":"ModuleNotFoundError: No module named 'src.kaggle_tasks.qwen3'\n"}
-,{"stream_name":"stderr","time":22.456875737,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":22.456926809,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":22.850886902,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":22.850914882,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":23.966781466,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
-,{"stream_name":"stderr","time":25.167695347,"data":"[NbConvertApp] Writing 278669 bytes to __results__.html\n"}
+[{"stream_name":"stdout","time":20.081232819,"data":"GPU 0: Tesla T4 (UUID: GPU-86ed643c-d3d7-a1a7-82e9-4a1e000238ac)\n"}
+,{"stream_name":"stdout","time":20.081300539,"data":"GPU 1: Tesla T4 (UUID: GPU-27871f02-2165-5760-b51e-1650add1cd93)\n"}
+,{"stream_name":"stderr","time":51.627292457,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":54.149128557,"data":"[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n"}
+,{"stream_name":"stderr","time":97.675276483,"data":"\rFetching 2 files:   0%|          | 0/2 [00:00\u003c?, ?it/s]\rFetching 2 files:  50%|█████     | 1/2 [00:41\u003c00:41, 41.61s/it]\rFetching 2 files: 100%|██████████| 2/2 [00:41\u003c00:00, 20.81s/it]\n"}
+,{"stream_name":"stderr","time":101.697448735,"data":"\rLoading weights:   0%|          | 0/398 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/398 [00:01\u003c08:55,  1.35s/it]\rLoading weights:  33%|███▎      | 132/398 [00:01\u003c00:02, 125.88it/s]\rLoading weights:  52%|█████▏    | 208/398 [00:02\u003c00:01, 122.54it/s]\rLoading weights:  64%|██████▍   | 255/398 [00:02\u003c00:01, 122.68it/s]\rLoading weights:  73%|███████▎  | 289/398 [00:02\u003c00:00, 112.13it/s]\rLoading weights:  79%|███████▉  | 314/398 [00:03\u003c00:00, 117.46it/s]\rLoading weights:  84%|████████▍ | 335/398 [00:03\u003c00:00, 110.09it/s]\rLoading weights:  89%|████████▉ | 355/398 [00:03\u003c00:00, 115.08it/s]\rLoading weights:  93%|█████████▎| 372/398 [00:03\u003c00:00, 118.52it/s]\rLoading weights:  97%|█████████▋| 388/398 [00:03\u003c00:00, 111.21it/s]\rLoading weights: 100%|██████████| 398/398 [00:03\u003c00:00, 106.57it/s]\n"}
+,{"stream_name":"stderr","time":108.995688075,"data":"\rLoading weights:   0%|          | 0/398 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/398 [00:01\u003c07:43,  1.17s/it]\rLoading weights:  34%|███▍      | 135/398 [00:01\u003c00:01, 139.69it/s]\rLoading weights:  47%|████▋     | 189/398 [00:01\u003c00:01, 139.84it/s]\rLoading weights:  57%|█████▋    | 225/398 [00:02\u003c00:01, 126.12it/s]\rLoading weights:  63%|██████▎   | 251/398 [00:02\u003c00:01, 129.71it/s]\rLoading weights:  69%|██████▊   | 273/398 [00:02\u003c00:00, 125.58it/s]\rLoading weights:  73%|███████▎  | 291/398 [00:02\u003c00:00, 119.16it/s]\rLoading weights:  78%|███████▊  | 311/398 [00:02\u003c00:00, 119.83it/s]\rLoading weights:  82%|████████▏ | 326/398 [00:02\u003c00:00, 120.42it/s]\rLoading weights:  86%|████████▋ | 344/398 [00:03\u003c00:00, 115.75it/s]\rLoading weights:  90%|████████▉ | 357/398 [00:03\u003c00:00, 118.13it/s]\rLoading weights:  94%|█████████▍| 374/398 [00:03\u003c00:00, 124.93it/s]\rLoading weights:  97%|█████████▋| 388/398 [00:03\u003c00:00, 106.40it/s]\rLoading weights: 100%|██████████| 398/398 [00:03\u003c00:00, 113.86it/s]\n"}
+,{"stream_name":"stdout","time":723.298655328,"data":"qwen3_4b trec-covid    test  50 truy vấn\n"}
+,{"stream_name":"stdout","time":3614.572999992,"data":"qwen3_4b nfcorpus      test  308 truy vấn\n"}
+,{"stream_name":"stdout","time":7547.761046425,"data":"qwen3_4b scifact       test  300 truy vấn\n"}
+,{"stream_name":"stdout","time":11295.026910342,"data":"qwen3_4b scifact-open  test  279 truy vấn\n"}
+,{"stream_name":"stdout","time":14085.378961675,"data":"qwen3_4b nfcorpus      dev   304 truy vấn\n"}
+,{"stream_name":"stdout","time":16198.553026789,"data":"qwen3_4b scifact       dev   162 truy vấn\n"}
+,{"stream_name":"stderr","time":16205.885092658,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":16205.885162592,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":16206.170889577,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":16206.170922951,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":16207.020423226,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":16208.137206857,"data":"[NbConvertApp] Writing 278669 bytes to __results__.html\n"}
 ]

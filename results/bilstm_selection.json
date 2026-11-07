@@ -1,0 +1,28 @@
+{
+ "chosen": "bilstm2",
+ "label": "BiLSTM-ESIM v2 (à la carte + khớp từ)",
+ "variants": {
+  "bilstm2": {
+   "seeds": {
+    "0": 0.4992997298080363,
+    "1": 0.48864671423257955,
+    "2": 0.4814657841711859
+   },
+   "mean": 0.48980407607060056
+  },
+  "bilstm2_noem": {
+   "seeds": {
+    "0": 0.5011969202492236
+   },
+   "mean": 0.5011969202492236
+  },
+  "bilstm2_nooov": {
+   "seeds": {
+    "0": 0.5072639269017502
+   },
+   "mean": 0.5072639269017502
+  }
+ },
+ "v1_dev_mean": 0.4932183838284561,
+ "rule": "trung bình dev nDCG@10 tốt nhất qua 3 seed (NFCorpus dev + SciFact dev); dev không có TREC-COVID"
+}

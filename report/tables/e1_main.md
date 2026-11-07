@@ -18,13 +18,13 @@
 | **nhóm** R0 | **BM25 (Pyserini flat)** | Lexical | — | **59.47**▾ | **32.18** | **67.89**▾ | **53.18** |
 | **nhóm** R1 | **LambdaMART** | Learning-to-rank | title+text | **71.37 ± 2.59**†▾ | **35.67 ± 0.07**†‡ | **75.97 ± 0.37**† | **61.00** |
 | **nhóm** R2 | **BiLSTM-ESIM** | LSTM | title+text | **55.38 ± 3.10**▾ | **26.44 ± 1.52**▾ | **72.30 ± 0.45**† | **51.38** |
-| **nhóm** R2b | **BiLSTM-ESIM v2** | LSTM | title+text | — | — | — | — |
+| **nhóm** R2b | **BiLSTM-ESIM v2 (à la carte + khớp từ)** | LSTM | title+text | **56.54 ± 0.37**▾ | **26.73 ± 1.61**▾ | **70.15 ± 1.44** | **51.14** |
 | **nhóm** R3 | **MedCPT Cross-Encoder** | Cross-encoder (y sinh) | title+text | **68.79**†▾ | **34.68**† | **79.58**†‡ | **61.02** |
 | **nhóm** R4 | **bge-reranker-v2-m3** | Cross-encoder (tổng quát) | title+text | **78.57**† | **33.69** | **73.99**† | **62.08** |
 | **nhóm** R5s | **GPT-6 Luna listwise** | LLM listwise | title+text | — | — | — | — |
 | **nhóm** R5l | **GPT-6.1 Sol listwise (top-30)** | LLM listwise | title+text | — | — | — | — |
 | **nhóm** R6 | **Jev listwise** | Mô hình quyết định | title+text | — | — | — | — |
-| **nhóm** R7 | **Qwen3-Reranker-4B** | LLM (mã nguồn mở) | title+text | — | — | — | — |
+| **nhóm** R7 | **Qwen3-Reranker-4B** | LLM (mã nguồn mở) | title+text | **85.00**†‡ | **37.37**†‡ | **79.35**†‡ | **67.24** |
 | **nhóm** R8 | **RRF ensemble (chọn trên dev)** | Ensemble | title+text | — | — | — | — |
 | **nhóm** X1 | **bge-reranker-base** | Cross-encoder (tổng quát) | title+text | **68.61**†▾ | **31.55**▾ | **71.55**† | **57.24** |
 | **nhóm** X2 | **bge-reranker-large** | Cross-encoder (tổng quát) | title+text | **74.23**† | **33.83** | **74.20**† | **60.75** |

@@ -6,7 +6,8 @@
     "bge_base",
     "bge_large",
     "mxbai_base",
-    "monot5_base"
+    "monot5_base",
+    "qwen3_4b"
   ],
   "single_dev_ndcg10": {
     "bm25": 0.4978544540373274,
@@ -15,43 +16,31 @@
     "bge_base": 0.5180307257382569,
     "bge_large": 0.5304043572527236,
     "mxbai_base": 0.5387304175566755,
-    "monot5_base": 0.5366856849733926
+    "monot5_base": 0.5366856849733926,
+    "qwen3_4b": 0.5744928419869304
   },
   "chosen": [
-    "medcpt_ce",
-    "mxbai_base",
-    "bge_large"
+    "qwen3_4b"
   ],
-  "dev_ndcg10": 0.5606231656924596,
+  "dev_ndcg10": 0.5744928419869304,
   "selection_trace": [
     {
       "members": [
-        "medcpt_ce"
+        "qwen3_4b"
       ],
-      "dev_ndcg10": 0.5454209899434576
-    },
-    {
-      "members": [
-        "medcpt_ce",
-        "mxbai_base"
-      ],
-      "dev_ndcg10": 0.5547169413676354
-    },
-    {
-      "members": [
-        "medcpt_ce",
-        "mxbai_base",
-        "bge_large"
-      ],
-      "dev_ndcg10": 0.5606231656924596
+      "dev_ndcg10": 0.5744928419869304,
+      "next_candidates": {
+        "medcpt_ce": 0.5711,
+        "mxbai_base": 0.5655,
+        "bge_large": 0.5599,
+        "monot5_base": 0.5597,
+        "bge_v2_m3": 0.5588,
+        "bge_base": 0.5512,
+        "bm25": 0.5375
+      }
     }
   ],
   "k": 60,
-  "written_test": {
-    "trec-covid": true,
-    "nfcorpus": true,
-    "scifact": true,
-    "scifact-open": true
-  },
+  "written_test": {},
   "note": "chọn hoàn toàn trên dev (NFCorpus dev + SciFact dev); TREC-COVID dùng zero-shot"
 }

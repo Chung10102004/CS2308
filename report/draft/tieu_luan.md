@@ -187,6 +187,24 @@ Dù vậy, R2 mang tín hiệu bổ sung cho BM25. Ghép hai danh sách bằng R
 - **Model chuyên y sinh thắng ở bộ gần miền huấn luyện nhất.** MedCPT-CE đạt 79,58 trên SciFact, cao hơn mọi dòng của bảng công bố (cao nhất là InRanker-3B 78,31) và hơn bge-reranker-v2-m3 có ý nghĩa thống kê. Nhưng trên TREC-COVID, nó kém bge-reranker-v2-m3 gần 10 điểm.
 - **Trung bình 3 bộ,** mxbai-rerank-base đứng đầu nhóm local (63,52), tiếp theo là bge-reranker-v2-m3 (62,08) và MedCPT-CE (61,02). LambdaMART (61,00) ngang MedCPT-CE dù chỉ là cây quyết định trên đặc trưng; phần lớn sức mạnh của nó đến từ chính đặc trưng MedCPT bi-encoder.
 
+**Qwen3-Reranker-4B (R7, LLM mã nguồn mở 2025, zero-shot, instruction mặc định):**
+
+| Bộ | Qwen3-4B | Nhận xét |
+|---|---:|---|
+| TREC-COVID | 85,00 | ngang RankGPT gpt-4 (85,51), hơn mọi dòng còn lại của bảng |
+| NFCorpus | 37,37 | |
+| SciFact | 79,35 | hơn mọi dòng công bố; xấp xỉ MedCPT-CE (79,58) |
+| Trung bình | 67,24 | cao hơn RankGPT gpt-4 (66,31) |
+
+Model này chạy trên 2 GPU T4 của Kaggle, không tốn tiền API. Lưu ý: dòng RankGPT gpt-4 chỉ xếp lại top-30 của gpt-3.5.
+
+**RRF ensemble.** Forward selection trên dev (NFCorpus dev + SciFact dev), ứng viên chỉ gồm các reranker zero-shot:
+- Khi chưa có Qwen3, tổ hợp được chọn là MedCPT-CE + mxbai + bge-large (dev 0,5606), cho test 82,25 / 36,32 / 77,36.
+- Khi có Qwen3, dev của Qwen3 đơn lẻ là 0,5745, và thêm bất kỳ hệ thống nào đều làm dev giảm (tốt nhất là +MedCPT-CE, 0,5711).
+- Vậy ensemble không giúp. Nhóm báo cáo đúng như vậy, không chọn tổ hợp bằng test.
+
+⟦BiLSTM-ESIM v2: chờ đủ 3 seed cho hai bản ablation⟧
+
 ⟦R5, R6 — chạy `make api-run`⟧
 
 ### 5.3 Metadata và tiêu chí (E2) — `report/tables/e2_metadata.md`
@@ -253,7 +271,8 @@ Biên Pareto của nhóm local gồm BM25, MedCPT-CE và mxbai-rerank-base; các
 - **SciFact.** MedCPT-CE (79,58) đứng đầu toàn bảng, trên InRanker-3B (78,31) và MonoT5-3B (76,57) dù chỉ khoảng 110M tham số. LambdaMART (75,97) và BiLSTM-ESIM (72,30) đứng trên RankGPT gpt-3.5 (70,43).
 - **NFCorpus.** Mọi reranker nằm trong khoảng hẹp 31–39 (nhãn tự động, truy vấn rất ngắn). Tốt nhất của nhóm là LambdaMART (35,67) và mxbai (35,48), ngang Cohere Rerank-v2 (36,36). Nhóm so bằng mức tăng so với BM25 vì nền BM25 lệch +1,43.
 - **TREC-COVID.** mxbai-rerank-base đạt 83,06, gần với số của bài (84,00); bge-reranker-v2-m3 đạt 78,57. Các dòng mạnh nhất của bài (RankGPT gpt-4 85,51, ListT5-3B 84,70) vẫn cao hơn mọi reranker local của nhóm. Lưu ý chênh lệch do cách nhập văn bản ở mục 5.1.
-- ⟦GPT-6, Jev, Qwen3-Reranker-4B, RRF⟧
+- **LLM mã nguồn mở so với LLM qua API năm 2023.** Qwen3-Reranker-4B (chạy trên 2 GPU T4) đạt trung bình 3 bộ cao hơn RankGPT gpt-4 (67,24 so với 66,31). Thua ở TREC-COVID (−0,51) và NFCorpus (−1,10), nhưng hơn rõ ở SciFact (+4,40).
+- ⟦GPT-6, Jev⟧
 
 ## 7. Phân tích ca tốt / ca không tốt
 ⟦Chọn 3–5 truy vấn mỗi nhóm từ `results/e1/e1_per_query.json`: reranker hơn BM25 nhiều nhất / kém nhất; ca Jev và GPT bất đồng; ca "sai" theo nhãn gốc nhưng đúng theo SciFact-Open.⟧

@@ -58,10 +58,13 @@ figures: ## Hình → report/figures/
 corpus: ## Phân tích ngữ liệu → report/figures/fig_data_*.png
 	$(PY) scripts/corpus_analysis.py
 
+select-bilstm: ## Chọn biến thể BiLSTM v2 theo dev
+	-$(PY) scripts/select_bilstm.py
+
 ensemble: ## RRF ensemble, tổ hợp chọn trên dev (cần run dev của cross-encoder/Qwen3)
 	-$(PY) scripts/ensemble.py
 
-report: ensemble eval tables figures corpus errors ## Chấm lại + sinh lại toàn bộ bảng và hình
+report: select-bilstm ensemble eval tables figures corpus errors ## Chấm lại + sinh lại toàn bộ bảng và hình
 
 errors: ## Ca tốt / ca không tốt so với BM25
 	$(PY) scripts/error_analysis.py

@@ -22,6 +22,17 @@
 | không tốt | what are the health outcomes for children who contract COVID-19? | -37.8 | ✓ Coronavirus (COVID-19) infection in children at a specialist | ✓ SARS-CoV-2 testing and outcomes in the first 30 days after t |
 | không tốt | What is the mechanism of inflammatory response and pathogenesis of COV | -34.5 | ✓ Targeting lymphocyte Kv1.3-channels to suppress cytokine sto | ? Expression of inflammation-related genes in the lung of BALB |
 
+## trec-covid — R2b BiLSTM-ESIM v2 (à la carte + khớp từ): hơn BM25 ở 21 truy vấn, kém ở 28, bằng ở 1
+
+| Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
+|---|---|---:|---|---|
+| tốt | what types of rapid testing for Covid-19 have been developed? | +59.2 | ✗ Coronavirus disease 2019 in children: Surprising findings in | ✓ Point-of-Care Diagnostic Tests for Detecting SARS-CoV-2 Anti |
+| tốt | what evidence is there for dexamethasone as a treatment for COVID-19? | +35.4 | ✗ Multiple Myeloma in the Time of COVID-19 | ✓ Pathophysiology, Transmission, Diagnosis, and Treatment of C |
+| tốt | How has the COVID-19 pandemic impacted violence in society, including  | +29.3 | ✓ Show me a man or a woman alone and I'll show you a saint: Ch | ✓ COVID-19 and Intimate Partner Violence: A Call to Action. |
+| không tốt | what are the health outcomes for children who contract COVID-19? | -52.2 | ✓ Coronavirus (COVID-19) infection in children at a specialist | ✓ COVID-19 in Children in the United States: Intensive Care Ad |
+| không tốt | what type of hand sanitizer is needed to destroy Covid-19? | -51.5 | ✓ Hand Sanitizers: A Review of Ingredients, Mechanisms of Acti | ✗ COViD-19: Face Mask Effectiveness, Hand Sanitizer Shortages, |
+| không tốt | has social distancing had an impact on slowing the spread of COVID-19? | -43.3 | ✓ U.S. county level analysis to determine If social distancing | ✗ Impact of social distancing during COVID-19 pandemic on crim |
+
 ## trec-covid — R3 MedCPT Cross-Encoder: hơn BM25 ở 32 truy vấn, kém ở 16, bằng ở 2
 
 | Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
@@ -43,6 +54,17 @@
 | không tốt | what evidence is there related to COVID-19 super spreaders | -14.1 | ✓ Super-Spreader Businesses and Risk of COVID-19 Transmission | ✗ Comparison of transmissibility of coronavirus between sympto |
 | không tốt | what drugs have been active against SARS-CoV or SARS-CoV-2 in animal s | -10.2 | ✓ Remdesivir, the antiviral hope against SARS-CoV-2/ Remdesivi | ✓ Identification of antiviral drug candidates against SARS-CoV |
 | không tốt | what type of hand sanitizer is needed to destroy Covid-19? | -7.8 | ✓ Hand Sanitizers: A Review of Ingredients, Mechanisms of Acti | ✓ Hand Sanitizers: A Review of Ingredients, Mechanisms of Acti |
+
+## trec-covid — R7 Qwen3-Reranker-4B: hơn BM25 ở 44 truy vấn, kém ở 3, bằng ở 3
+
+| Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
+|---|---|---:|---|---|
+| tốt | will SARS-CoV2 infected people develop immunity? Is cross protection p | +59.7 | ✓ Cytokine Storm in COVID-19 patients transforms to a Cytokine | ✓ Lack of cross-neutralization by SARS patient sera towards SA |
+| tốt | Does SARS-CoV-2 have any subtypes, and if so what are they? | +58.8 | ✗ Masking the general population might attenuate COVID-19 outb | ✓ The global population of SARS-CoV-2 is composed of six major |
+| tốt | what kinds of complications related to COVID-19 are associated with hy | +53.1 | ✓ COVID-19: What are the risks in hypertensive patients? | ✓ Clinical Features of COVID-19 in Patients With Essential Hyp |
+| không tốt | are there serological tests that detect antibodies to coronavirus? | -6.2 | ✓ Establishment of serological test to detect antibody against | ✗ Immunological assays for SARS-CoV-2: an analysis of availabl |
+| không tốt | what are the mortality rates overall and in specific populations | -2.9 | ✓ Estimating Lower Bounds for COVID-19 Mortality from Northern | ✓ Population-level COVID-19 mortality risk for non-elderly ind |
+| không tốt | what kinds of complications related to COVID-19 are associated with di | -0.6 | ✓ Diabetes and COVID‐19: psychosocial consequences of the COVI | ✓ COVID-19 in diabetic patients: Related risks and specifics o |
 
 ## trec-covid — X1 bge-reranker-base: hơn BM25 ở 35 truy vấn, kém ở 13, bằng ở 2
 
@@ -110,6 +132,17 @@
 | không tốt | IGF-1 | -83.8 | ✓ Long-term effects of calorie or protein restriction on serum | ? Attained height of lacto-ovo vegetarian children and adolesc |
 | không tốt | adenovirus 36 | -80.8 | ✓ Human adenovirus-36 antibody status is associated with obesi | ? The use of placebo interventions in medical practice--a nati |
 
+## nfcorpus — R2b BiLSTM-ESIM v2 (à la carte + khớp từ): hơn BM25 ở 73 truy vấn, kém ở 140, bằng ở 110
+
+| Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
+|---|---|---:|---|---|
+| tốt | Too Much Iodine Can Be as Bad as Too Little | +37.8 | ? Preventing and arresting coronary atherosclerosis. | ✓ Iodine and thyroid cancer risk among women in a multiethnic  |
+| tốt | American Dental Association | +36.0 | ? Mercury exposure and risks from dental amalgam in the US pop | ✓ Dental X-rays and Risk of Meningioma |
+| tốt | The Difficulty of Arriving at a Vitamin D Recommendation | +29.3 | ? Evaluation, treatment, and prevention of vitamin D deficienc | ? Vitamin D: extraskeletal health. |
+| không tốt | shelf life | -100.0 | ✓ Oxidative stability and shelf-life evaluation of selected cu | ? Acute rhabdomyolysis caused by Spirulina (Arthrospira platen |
+| không tốt | IGF-1 | -95.3 | ✓ Long-term effects of calorie or protein restriction on serum | ? Attained height of lacto-ovo vegetarian children and adolesc |
+| không tốt | betel nuts | -83.3 | ✓ Association between betel-nut chewing and chronic kidney dis | ? Nut consumption and blood lipid levels: a pooled analysis of |
+
 ## nfcorpus — R3 MedCPT Cross-Encoder: hơn BM25 ở 113 truy vấn, kém ở 63, bằng ở 147
 
 | Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
@@ -131,6 +164,17 @@
 | không tốt | Chronic Headaches and Pork Parasites | -40.4 | ✓ Neurocysticercosis in pregnancy: not just another headache. | ? Galactose-α-1,3-galactose and Delayed Anaphylaxis, Angioedem |
 | không tốt | liver disease | -39.5 | ✓ The association of coffee intake with liver cancer incidence | ? Saturated free fatty acid sodium palmitate-induced lipoapopt |
 | không tốt | factory farming practices | -35.6 | ✓ Prevalence of Yersinia enterocolitica in market weight hogs  | ? Occupation and risk of lymphoma: a multicentre prospective c |
+
+## nfcorpus — R7 Qwen3-Reranker-4B: hơn BM25 ở 132 truy vấn, kém ở 51, bằng ở 140
+
+| Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
+|---|---|---:|---|---|
+| tốt | Too Much Iodine Can Be as Bad as Too Little | +85.0 | ? Preventing and arresting coronary atherosclerosis. | ✓ Iodine-induced neonatal hypothyroidism secondary to maternal |
+| tốt | Are Artificial Colors Bad for You? | +54.0 | ? You Are What You Eat: Within-Subject Increases in Fruit and  | ✓ Food additives and hyperactive behaviour in 3-year-old and 8 |
+| tốt | Anti-Angiogenesis: Cutting Off Tumor Supply Lines | +51.2 | ? Anti-angiogenic activity of inositol hexaphosphate (IP6). | ✓ Tumor Angiogenesis as a Target for Dietary Cancer Prevention |
+| không tốt | shelf life | -36.9 | ✓ Oxidative stability and shelf-life evaluation of selected cu | ? The effect of blood removal on oxidation and shelf life of b |
+| không tốt | The Actual Benefit of Diet vs. Drugs | -36.3 | ✓ Are preventive drugs preventive enough? A study of patients' | ? An archaeologic dig: a rice-fruit diet reverses ECG changes  |
+| không tốt | coffee | -24.7 | ✓ Coffee, tea, and mortality. | ? Coffee and its consumption: benefits and risks. |
 
 ## nfcorpus — X1 bge-reranker-base: hơn BM25 ở 88 truy vấn, kém ở 88, bằng ở 147
 
@@ -198,6 +242,17 @@
 | không tốt | Golli-deficient T-cells prefer to differentiate into an anergic phenot | -89.5 | ✓ Golli protein negatively regulates store depletion-induced c | ? Mitochondria as sensors and regulators of calcium signalling |
 | không tốt | Albendazole is used to treat lymphatic filariasis. | -71.5 | ✓ “Rapid-Impact Interventions”: How a Policy of Integrated Con | ? Combining indoor residual spraying and insecticide-treated n |
 
+## scifact — R2b BiLSTM-ESIM v2 (à la carte + khớp từ): hơn BM25 ở 91 truy vấn, kém ở 65, bằng ở 144
+
+| Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
+|---|---|---:|---|---|
+| tốt | Less than 10% of the gabonese children with Schimmelpenning-Feuerstein | +100.0 | ? Increased Microerythrocyte Count in Homozygous α+-Thalassaem | ✓ Assessment of Volume Depletion in Children with Malaria |
+| tốt | PPAR-RXRs are inhibited by PPAR ligands. | +87.7 | ? Pharmacological correction of a defect in PPARγ signaling am | ✓ Unique response pathways are established by allosteric inter |
+| tốt | p16INK4A accumulation is  linked to an abnormal wound response caused  | +87.7 | ? Asymptomatic spinal cord lesions predict disease progression | ? p16INK4A is a robust in vivo biomarker of cellular aging in  |
+| không tốt | Crossover hot spots are not found within gene promoters in Saccharomyc | -100.0 | ✓ Mapping Meiotic Single-Strand DNA Reveals a New Landscape of | ? Single-RNA counting reveals alternative modes of gene expres |
+| không tốt | Golli-deficient T-cells prefer to differentiate into an anergic phenot | -90.0 | ✓ Golli protein negatively regulates store depletion-induced c | ? Frontrunners of T cell activation: Initial, localized Ca2+ s |
+| không tốt | The myocardial lineage develops from cardiac progenitors of mesodermal | -85.6 | ✓ Human cardiovascular progenitor cells develop from a KDR+ em | ? Smooth muscle lineage diversity in the chick embryo. Two typ |
+
 ## scifact — R3 MedCPT Cross-Encoder: hơn BM25 ở 93 truy vấn, kém ở 19, bằng ở 188
 
 | Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
@@ -219,6 +274,17 @@
 | không tốt | Microarray results from culture-amplified mixtures of serotypes correl | -100.0 | ✓ The PneuCarriage Project: A Multi-Centre Comparative Study t | ? Empirical Bayesian models for analysing molecular serotyping |
 | không tốt | In domesticated populations of Saccharomyces cerevisiae, whole chromos | -56.9 | ✓ Domestication and Divergence of Saccharomyces cerevisiae Bee | ? S-phase-promoting cyclin-dependent kinases prevent re-replic |
 | không tốt | The combination of H3K4me3 and H3K79me2 is found in quiescent hair fol | -50.0 | ✓ Genome-wide maps of histone modifications unwind in vivo chr | ? Chromatin modifying enzymes as modulators of reprogramming |
+
+## scifact — R7 Qwen3-Reranker-4B: hơn BM25 ở 93 truy vấn, kém ở 26, bằng ở 181
+
+| Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
+|---|---|---:|---|---|
+| tốt | Modifying the epigenome in the brain affects the normal human aging pr | +100.0 | ? The Aging Epigenome. | ✓ Epigenetic mechanisms in neurological disease |
+| tốt | Cellular aging closely links to an older appearance. | +100.0 | ? The intersection between aging and cardiovascular disease. | ✓ Perceived age as clinically useful biomarker of ageing: coho |
+| tốt | p16INK4A accumulation is  linked to an abnormal wound response caused  | +100.0 | ? Asymptomatic spinal cord lesions predict disease progression | ✓ Monitoring Tumorigenesis and Senescence In Vivo with a p16IN |
+| không tốt | Crossover hot spots are not found within gene promoters in Saccharomyc | -66.7 | ✓ Mapping Meiotic Single-Strand DNA Reveals a New Landscape of | ? YEASTRACT: providing a programmatic access to curated transc |
+| không tốt | Venules have a thinner or absent smooth layer compared to arterioles. | -50.0 | ✓ Scaffold-based three-dimensional human fibroblast culture pr | ? Endothelium-mediated relaxation of porcine collateral-depend |
+| không tốt | Input from  mental and physical health care professionals is effective | -50.0 | ✓ Mental health problems of homeless children and families: lo | ? Homelessness and health. |
 
 ## scifact — X1 bge-reranker-base: hơn BM25 ở 66 truy vấn, kém ở 32, bằng ở 202
 

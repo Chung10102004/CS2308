@@ -1,0 +1,131 @@
+{
+ "seed": 1,
+ "tag": "bilstm2",
+ "epochs": [
+  {
+   "epoch": 0,
+   "loss": 1.7623983646731778,
+   "dev_ndcg10": 0.24739200440139564,
+   "dev_parts": {
+    "nfcorpus__dev": 0.1441316916848469,
+    "scifact__dev": 0.35065231711794437
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 1,
+   "loss": 1.4155255518404835,
+   "dev_ndcg10": 0.4091162995173836,
+   "dev_parts": {
+    "nfcorpus__dev": 0.18269693821924532,
+    "scifact__dev": 0.6355356608155219
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 2,
+   "loss": 1.2426702014832611,
+   "dev_ndcg10": 0.3866316219656244,
+   "dev_parts": {
+    "nfcorpus__dev": 0.16806360494802447,
+    "scifact__dev": 0.6051996389832243
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 3,
+   "loss": 1.0629505520035702,
+   "dev_ndcg10": 0.4450683622553938,
+   "dev_parts": {
+    "nfcorpus__dev": 0.21365038265309388,
+    "scifact__dev": 0.6764863418576937
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 4,
+   "loss": 0.9608363829642893,
+   "dev_ndcg10": 0.43213693207669146,
+   "dev_parts": {
+    "nfcorpus__dev": 0.2005026223872684,
+    "scifact__dev": 0.6637712417661146
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 5,
+   "loss": 0.8499298990670457,
+   "dev_ndcg10": 0.48102090915726436,
+   "dev_parts": {
+    "nfcorpus__dev": 0.23529507357375895,
+    "scifact__dev": 0.7267467447407698
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 6,
+   "loss": 0.7796499653304197,
+   "dev_ndcg10": 0.48864671423257955,
+   "dev_parts": {
+    "nfcorpus__dev": 0.232947498149363,
+    "scifact__dev": 0.7443459303157961
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 7,
+   "loss": 0.7176017730878329,
+   "dev_ndcg10": 0.4708548643865662,
+   "dev_parts": {
+    "nfcorpus__dev": 0.22905665992392427,
+    "scifact__dev": 0.7126530688492082
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 8,
+   "loss": 0.6383685172712206,
+   "dev_ndcg10": 0.48762275828021323,
+   "dev_parts": {
+    "nfcorpus__dev": 0.2501238678871498,
+    "scifact__dev": 0.7251216486732767
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 9,
+   "loss": 0.6111957816945681,
+   "dev_ndcg10": 0.47998486949255714,
+   "dev_parts": {
+    "nfcorpus__dev": 0.231396235386241,
+    "scifact__dev": 0.7285735035988733
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  }
+ ],
+ "config": {
+  "QLEN": 64,
+  "DLEN": 256,
+  "GROUP": 8,
+  "BATCH": 16,
+  "LR": 0.0004,
+  "HIDDEN": 200,
+  "DROPOUT": 0.3,
+  "EPOCHS": 15,
+  "PATIENCE": 3,
+  "EM": true,
+  "OOV": "alacarte",
+  "OOV_TRAIN": true
+ },
+ "best_dev_ndcg10": 0.48864671423257955
+}

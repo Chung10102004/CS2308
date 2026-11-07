@@ -213,12 +213,13 @@ def table_improvements():
     from src.utils.paths import RUNS
     K = RESULTS / "kaggle"
     variants = [
-        ("v1: BioWordVec cố định, OOV ngẫu nhiên, ≤8 epoch", "bilstm", [K / "bilstm" / "out" / f"train_log_s{i}.json" for i in range(3)]),
-        ("v2: + vector OOV à la carte (học tiếp) + kênh khớp từ, ≤15 epoch", "bilstm2", [K / "bilstm2" / "out" / f"train_log_bilstm2_s{i}.json" for i in range(3)]),
-        ("v2 bỏ kênh khớp từ (seed 0)", "bilstm2_noem", [K / "bilstm2_abl" / "out" / "train_log_bilstm2_noem_s0.json"]),
-        ("v2 bỏ vector à la carte (OOV ngẫu nhiên, học tiếp; seed 0)", "bilstm2_nooov", [K / "bilstm2_abl" / "out" / "train_log_bilstm2_nooov_s0.json"]),
+        ("v1: BioWordVec cố định, OOV ngẫu nhiên, ≤8 epoch", "bilstm", sorted((K / "bilstm" / "out").glob("train_log_s?.json"))),
+        ("v2: + vector OOV à la carte (học tiếp) + kênh khớp từ, ≤15 epoch", "bilstm2", sorted(K.glob("*/out/train_log_bilstm2_s?.json"))),
+        ("v2 chỉ vector à la carte (không kênh khớp từ)", "bilstm2_noem", sorted(K.glob("*/out/train_log_bilstm2_noem_s?.json"))),
+        ("v2 chỉ kênh khớp từ (OOV ngẫu nhiên, học tiếp)", "bilstm2_nooov", sorted(K.glob("*/out/train_log_bilstm2_nooov_s?.json"))),
     ]
-    o = ["| Phiên bản | dev nDCG@10 (tốt nhất) | " + " | ".join(DSN[d] for d in BEIR3) + " |", "|---|---:|" + "---:|" * 3]
+    sel = load("bilstm_selection.json") or {}
+    o = ["| Phiên bản | Số seed | dev nDCG@10 (TB điểm tốt nhất) | " + " | ".join(DSN[d] for d in BEIR3) + " |", "|---|---:|---:|" + "---:|" * 3]
     for label, tag, logs in variants:
         devs = [json.loads(l.read_text())["best_dev_ndcg10"] for l in logs if l.exists()]
         cells = []
@@ -230,14 +231,21 @@ def table_improvements():
             v = [evaluate(load_qrels(d, "test"), read_run(r))["nDCG@10"] for r in runs]
             cells.append(f"{100 * np.mean(v):.2f}" + (f" ± {100 * np.std(v):.2f}" if len(v) > 1 else ""))
         dv = f"{np.mean(devs):.4f}" if devs else DASH
-        o.append(f"| {label} | {dv} | " + " | ".join(cells) + " |")
-    o.append("\nBM25 trên cùng dev: 0,4979 (NFCorpus 0,2886; SciFact 0,7071). Chọn phiên bản theo dev; test chỉ để báo cáo.")
+        mark = " ← chọn (R2b)" if sel.get("chosen") == tag else ""
+        o.append(f"| {label}{mark} | {len(devs)} | {dv} | " + " | ".join(cells) + " |")
+    o.append("\nBM25 trên cùng dev: 0,4979 (NFCorpus 0,2886; SciFact 0,7071). R2b = biến thể v2 có dev TB cao nhất trong các bản đủ 3 seed; "
+             "test chỉ để báo cáo. Lưu ý: dev (NFCorpus, SciFact) không chứa từ vựng COVID, nên không phản ánh được lợi ích "
+             "của vector à la carte trên TREC-COVID.")
     parts = ["### BiLSTM-ESIM: v1 → v2 và ablation\n" + "\n".join(o)]
     ens = load("ensemble.json")
     if ens:
-        e = ["| Bước | Thành viên | dev nDCG@10 |", "|---:|---|---:|"]
+        e = ["| Bước | Thành viên | dev nDCG@10 | Ứng viên tốt nhất để thêm (dev) |", "|---:|---|---:|---|"]
         for i, t in enumerate(ens["selection_trace"], 1):
-            e.append(f"| {i} | {' + '.join(t['members'])} | {t['dev_ndcg10']:.4f} |")
+            nxt = t.get("next_candidates") or {}
+            best_next = ", ".join(f"+{k} {v:.4f}" for k, v in list(nxt.items())[:3]) or DASH
+            e.append(f"| {i} | {' + '.join(t['members'])} | {t['dev_ndcg10']:.4f} | {best_next} |")
+        if len(ens["chosen"]) < 2:
+            e.append(f"\nKhông tổ hợp nào hơn {ens['chosen'][0]} đơn lẻ trên dev (ngưỡng +0,001) → không có dòng ensemble riêng trong bảng chính.")
         single = ", ".join(f"{k} {v:.4f}" for k, v in sorted(ens["single_dev_ndcg10"].items(), key=lambda x: -x[1]))
         parts.append("### RRF ensemble — forward selection trên dev (k = 60)\n" + "\n".join(e) +
                      f"\n\nĐiểm dev từng hệ thống: {single}. Ứng viên chỉ gồm hệ thống zero-shot.")

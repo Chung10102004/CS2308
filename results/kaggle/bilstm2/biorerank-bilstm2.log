@@ -1,0 +1,38 @@
+[{"stream_name":"stdout","time":10.549698123,"data":"GPU 0: Tesla T4 (UUID: GPU-7c2a8719-e400-d5be-e83b-78359541ea22)\n"}
+,{"stream_name":"stdout","time":10.549796609,"data":"GPU 1: Tesla T4 (UUID: GPU-f41801df-59f8-9058-a248-f3330d1a1362)\n"}
+,{"stream_name":"stdout","time":156.061832956,"data":"seed 0 epoch 0: loss 1.7712 dev nDCG@10 0.2415 (129s)\n"}
+,{"stream_name":"stdout","time":280.404808586,"data":"seed 0 epoch 1: loss 1.4689 dev nDCG@10 0.3820 (124s)\n"}
+,{"stream_name":"stdout","time":404.744402445,"data":"seed 0 epoch 2: loss 1.2588 dev nDCG@10 0.4139 (124s)\n"}
+,{"stream_name":"stdout","time":529.599570979,"data":"seed 0 epoch 3: loss 1.1260 dev nDCG@10 0.4416 (125s)\n"}
+,{"stream_name":"stdout","time":654.075691242,"data":"seed 0 epoch 4: loss 0.9787 dev nDCG@10 0.4598 (124s)\n"}
+,{"stream_name":"stdout","time":778.607456393,"data":"seed 0 epoch 5: loss 0.8696 dev nDCG@10 0.4427 (125s)\n"}
+,{"stream_name":"stdout","time":903.239342801,"data":"seed 0 epoch 6: loss 0.8090 dev nDCG@10 0.4774 (125s)\n"}
+,{"stream_name":"stdout","time":1027.840945394,"data":"seed 0 epoch 7: loss 0.7221 dev nDCG@10 0.4993 (125s)\n"}
+,{"stream_name":"stdout","time":1152.472097932,"data":"seed 0 epoch 8: loss 0.6734 dev nDCG@10 0.4838 (125s)\n"}
+,{"stream_name":"stdout","time":1277.294138804,"data":"seed 0 epoch 9: loss 0.6355 dev nDCG@10 0.4665 (125s)\n"}
+,{"stream_name":"stdout","time":1401.976364182,"data":"seed 0 epoch 10: loss 0.5705 dev nDCG@10 0.4872 (125s)\n"}
+,{"stream_name":"stdout","time":1619.718390998,"data":"seed 1 epoch 0: loss 1.7624 dev nDCG@10 0.2474 (125s)\n"}
+,{"stream_name":"stdout","time":1744.960646766,"data":"seed 1 epoch 1: loss 1.4155 dev nDCG@10 0.4091 (125s)\n"}
+,{"stream_name":"stdout","time":1869.934361987,"data":"seed 1 epoch 2: loss 1.2427 dev nDCG@10 0.3866 (125s)\n"}
+,{"stream_name":"stdout","time":1994.919583274,"data":"seed 1 epoch 3: loss 1.0630 dev nDCG@10 0.4451 (125s)\n"}
+,{"stream_name":"stdout","time":2119.580857321,"data":"seed 1 epoch 4: loss 0.9608 dev nDCG@10 0.4321 (125s)\n"}
+,{"stream_name":"stdout","time":2244.264027132,"data":"seed 1 epoch 5: loss 0.8499 dev nDCG@10 0.4810 (125s)\n"}
+,{"stream_name":"stdout","time":2368.927592375,"data":"seed 1 epoch 6: loss 0.7796 dev nDCG@10 0.4886 (125s)\n"}
+,{"stream_name":"stdout","time":2494.036528912,"data":"seed 1 epoch 7: loss 0.7176 dev nDCG@10 0.4709 (125s)\n"}
+,{"stream_name":"stdout","time":2618.766809401,"data":"seed 1 epoch 8: loss 0.6384 dev nDCG@10 0.4876 (125s)\n"}
+,{"stream_name":"stdout","time":2743.558130275,"data":"seed 1 epoch 9: loss 0.6112 dev nDCG@10 0.4800 (125s)\n"}
+,{"stream_name":"stdout","time":2956.874047801,"data":"seed 2 epoch 0: loss 1.7794 dev nDCG@10 0.0836 (124s)\n"}
+,{"stream_name":"stdout","time":3081.623368468,"data":"seed 2 epoch 1: loss 1.4511 dev nDCG@10 0.3954 (125s)\n"}
+,{"stream_name":"stdout","time":3206.284062547,"data":"seed 2 epoch 2: loss 1.2432 dev nDCG@10 0.3801 (125s)\n"}
+,{"stream_name":"stdout","time":3331.236294205,"data":"seed 2 epoch 3: loss 1.1056 dev nDCG@10 0.4345 (125s)\n"}
+,{"stream_name":"stdout","time":3456.255341641,"data":"seed 2 epoch 4: loss 0.9832 dev nDCG@10 0.4815 (125s)\n"}
+,{"stream_name":"stdout","time":3580.809105118,"data":"seed 2 epoch 5: loss 0.8605 dev nDCG@10 0.4655 (125s)\n"}
+,{"stream_name":"stdout","time":3705.397065373,"data":"seed 2 epoch 6: loss 0.7970 dev nDCG@10 0.4750 (125s)\n"}
+,{"stream_name":"stdout","time":3830.463427114,"data":"seed 2 epoch 7: loss 0.7246 dev nDCG@10 0.4646 (125s)\n"}
+,{"stream_name":"stderr","time":3926.72059804,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3926.720689406,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3927.023791984,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3927.023820205,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3927.86795681,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3928.927310966,"data":"[NbConvertApp] Writing 279493 bytes to __results__.html\n"}
+]

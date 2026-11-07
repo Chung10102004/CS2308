@@ -1,8 +1,19 @@
 """Danh mục hệ thống của nhóm: ID, tên hiển thị, thế hệ, năm phương pháp, tên run (nhiều seed → nhiều run)."""
 from dataclasses import dataclass, field
 
+import json
+
 from ..utils.io import read_run
-from ..utils.paths import RUNS
+from ..utils.paths import RESULTS, RUNS
+
+
+def _bilstm_v2():
+    """Biến thể BiLSTM v2 được chọn theo dev (scripts/select_bilstm.py); mặc định bản gộp."""
+    p = RESULTS / "bilstm_selection.json"
+    if p.exists():
+        sel = json.loads(p.read_text())
+        return sel["chosen"], sel["label"]
+    return "bilstm2", "BiLSTM-ESIM v2"
 
 
 @dataclass
@@ -22,8 +33,8 @@ SYSTEMS = [
     System("R0", "BM25 (Pyserini flat)", "Lexical", 1994, ["bm25"], anchor="BM25"),
     System("R1", "LambdaMART", "Learning-to-rank", 2010, ["lambdamart_s0", "lambdamart_s1", "lambdamart_s2"]),
     System("R2", "BiLSTM-ESIM", "LSTM", 2017, ["bilstm_s0", "bilstm_s1", "bilstm_s2"]),
-    System("R2b", "BiLSTM-ESIM v2", "LSTM", 2017, ["bilstm2_s0", "bilstm2_s1", "bilstm2_s2"],
-           note="+ vector OOV à la carte, + kênh khớp từ chính xác, ≤15 epoch"),
+    System("R2b", _bilstm_v2()[1], "LSTM", 2017, [f"{_bilstm_v2()[0]}_s{i}" for i in range(3)],
+           note="biến thể v2 chọn theo dev (3 seed)"),
     System("R3", "MedCPT Cross-Encoder", "Cross-encoder (y sinh)", 2023, ["medcpt_ce"]),
     System("R4", "bge-reranker-v2-m3", "Cross-encoder (tổng quát)", 2024, ["bge_v2_m3"], anchor="bge-reranker-v2-m3"),
     System("R5s", "GPT-6 Luna listwise", "LLM listwise", 2026, ["gpt_small"]),

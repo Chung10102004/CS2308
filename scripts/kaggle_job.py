@@ -41,8 +41,16 @@ TASKS = {
                            "BILSTM_EPOCHS": "15", "BILSTM_PATIENCE": "3", "BILSTM_DEV_RUNS": "1"}),
     "bilstm2_abl": (True, [], {"BILSTM_ABLATION": "1", "BILSTM_OOV_TRAIN": "1", "BILSTM_EPOCHS": "15",
                                "BILSTM_PATIENCE": "3", "BILSTM_SEEDS": "0"}),
+    # bổ sung seed 1, 2 cho hai bản ablation để chọn phiên bản theo dev một cách công bằng (3 seed mỗi bản)
+    "bilstm2_noem_s12": (True, [], {"BILSTM_TAG": "bilstm2_noem", "BILSTM_EM": "0", "BILSTM_OOV": "alacarte",
+                                    "BILSTM_OOV_TRAIN": "1", "BILSTM_EPOCHS": "15", "BILSTM_PATIENCE": "3",
+                                    "BILSTM_SEEDS": "1,2", "BILSTM_DEV_RUNS": "1"}),
+    "bilstm2_nooov_s12": (True, [], {"BILSTM_TAG": "bilstm2_nooov", "BILSTM_EM": "1", "BILSTM_OOV": "random",
+                                     "BILSTM_OOV_TRAIN": "1", "BILSTM_EPOCHS": "15", "BILSTM_PATIENCE": "3",
+                                     "BILSTM_SEEDS": "1,2", "BILSTM_DEV_RUNS": "1"}),
 }
-TASK_MODULE = {"crossenc_rankify": "crossenc", "crossenc_dev": "crossenc", "bilstm2": "bilstm", "bilstm2_abl": "bilstm"}
+TASK_MODULE = {"crossenc_rankify": "crossenc", "crossenc_dev": "crossenc", "bilstm2": "bilstm", "bilstm2_abl": "bilstm",
+               "bilstm2_noem_s12": "bilstm", "bilstm2_nooov_s12": "bilstm"}
 
 
 def slug(task):

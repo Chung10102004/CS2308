@@ -1,0 +1,109 @@
+{
+ "seed": 2,
+ "tag": "bilstm2",
+ "epochs": [
+  {
+   "epoch": 0,
+   "loss": 1.7793968258851982,
+   "dev_ndcg10": 0.08364330912889012,
+   "dev_parts": {
+    "nfcorpus__dev": 0.12073105045905821,
+    "scifact__dev": 0.04655556779872201
+   },
+   "n_groups": 5297,
+   "seconds": 124
+  },
+  {
+   "epoch": 1,
+   "loss": 1.4510543738682586,
+   "dev_ndcg10": 0.39543350957877965,
+   "dev_parts": {
+    "nfcorpus__dev": 0.17287503263818144,
+    "scifact__dev": 0.6179919865193779
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 2,
+   "loss": 1.2431549259338035,
+   "dev_ndcg10": 0.3801170785527055,
+   "dev_parts": {
+    "nfcorpus__dev": 0.1597774057855827,
+    "scifact__dev": 0.6004567513198282
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 3,
+   "loss": 1.1055850846221649,
+   "dev_ndcg10": 0.4344871543381118,
+   "dev_parts": {
+    "nfcorpus__dev": 0.19964651003064915,
+    "scifact__dev": 0.6693277986455745
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 4,
+   "loss": 0.9832160993512854,
+   "dev_ndcg10": 0.4814657841711859,
+   "dev_parts": {
+    "nfcorpus__dev": 0.25556750086147195,
+    "scifact__dev": 0.7073640674808999
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 5,
+   "loss": 0.8604705579668642,
+   "dev_ndcg10": 0.46552662774085174,
+   "dev_parts": {
+    "nfcorpus__dev": 0.2240885076717648,
+    "scifact__dev": 0.7069647478099387
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 6,
+   "loss": 0.7969812266079777,
+   "dev_ndcg10": 0.4750310339233086,
+   "dev_parts": {
+    "nfcorpus__dev": 0.2319704378919381,
+    "scifact__dev": 0.718091629954679
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  },
+  {
+   "epoch": 7,
+   "loss": 0.7245901816760201,
+   "dev_ndcg10": 0.4646376884388085,
+   "dev_parts": {
+    "nfcorpus__dev": 0.2073694650562457,
+    "scifact__dev": 0.7219059118213712
+   },
+   "n_groups": 5297,
+   "seconds": 125
+  }
+ ],
+ "config": {
+  "QLEN": 64,
+  "DLEN": 256,
+  "GROUP": 8,
+  "BATCH": 16,
+  "LR": 0.0004,
+  "HIDDEN": 200,
+  "DROPOUT": 0.3,
+  "EPOCHS": 15,
+  "PATIENCE": 3,
+  "EM": true,
+  "OOV": "alacarte",
+  "OOV_TRAIN": true
+ },
+ "best_dev_ndcg10": 0.4814657841711859
+}

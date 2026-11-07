@@ -76,6 +76,28 @@
     "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
     "mean_ndcg10_beir3": 0.5137586808147395
   },
+  "R2b": {
+    "kind": "local-gpu",
+    "device": "Tesla T4 (Kaggle) ×1 song song",
+    "n": 905,
+    "p50_ms": 57.95,
+    "p95_ms": 63.03999999999999,
+    "p99_ms": 68.0832,
+    "usd_per_1k": 0.005675091006752609,
+    "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
+    "mean_ndcg10_beir3": 0.5114247072945967
+  },
+  "R7": {
+    "kind": "local-gpu",
+    "device": "Tesla T4 (Kaggle) ×2 song song",
+    "n": 905,
+    "p50_ms": 25042.03,
+    "p95_ms": 31521.217999999993,
+    "p99_ms": 34034.9336,
+    "usd_per_1k": 2.4843353534376917,
+    "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
+    "mean_ndcg10_beir3": 0.6724407575372441
+  },
   "R0": {
     "kind": "local-cpu",
     "p50_ms": null,

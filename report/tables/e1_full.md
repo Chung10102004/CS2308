@@ -9,12 +9,18 @@
 | R2 BiLSTM-ESIM | TREC-COVID | 55.38 | 48.09–62.74 | 75.61 | 1.55 | 10.91 | 86.2 |
 | R2 BiLSTM-ESIM | NFCorpus | 26.44 | 23.38–29.55 | 41.47 | 13.68 | 24.57 | 27.0 |
 | R2 BiLSTM-ESIM | SciFact | 72.30 | 68.42–76.08 | 68.15 | 86.80 | 92.53 | 9.8 |
+| R2b BiLSTM-ESIM v2 (à la carte + khớp từ) | TREC-COVID | 56.54 | 48.97–64.10 | 77.30 | 1.59 | 10.91 | 90.0 |
+| R2b BiLSTM-ESIM v2 (à la carte + khớp từ) | NFCorpus | 26.73 | 23.68–29.87 | 42.21 | 13.65 | 24.57 | 27.1 |
+| R2b BiLSTM-ESIM v2 (à la carte + khớp từ) | SciFact | 70.15 | 66.21–74.02 | 66.15 | 84.52 | 92.53 | 9.5 |
 | R3 MedCPT Cross-Encoder | TREC-COVID | 68.79 | 61.61–75.82 | 89.84 | 1.92 | 10.91 | 92.2 |
 | R3 MedCPT Cross-Encoder | NFCorpus | 34.68 | 31.31–38.27 | 56.23 | 16.50 | 24.57 | 31.5 |
 | R3 MedCPT Cross-Encoder | SciFact | 79.58 | 75.76–83.22 | 76.84 | 90.12 | 92.53 | 10.1 |
 | R4 bge-reranker-v2-m3 | TREC-COVID | 78.57 | 72.69–84.30 | 92.22 | 2.13 | 10.91 | 98.2 |
 | R4 bge-reranker-v2-m3 | NFCorpus | 33.69 | 30.38–37.16 | 54.81 | 15.97 | 24.57 | 30.6 |
 | R4 bge-reranker-v2-m3 | SciFact | 73.99 | 69.64–78.23 | 71.36 | 84.16 | 92.53 | 9.4 |
+| R7 Qwen3-Reranker-4B | TREC-COVID | 85.00 | 79.51–90.04 | 97.40 | 2.29 | 10.91 | 98.8 |
+| R7 Qwen3-Reranker-4B | NFCorpus | 37.37 | 33.89–40.90 | 59.91 | 17.28 | 24.57 | 33.4 |
+| R7 Qwen3-Reranker-4B | SciFact | 79.35 | 75.53–83.05 | 76.24 | 90.76 | 92.53 | 10.2 |
 | X1 bge-reranker-base | TREC-COVID | 68.61 | 61.25–75.69 | 83.83 | 1.84 | 10.91 | 93.8 |
 | X1 bge-reranker-base | NFCorpus | 31.55 | 28.24–34.98 | 54.15 | 14.56 | 24.57 | 29.0 |
 | X1 bge-reranker-base | SciFact | 71.55 | 67.25–75.75 | 68.55 | 83.36 | 92.53 | 9.3 |
