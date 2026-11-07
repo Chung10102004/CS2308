@@ -28,6 +28,8 @@ MAXLEN_MODEL = os.environ.get("CE_MAXLEN", "512") == "model"
 TAG = os.environ.get("CE_TAG", "")                          # hậu tố tên run, vd. ".rk"
 SETS = os.environ.get("CE_SETS")                           # vd. "trec-covid,nfcorpus,scifact"
 WITH_E2 = os.environ.get("CE_E2", "1") == "1"
+SPLIT = os.environ.get("CE_SPLIT", "test")                 # test | dev (dev: cho bước chọn tổ hợp RRF)
+DEV_SETS = [("nfcorpus", "dev"), ("scifact", "dev")]
 
 
 class CrossEncoder:
@@ -78,8 +80,9 @@ def main():
     for name in names:
         hf_id, kind, fp16 = MODELS[name]
         ce = CrossEncoder(hf_id, kind, fp16)
-        jobs = [(ds, split, "Q-q", False) for ds, split in TEST_SETS if not SETS or ds in SETS.split(",")]
-        if name in E2_MODELS and WITH_E2:
+        base_sets = DEV_SETS if SPLIT == "dev" else TEST_SETS
+        jobs = [(ds, split, "Q-q", False) for ds, split in base_sets if not SETS or ds in SETS.split(",")]
+        if name in E2_MODELS and WITH_E2 and SPLIT == "test":
             jobs += [("trec-covid", "test", v, m) for v, m in E2_VARIANTS]
         for ds, split, variant, meta in jobs:
             corpus, cand = pack.corpus(ds), pack.run(ds, split)

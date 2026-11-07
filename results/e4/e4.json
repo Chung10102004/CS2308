@@ -1,7 +1,7 @@
 {
   "R3": {
     "kind": "local-gpu",
-    "device": "Tesla T4 (Kaggle)",
+    "device": "Tesla T4 (Kaggle) ×1 song song",
     "n": 549,
     "p50_ms": 643.26,
     "p95_ms": 765.0200000000001,
@@ -12,7 +12,7 @@
   },
   "R4": {
     "kind": "local-gpu",
-    "device": "Tesla T4 (Kaggle)",
+    "device": "Tesla T4 (Kaggle) ×1 song song",
     "n": 549,
     "p50_ms": 2274.86,
     "p95_ms": 2459.322,
@@ -23,7 +23,7 @@
   },
   "X1": {
     "kind": "local-gpu",
-    "device": "Tesla T4 (Kaggle)",
+    "device": "Tesla T4 (Kaggle) ×1 song song",
     "n": 549,
     "p50_ms": 733.62,
     "p95_ms": 798.824,
@@ -34,7 +34,7 @@
   },
   "X2": {
     "kind": "local-gpu",
-    "device": "Tesla T4 (Kaggle)",
+    "device": "Tesla T4 (Kaggle) ×1 song song",
     "n": 549,
     "p50_ms": 2246.86,
     "p95_ms": 2426.748,
@@ -45,7 +45,7 @@
   },
   "X3": {
     "kind": "local-gpu",
-    "device": "Tesla T4 (Kaggle)",
+    "device": "Tesla T4 (Kaggle) ×1 song song",
     "n": 549,
     "p50_ms": 1741.84,
     "p95_ms": 2043.534,
@@ -56,7 +56,7 @@
   },
   "X4": {
     "kind": "local-gpu",
-    "device": "Tesla T4 (Kaggle)",
+    "device": "Tesla T4 (Kaggle) ×1 song song",
     "n": 549,
     "p50_ms": 4318.08,
     "p95_ms": 4640.774,
@@ -67,7 +67,7 @@
   },
   "R2": {
     "kind": "local-gpu",
-    "device": "Tesla T4 (Kaggle)",
+    "device": "Tesla T4 (Kaggle) ×1 song song",
     "n": 549,
     "p50_ms": 56.74,
     "p95_ms": 64.056,

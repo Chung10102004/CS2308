@@ -41,7 +41,10 @@
     "diff": 3.78,
     "tol": 1.0,
     "pass": false,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 74.26,
+    "diff_rk": -0.53,
+    "pass_rk": true
   },
   {
     "system": "R4",
@@ -52,7 +55,10 @@
     "diff": -0.15,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 32.82,
+    "diff_rk": -1.02,
+    "pass_rk": false
   },
   {
     "system": "R4",
@@ -63,7 +69,10 @@
     "diff": 0.51,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 71.39,
+    "diff_rk": -2.09,
+    "pass_rk": false
   },
   {
     "system": "X1",
@@ -74,7 +83,10 @@
     "diff": 1.11,
     "tol": 1.0,
     "pass": false,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 65.5,
+    "diff_rk": -2.0,
+    "pass_rk": false
   },
   {
     "system": "X1",
@@ -85,7 +97,10 @@
     "diff": 0.45,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 30.25,
+    "diff_rk": -0.85,
+    "pass_rk": true
   },
   {
     "system": "X1",
@@ -96,7 +111,10 @@
     "diff": 0.95,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 67.36,
+    "diff_rk": -3.24,
+    "pass_rk": false
   },
   {
     "system": "X2",
@@ -107,7 +125,10 @@
     "diff": -0.07,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 71.57,
+    "diff_rk": -2.73,
+    "pass_rk": false
   },
   {
     "system": "X2",
@@ -118,7 +139,10 @@
     "diff": -0.97,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 32.79,
+    "diff_rk": -2.01,
+    "pass_rk": false
   },
   {
     "system": "X2",
@@ -129,7 +153,10 @@
     "diff": 0.1,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 71.31,
+    "diff_rk": -2.79,
+    "pass_rk": false
   },
   {
     "system": "X3",
@@ -140,7 +167,10 @@
     "diff": -0.94,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 81.9,
+    "diff_rk": -2.1,
+    "pass_rk": false
   },
   {
     "system": "X3",
@@ -151,7 +181,10 @@
     "diff": -0.16,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 35.27,
+    "diff_rk": -0.37,
+    "pass_rk": true
   },
   {
     "system": "X3",
@@ -162,7 +195,10 @@
     "diff": -0.3,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 70.26,
+    "diff_rk": -2.07,
+    "pass_rk": false
   },
   {
     "system": "X4",
@@ -173,7 +209,10 @@
     "diff": 1.84,
     "tol": 1.0,
     "pass": false,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 72.13,
+    "diff_rk": -0.11,
+    "pass_rk": true
   },
   {
     "system": "X4",
@@ -184,7 +223,10 @@
     "diff": 0.25,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 34.97,
+    "diff_rk": 0.16,
+    "pass_rk": true
   },
   {
     "system": "X4",
@@ -195,6 +237,9 @@
     "diff": 0.1,
     "tol": 1.0,
     "pass": true,
-    "pyserini_2cr": null
+    "pyserini_2cr": null,
+    "ours_rk": 72.87,
+    "diff_rk": -0.27,
+    "pass_rk": true
   }
 ]

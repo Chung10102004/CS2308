@@ -34,8 +34,15 @@ TASKS = {
     "crossenc_rankify": (True, [], {"CE_DOCFMT": "text", "CE_FP32": "1", "CE_MAXLEN": "model", "CE_TAG": ".rk",
                                      "CE_SETS": "trec-covid,nfcorpus,scifact", "CE_E2": "0",
                                      "CE_MODELS": "bge_v2_m3,monot5_base,bge_base,bge_large,mxbai_base", "CE_BATCH": "16"}),
+    # cải tiến (07/11): cross-encoder trên dev cho RRF; Qwen3-Reranker-4B; BiLSTM-ESIM v2 + ablation
+    "crossenc_dev": (True, [], {"CE_SPLIT": "dev", "CE_E2": "0"}),
+    "qwen3": (True, [], {}),
+    "bilstm2": (True, [], {"BILSTM_TAG": "bilstm2", "BILSTM_EM": "1", "BILSTM_OOV": "alacarte", "BILSTM_OOV_TRAIN": "1",
+                           "BILSTM_EPOCHS": "15", "BILSTM_PATIENCE": "3", "BILSTM_DEV_RUNS": "1"}),
+    "bilstm2_abl": (True, [], {"BILSTM_ABLATION": "1", "BILSTM_OOV_TRAIN": "1", "BILSTM_EPOCHS": "15",
+                               "BILSTM_PATIENCE": "3", "BILSTM_SEEDS": "0"}),
 }
-TASK_MODULE = {"crossenc_rankify": "crossenc"}
+TASK_MODULE = {"crossenc_rankify": "crossenc", "crossenc_dev": "crossenc", "bilstm2": "bilstm", "bilstm2_abl": "bilstm"}
 
 
 def slug(task):

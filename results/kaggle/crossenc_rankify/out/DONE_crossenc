@@ -1,0 +1,1 @@
+{"models": ["bge_v2_m3", "monot5_base", "bge_base", "bge_large", "mxbai_base"], "smoke": false, "device": "Tesla T4"}

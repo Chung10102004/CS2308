@@ -136,7 +136,14 @@ Ghi chú về bảng:
 - TREC-COVID và SciFact khớp tuyệt đối.
 - NFCorpus ra 32,18, khớp trang tái lập của Pyserini (0,322) nhưng cao hơn số trong bài 1,43 điểm. Nhóm đã thử hai giả thuyết về cách tính truy vấn không có kết quả: tính bằng 0 ra 32,18, bỏ đi ra 33,75. Cả hai đều không ra 30,75.
 - Vì vậy, trên NFCorpus nhóm so sánh chủ yếu bằng mức tăng so với BM25.
-- Dòng bge-reranker-v2-m3: ⟦điền⟧.
+- **Reranker** (bảng `e0_reproduction.md`): với cấu hình của nhóm ("tiêu đề. abstract", fp16, cắt 512 token), **13/15** dòng của 5 model có trong bài báo khớp trong ±1 điểm. Hai dòng không khớp đều ở TREC-COVID: bge-reranker-v2-m3 (78,57 so với 74,79) và MonoT5-base (74,08 so với 72,24).
+- **Tìm nguyên nhân.** Đọc mã nguồn cho thấy hai toolkit đưa văn bản vào reranker khác nhau:
+  - Rankify (toolkit của bài báo) chỉ đưa abstract (`context.text`);
+  - RankGPT gốc đưa "Title: … Content: …" (`rank_gpt.py`, dòng 113–114).
+- **Kiểm chứng.** Nhóm chạy lại 5 model theo cách của Rankify (chỉ abstract, fp32, không cắt 512 token):
+  - Hai dòng TREC-COVID trên khớp gần như tuyệt đối: 74,26 (−0,53) và 72,13 (−0,11).
+  - Nhưng 8 dòng khác lại lệch tới 2–3 điểm.
+- **Kết luận.** Chính bảng công bố trộn cách nhập văn bản giữa các dòng: các dòng chép từ RankGPT có tiêu đề, phần lớn dòng chạy bằng Rankify khớp với cấu hình có tiêu đề, và một số dòng TREC-COVID không có tiêu đề. Nhóm giữ một cấu hình thống nhất ("tiêu đề. abstract") cho mọi reranker của mình và chú thích rằng trên TREC-COVID, một số dòng công bố có thể thấp hơn tới khoảng 4 điểm chỉ vì thiếu tiêu đề.
 
 ### 5.2 Bảng chính (E1) — `report/tables/e1_main.md`, hình `fig_e1_ranking.png`
 
@@ -166,34 +173,87 @@ Trên dev, điểm tốt nhất của R2 (0,48–0,505) xấp xỉ BM25 (0,498):
 
 Dù vậy, R2 mang tín hiệu bổ sung cho BM25. Ghép hai danh sách bằng RRF (k = 60, không chỉnh tham số) cho 62,43 / 33,05 / 73,55 trên TREC-COVID / NFCorpus / SciFact, hơn BM25 ở cả ba bộ.
 
-⟦R3–R6⟧
+**Cross-encoder** (cấu hình của nhóm: "tiêu đề. abstract", cắt 512 token, fp16):
+
+| Reranker | TREC-COVID | NFCorpus | SciFact |
+|---|---:|---:|---:|
+| MedCPT-CE (R3) | 68,79 | 34,68 | **79,58** |
+| bge-reranker-v2-m3 (R4) | 78,57 | 33,69 | 73,99 |
+| mxbai-rerank-base | 83,06 | 35,48 | 72,03 |
+| bge-reranker-large | 74,23 | 33,83 | 74,20 |
+| MonoT5-base | 74,08 | 35,06 | 73,24 |
+| bge-reranker-base | 68,61 | 31,55 | 71,55 |
+
+- **Model chuyên y sinh thắng ở bộ gần miền huấn luyện nhất.** MedCPT-CE đạt 79,58 trên SciFact, cao hơn mọi dòng của bảng công bố (cao nhất là InRanker-3B 78,31) và hơn bge-reranker-v2-m3 có ý nghĩa thống kê. Nhưng trên TREC-COVID, nó kém bge-reranker-v2-m3 gần 10 điểm.
+- **Trung bình 3 bộ,** mxbai-rerank-base đứng đầu nhóm local (63,52), tiếp theo là bge-reranker-v2-m3 (62,08) và MedCPT-CE (61,02). LambdaMART (61,00) ngang MedCPT-CE dù chỉ là cây quyết định trên đặc trưng; phần lớn sức mạnh của nó đến từ chính đặc trưng MedCPT bi-encoder.
+
+⟦R5, R6 — chạy `make api-run`⟧
 
 ### 5.3 Metadata và tiêu chí (E2) — `report/tables/e2_metadata.md`
 
 - **BM25 khi đổi truy vấn** (TREC-COVID): từ khóa 62,13; câu hỏi 59,47; câu hỏi + narrative 66,74.
 - **LambdaMART CV 5-fold trên TREC-COVID:** M0 69,03, M1 (thêm metadata) 70,84.
-- ⟦cross-encoder, BiLSTM, GPT, Jev; 2×2 tiêu chí; thiên vị vị trí; boost MeSH⟧
+- **Dạng truy vấn đưa vào reranker** (ứng viên giữ cố định), nDCG@10 khi đổi câu hỏi → từ khóa → câu hỏi + narrative:
+
+  | Reranker | Câu hỏi | Từ khóa | Câu hỏi + narrative |
+  |---|---:|---:|---:|
+  | MedCPT-CE | 68,79 | **75,43** | 68,52 |
+  | bge-reranker-v2-m3 | 78,57 | 78,17 | 79,04 |
+  | BiLSTM-ESIM | 55,38 | 51,07 | **63,25** |
+
+  MedCPT-CE được huấn luyện trên log tìm kiếm PubMed (truy vấn dạng từ khóa) nên hợp với truy vấn từ khóa nhất. bge-reranker-v2-m3 gần như không bị ảnh hưởng. BiLSTM hưởng lợi từ narrative, vì narrative bổ sung các từ có vector thay cho "covid-19" bị OOV.
+- **Dòng metadata (M1)** chèn trước abstract:
+  - giúp MedCPT-CE: 68,79 → 72,08 với truy vấn câu hỏi;
+  - gần như không đổi với bge-reranker-v2-m3 (78,57 → 78,52) và BiLSTM (55,38 → 55,04);
+  - với LambdaMART CV 5-fold: 69,03 → 70,84.
+- **Boost hậu kỳ theo độ trùng MeSH** (λ chọn bằng CV 5-fold) **không giúp hệ thống nào**: Δ từ −0,94 đến 0,00, không có ý nghĩa. MeSH của câu hỏi lấy bằng Automatic Term Mapping có nhiễu, và chỉ 40% bài ứng viên có MeSH.
+- ⟦2×2 tiêu chí, listwise/pointwise, thiên vị vị trí — cần API⟧
 
 ### 5.4 Nhãn thiếu (E3) — `report/tables/e3_labels.md`, hình `fig_e3_*`
 
 - **TREC-COVID:** với nhãn tới hết vòng 1, BM25 chỉ có Judged@10 ≈ 9% và nDCG@10 = 5,7, so với 57,8 khi dùng nhãn đầy đủ. Đây là trường hợp nhãn nông cực đoan, vì kho vòng 1 nhỏ hơn nhiều so với kho bản tháng 7.
 - **nDCG@10 condensed** (bỏ bài chưa có nhãn) cho BM25 là 37,5 / 48,7 / 61,5 / 63,7 khi dùng nhãn tới hết vòng 1 / 2 / 3 / 4.
-- ⟦Kendall τ khi đủ hệ thống; SciFact-Open⟧
+- **TREC-COVID, Kendall τ giữa thứ hạng 9 hệ thống** khi chấm bằng nhãn nông so với nhãn đầy đủ (30 topic):
+
+  | Nhãn tới hết vòng | τ (nDCG@10) | Cặp hệ thống đổi chỗ | τ (condensed) |
+  |---|---:|---:|---:|
+  | 1 | 0,28 | 13/36 | 0,67 |
+  | 2 | 0,28 | 13/36 | 0,67 |
+  | 3 | 0,56 | 8/36 | 0,78 |
+  | 4 | 0,94 | 1/36 | 0,89 |
+
+  Như vậy với nhãn nông, nDCG@10 thông thường đảo thứ tự hơn một phần ba số cặp. Bản condensed giảm đáng kể việc đảo này.
+- **SciFact-Open** (190 claim có bằng chứng ở cả hai bộ nhãn): τ = 0,72, 5 cặp hệ thống đổi chỗ.
+  - Mọi cross-encoder được cộng nhiều hơn BM25 (+1,44), LambdaMART (+2,11) và BiLSTM-ESIM (+2,07) khi chấm bằng nhãn đã soát: từ +3,50 (MedCPT-CE) đến +6,76 (bge-reranker-large).
+  - LambdaMART tụt từ hạng 3 xuống hạng 5; bge-reranker-large lên từ 6 lên 4.
+  - Kết quả này khớp với nhận định của BEIR (phân tích Hole@10): nhãn gom từ hệ thống từ vựng phạt oan các hệ thống ngữ nghĩa.
 
 ### 5.5 Chi phí và tốc độ (E4) — `report/tables/e4_cost.md`, hình `fig_e4_pareto.png`
 
-Đo trên Tesla T4 (Kaggle), mỗi truy vấn 100 ứng viên, theo lần chạy thử 3 truy vấn mỗi tập (số sẽ cập nhật theo lần chạy đầy đủ):
+Đo trên Tesla T4 (Kaggle), mỗi truy vấn 100 ứng viên. USD quy theo giá thuê T4 0,35 USD/giờ (ước lượng).
 
-| Reranker | Thời gian mỗi truy vấn |
-|---|---:|
-| MedCPT-CE | khoảng 0,5 s |
-| bge-reranker-v2-m3 | khoảng 1,5 s |
-| MonoT5-base (fp32) | khoảng 3,8 s |
+| Reranker | p50 (ms) | USD / 1.000 truy vấn | nDCG@10 TB 3 bộ |
+|---|---:|---:|---:|
+| BiLSTM-ESIM | 57 | 0,006 | 51,38 |
+| MedCPT-CE | 643 | 0,063 | 61,02 |
+| bge-reranker-base | 734 | 0,071 | 57,24 |
+| mxbai-rerank-base (fp32) | 1.742 | 0,170 | 63,52 |
+| bge-reranker-large | 2.247 | 0,217 | 60,75 |
+| bge-reranker-v2-m3 | 2.275 | 0,220 | 62,08 |
+| MonoT5-base (fp32) | 4.318 | 0,418 | 60,79 |
 
-⟦API⟧
+Biên Pareto của nhóm local gồm BM25, MedCPT-CE và mxbai-rerank-base; các model còn lại đều có một model khác vừa rẻ hơn vừa tốt hơn.
+
+⟦R5, R6: chi phí thật từ `results/api_logs/`⟧
 
 ## 6. So với kết quả công bố
-⟦Viết sau E1.⟧
+
+Đặt cạnh 15 dòng của Abdallah et al. (2025) (bảng `e1_main.md`, hình `fig_e1_ranking.png`, cùng BM25 top-100):
+
+- **SciFact.** MedCPT-CE (79,58) đứng đầu toàn bảng, trên InRanker-3B (78,31) và MonoT5-3B (76,57) dù chỉ khoảng 110M tham số. LambdaMART (75,97) và BiLSTM-ESIM (72,30) đứng trên RankGPT gpt-3.5 (70,43).
+- **NFCorpus.** Mọi reranker nằm trong khoảng hẹp 31–39 (nhãn tự động, truy vấn rất ngắn). Tốt nhất của nhóm là LambdaMART (35,67) và mxbai (35,48), ngang Cohere Rerank-v2 (36,36). Nhóm so bằng mức tăng so với BM25 vì nền BM25 lệch +1,43.
+- **TREC-COVID.** mxbai-rerank-base đạt 83,06, gần với số của bài (84,00); bge-reranker-v2-m3 đạt 78,57. Các dòng mạnh nhất của bài (RankGPT gpt-4 85,51, ListT5-3B 84,70) vẫn cao hơn mọi reranker local của nhóm. Lưu ý chênh lệch do cách nhập văn bản ở mục 5.1.
+- ⟦GPT-6, Jev, Qwen3-Reranker-4B, RRF⟧
 
 ## 7. Phân tích ca tốt / ca không tốt
 ⟦Chọn 3–5 truy vấn mỗi nhóm từ `results/e1/e1_per_query.json`: reranker hơn BM25 nhiều nhất / kém nhất; ca Jev và GPT bất đồng; ca "sai" theo nhãn gốc nhưng đúng theo SciFact-Open.⟧

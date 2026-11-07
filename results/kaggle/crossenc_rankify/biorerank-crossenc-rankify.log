@@ -1,0 +1,30 @@
+[{"stream_name":"stdout","time":8.634665248,"data":"GPU 0: Tesla T4 (UUID: GPU-49855287-5cd9-6bf0-2baf-0f63d900d4ba)\n"}
+,{"stream_name":"stdout","time":8.634717922,"data":"GPU 1: Tesla T4 (UUID: GPU-c3fe1152-0187-762b-4df4-9aece5b0c99f)\n"}
+,{"stream_name":"stderr","time":40.607539688,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":60.045407758,"data":"\rLoading weights:   0%|          | 0/393 [00:00\u003c?, ?it/s]\rLoading weights:  62%|██████▏   | 245/393 [00:00\u003c00:00, 2443.58it/s]\rLoading weights: 100%|██████████| 393/393 [00:00\u003c00:00, 2432.00it/s]\n"}
+,{"stream_name":"stdout","time":562.073444154,"data":"bge_v2_m3    trec-covid    bge_v2_m3.rk           50 truy vấn\n"}
+,{"stream_name":"stdout","time":3011.87741005,"data":"bge_v2_m3    nfcorpus      bge_v2_m3.rk           308 truy vấn\n"}
+,{"stream_name":"stdout","time":6464.860359258,"data":"bge_v2_m3    scifact       bge_v2_m3.rk           300 truy vấn\n"}
+,{"stream_name":"stderr","time":6474.411736613,"data":"\rLoading weights:   0%|          | 0/260 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 260/260 [00:00\u003c00:00, 12261.84it/s]\n"}
+,{"stream_name":"stdout","time":6635.890548908,"data":"monot5_base  trec-covid    monot5_base.rk         50 truy vấn\n"}
+,{"stream_name":"stdout","time":7411.355971465,"data":"monot5_base  nfcorpus      monot5_base.rk         308 truy vấn\n"}
+,{"stream_name":"stdout","time":8462.000339086,"data":"monot5_base  scifact       monot5_base.rk         300 truy vấn\n"}
+,{"stream_name":"stderr","time":8474.174426993,"data":"\rLoading weights:   0%|          | 0/201 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 201/201 [00:00\u003c00:00, 2727.35it/s]\n"}
+,{"stream_name":"stdout","time":8597.714394847,"data":"bge_base     trec-covid    bge_base.rk            50 truy vấn\n"}
+,{"stream_name":"stdout","time":9184.700530701,"data":"bge_base     nfcorpus      bge_base.rk            308 truy vấn\n"}
+,{"stream_name":"stdout","time":9991.726386037,"data":"bge_base     scifact       bge_base.rk            300 truy vấn\n"}
+,{"stream_name":"stderr","time":10010.470241131,"data":"\rLoading weights:   0%|          | 0/393 [00:00\u003c?, ?it/s]\rLoading weights:  64%|██████▍   | 251/393 [00:00\u003c00:00, 2504.85it/s]\rLoading weights: 100%|██████████| 393/393 [00:00\u003c00:00, 2557.90it/s]\n"}
+,{"stream_name":"stdout","time":10397.415802385,"data":"bge_large    trec-covid    bge_large.rk           50 truy vấn\n"}
+,{"stream_name":"stdout","time":12230.842644222,"data":"bge_large    nfcorpus      bge_large.rk           308 truy vấn\n"}
+,{"stream_name":"stdout","time":14745.985650227,"data":"bge_large    scifact       bge_large.rk           300 truy vấn\n"}
+,{"stream_name":"stderr","time":14752.591869055,"data":"\rLoading weights:   0%|          | 0/202 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 202/202 [00:00\u003c00:00, 2484.52it/s]\n"}
+,{"stream_name":"stdout","time":14816.094543337,"data":"mxbai_base   trec-covid    mxbai_base.rk          50 truy vấn\n"}
+,{"stream_name":"stdout","time":15118.644028338,"data":"mxbai_base   nfcorpus      mxbai_base.rk          308 truy vấn\n"}
+,{"stream_name":"stdout","time":15518.826348561,"data":"mxbai_base   scifact       mxbai_base.rk          300 truy vấn\n"}
+,{"stream_name":"stderr","time":15525.237462648,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":15525.237497079,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":15525.51268104,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":15525.512725992,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":15526.330274406,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":15527.352030531,"data":"[NbConvertApp] Writing 279642 bytes to __results__.html\n"}
+]

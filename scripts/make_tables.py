@@ -36,22 +36,36 @@ def write(name, text):
 
 def table_e0():
     rows = load("e0/e0.json") or []
-    out = ["| Hệ thống | Bộ | Nhóm chạy lại | Bài báo | Lệch | Ngưỡng | Đạt? |", "|---|---|---:|---:|---:|---:|:---:|"]
+    has_rk = any("ours_rk" in r for r in rows)
+    head = "| Hệ thống | Bộ | Bài báo | Nhóm: tiêu đề + abstract | Lệch | Đạt? |"
+    sep = "|---|---|---:|---:|---:|:---:|"
+    if has_rk:
+        head += " Nhóm: chỉ abstract, fp32 (như Rankify) | Lệch | Đạt? |"
+        sep += "---:|---:|:---:|"
+    out = [head, sep]
+
+    def ok(v):
+        return DASH if v is None else ("✓" if v else "✗")
     for r in rows:
-        ok = DASH if r.get("ours") is None else ("✓" if r["pass"] else "✗")
-        out.append(f"| {r['label']} | {DSN[r['ds']]} | {r['ours'] if r.get('ours') is not None else DASH} | {r['paper']} | "
-                   f"{r.get('diff', DASH)} | ±{r.get('tol', DASH)} | {ok} |")
-    out.append("\nnDCG@10 × 100. Bài báo: " + PUB.ABDALLAH + ". BM25 NFCorpus của Pyserini 2CR là 32,2 (≠ 30,75 trong bài) — xem mục 10.3 của plan.")
+        line = (f"| {r['label']} | {DSN[r['ds']]} | {r['paper']} | {r['ours'] if r.get('ours') is not None else DASH} | "
+                f"{r.get('diff', DASH)} | {ok(r.get('pass'))} |")
+        if has_rk:
+            line += f" {r.get('ours_rk', DASH)} | {r.get('diff_rk', DASH)} | {ok(r.get('pass_rk'))} |"
+        out.append(line)
+    out.append("\nnDCG@10 × 100; ngưỡng đạt: BM25 ±0,5, reranker ±1,0. Bài báo: " + PUB.ABDALLAH +
+               ". Rankify (toolkit của bài báo) chỉ đưa `context.text` vào reranker; RankGPT gốc đưa 'Title: … Content: …'. "
+               "BM25 NFCorpus của Pyserini 2CR là 32,2 (≠ 30,75 trong bài) — xem mục 10.3 của plan.")
     write("e0_reproduction.md", "\n".join(out))
 
 
 def table_e1():
     e1 = load("e1/e1.json") or {}
-    head = "| | Hệ thống | Thế hệ | " + " | ".join(DSN[d] for d in BEIR3) + " | TB |"
-    out = [head, "|---|---|---|" + "---:|" * 4]
+    head = "| | Hệ thống | Thế hệ | Đầu vào reranker | " + " | ".join(DSN[d] for d in BEIR3) + " | TB |"
+    out = [head, "|---|---|---|---|" + "---:|" * 4]
     for name, gen, year, sc, src, note in PUB.ABDALLAH_ROWS:
         vals = [sc[d] for d in BEIR3]
-        out.append(f"| công bố | {name} | {gen} | " + " | ".join(f"{v:.2f}" for v in vals) + f" | {sum(vals) / 3:.2f} |")
+        fmt = PUB.INPUT_FORMAT.get(name, "không rõ")
+        out.append(f"| công bố | {name} | {gen} | {fmt} | " + " | ".join(f"{v:.2f}" for v in vals) + f" | {sum(vals) / 3:.2f} |")
     for s in SYSTEMS:
         cells, vals = [], []
         for d in BEIR3:
@@ -67,11 +81,14 @@ def table_e1():
             cells.append(f"**{f100(m['nDCG@10'], m.get('nDCG@10_sd'))}**{mark}")
             vals.append(m["nDCG@10"])
         avg = f"**{100 * sum(vals) / 3:.2f}**" if len(vals) == 3 else DASH
-        out.append(f"| **nhóm** {s.sid} | **{s.label}** | {s.gen} | " + " | ".join(cells) + f" | {avg} |")
+        fmt = "—" if s.sid == "R0" else "title+text"
+        out.append(f"| **nhóm** {s.sid} | **{s.label}** | {s.gen} | {fmt} | " + " | ".join(cells) + f" | {avg} |")
     out.append("\nnDCG@10 × 100, cùng BM25 (Pyserini flat) top-100. Dòng *công bố*: " + PUB.ABDALLAH +
                " (bảng 2–3). Dòng **nhóm**: số của nhóm; nhiều seed thì ghi trung bình ± SD (3 seed). "
                "† hơn BM25, ‡ hơn bge-reranker-v2-m3, ▾ kém bge-reranker-v2-m3 — paired bootstrap 10.000 lần, hiệu chỉnh Holm, p < 0,05. "
-               "RankGPT gpt-4 và GPT-6.1 Sol của nhóm chỉ xếp lại top-30 của model nhỏ.")
+               "RankGPT gpt-4 và GPT-6.1 Sol của nhóm chỉ xếp lại top-30 của model nhỏ. "
+               "Cột *Đầu vào reranker*: dòng chép từ RankGPT dùng 'Title: … Content: …' (rank_gpt.py), dòng chạy bằng Rankify chỉ dùng abstract "
+               "(TransformerRanker/MonoT5 đưa `context.text`); nhóm dùng 'tiêu đề. abstract'. Ảnh hưởng của khác biệt này: bảng E0.")
     write("e1_main.md", "\n".join(out))
     out = ["| Hệ thống | Bộ | nDCG@10 | KTC 95% | MRR@10 | R@10 | R@100 | Judged@10 |", "|---|---|---:|---|---:|---:|---:|---:|"]
     for s in SYSTEMS:
@@ -187,7 +204,48 @@ def table_data():
     write("data_overview.md", "\n".join(o))
 
 
+def table_improvements():
+    """BiLSTM-ESIM v1 → v2 (+ ablation) và tổ hợp RRF chọn trên dev."""
+    import numpy as np
+    from src.data.beir_loader import load_qrels
+    from src.eval.ir_metrics import evaluate
+    from src.utils.io import read_run
+    from src.utils.paths import RUNS
+    K = RESULTS / "kaggle"
+    variants = [
+        ("v1: BioWordVec cố định, OOV ngẫu nhiên, ≤8 epoch", "bilstm", [K / "bilstm" / "out" / f"train_log_s{i}.json" for i in range(3)]),
+        ("v2: + vector OOV à la carte (học tiếp) + kênh khớp từ, ≤15 epoch", "bilstm2", [K / "bilstm2" / "out" / f"train_log_bilstm2_s{i}.json" for i in range(3)]),
+        ("v2 bỏ kênh khớp từ (seed 0)", "bilstm2_noem", [K / "bilstm2_abl" / "out" / "train_log_bilstm2_noem_s0.json"]),
+        ("v2 bỏ vector à la carte (OOV ngẫu nhiên, học tiếp; seed 0)", "bilstm2_nooov", [K / "bilstm2_abl" / "out" / "train_log_bilstm2_nooov_s0.json"]),
+    ]
+    o = ["| Phiên bản | dev nDCG@10 (tốt nhất) | " + " | ".join(DSN[d] for d in BEIR3) + " |", "|---|---:|" + "---:|" * 3]
+    for label, tag, logs in variants:
+        devs = [json.loads(l.read_text())["best_dev_ndcg10"] for l in logs if l.exists()]
+        cells = []
+        for d in BEIR3:
+            runs = sorted((RUNS / d / "test").glob(f"{tag}_s?.trec"))
+            if not runs:
+                cells.append(DASH)
+                continue
+            v = [evaluate(load_qrels(d, "test"), read_run(r))["nDCG@10"] for r in runs]
+            cells.append(f"{100 * np.mean(v):.2f}" + (f" ± {100 * np.std(v):.2f}" if len(v) > 1 else ""))
+        dv = f"{np.mean(devs):.4f}" if devs else DASH
+        o.append(f"| {label} | {dv} | " + " | ".join(cells) + " |")
+    o.append("\nBM25 trên cùng dev: 0,4979 (NFCorpus 0,2886; SciFact 0,7071). Chọn phiên bản theo dev; test chỉ để báo cáo.")
+    parts = ["### BiLSTM-ESIM: v1 → v2 và ablation\n" + "\n".join(o)]
+    ens = load("ensemble.json")
+    if ens:
+        e = ["| Bước | Thành viên | dev nDCG@10 |", "|---:|---|---:|"]
+        for i, t in enumerate(ens["selection_trace"], 1):
+            e.append(f"| {i} | {' + '.join(t['members'])} | {t['dev_ndcg10']:.4f} |")
+        single = ", ".join(f"{k} {v:.4f}" for k, v in sorted(ens["single_dev_ndcg10"].items(), key=lambda x: -x[1]))
+        parts.append("### RRF ensemble — forward selection trên dev (k = 60)\n" + "\n".join(e) +
+                     f"\n\nĐiểm dev từng hệ thống: {single}. Ứng viên chỉ gồm hệ thống zero-shot.")
+    write("improvements.md", "\n\n".join(parts))
+
+
 if __name__ == "__main__":
+    table_improvements()
     table_data()
     table_e0()
     table_e1()

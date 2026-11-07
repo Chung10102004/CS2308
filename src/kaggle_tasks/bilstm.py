@@ -25,13 +25,29 @@ from .common import (E2_VARIANTS, SMOKE, TEST_SETS, Pack, Timer, doc_text, gpu_n
 TOKEN = re.compile(r"[a-z0-9]+(?:[-'][a-z0-9]+)*")
 QLEN, DLEN, GROUP, BATCH = 64, 256, 8, 16
 EPOCHS = int(os.environ.get("BILSTM_EPOCHS", "8"))
-PATIENCE, LR, HIDDEN, DROPOUT = 2, 4e-4, 200, 0.3
+PATIENCE = int(os.environ.get("BILSTM_PATIENCE", "2"))
+LR, HIDDEN, DROPOUT = 4e-4, 200, 0.3
 SEEDS = [int(s) for s in os.environ.get("BILSTM_SEEDS", "0,1,2").split(",")]
+# v2 (chọn trên dev): TAG=bilstm2, EM=1 (kênh khớp từ chính xác), OOV=alacarte (vector OOV suy từ ngữ cảnh,
+# data/kaggle_pack/emb_v2) và cho phép học tiếp vector OOV; ABLATION=1 chạy hai bản bỏ bớt (seed 0).
+TAG = os.environ.get("BILSTM_TAG", "bilstm")
+USE_EM = os.environ.get("BILSTM_EM", "0") == "1"
+OOV_MODE = os.environ.get("BILSTM_OOV", "random")          # random | alacarte
+OOV_TRAIN = os.environ.get("BILSTM_OOV_TRAIN", "0") == "1"
+ABLATION = os.environ.get("BILSTM_ABLATION", "0") == "1"
+DEV_RUNS = os.environ.get("BILSTM_DEV_RUNS", "0") == "1"
 TRAIN_SETS = [("nfcorpus", "train"), ("scifact", "train")]
 DEV_SETS = [("nfcorpus", "dev"), ("scifact", "dev")]
 
 
 def find_emb() -> Path:
+    from .common import find_pack
+    try:
+        v2 = find_pack() / "emb_v2"          # có cả vector gốc (found) lẫn vector suy ra (imputed)
+        if (v2 / "emb.npy").exists():
+            return v2
+    except FileNotFoundError:
+        pass
     env = os.environ.get("BIORERANK_EMB")
     roots = [Path(env)] if env else ([Path("/kaggle/input")] if Path("/kaggle/input").exists()
                                      else [Path(__file__).resolve().parents[2] / "results" / "kaggle"])
@@ -49,11 +65,30 @@ class Vocab:
         return [self.idx.get(t, 1) for t in TOKEN.findall(text.lower())][:maxlen] or [1]
 
 
-class ESIM(nn.Module):
-    def __init__(self, emb: torch.Tensor, hidden=HIDDEN, dropout=DROPOUT):
+class Embed(nn.Module):
+    """Vector BioWordVec cố định; nếu oov_mask được truyền và OOV_TRAIN, các dòng OOV được học tiếp."""
+
+    def __init__(self, emb: torch.Tensor, oov_mask: torch.Tensor | None = None):
         super().__init__()
-        self.emb = nn.Embedding.from_pretrained(emb, freeze=True, padding_idx=0)
-        d = emb.shape[1]
+        self.base = nn.Embedding.from_pretrained(emb, freeze=True, padding_idx=0)
+        self.train_oov = oov_mask is not None and OOV_TRAIN
+        if self.train_oov:
+            self.register_buffer("mask", oov_mask)
+            self.oov = nn.Embedding.from_pretrained(emb.clone(), freeze=False, padding_idx=0)
+
+    def forward(self, x):
+        e = self.base(x)
+        if self.train_oov:
+            e = torch.where(self.mask[x][..., None], self.oov(x), e)
+        return e
+
+
+class ESIM(nn.Module):
+    def __init__(self, emb: torch.Tensor, hidden=HIDDEN, dropout=DROPOUT, oov_mask=None, use_em=False):
+        super().__init__()
+        self.emb = Embed(emb, oov_mask)
+        self.use_em = use_em
+        d = emb.shape[1] + (1 if use_em else 0)
         self.enc = nn.LSTM(d, hidden, batch_first=True, bidirectional=True)
         self.proj = nn.Sequential(nn.Linear(8 * hidden, hidden), nn.ReLU())
         self.comp = nn.LSTM(hidden, hidden, batch_first=True, bidirectional=True)
@@ -70,8 +105,13 @@ class ESIM(nn.Module):
     def forward(self, q, ql, d, dl):
         qm = (q != 0).float()
         dm = (d != 0).float()
-        a = self._rnn(self.enc, self.emb(q), ql)
-        b = self._rnn(self.enc, self.emb(d), dl)
+        eq, ed = self.emb(q), self.emb(d)
+        if self.use_em:   # kênh khớp từ chính xác: token có xuất hiện ở phía bên kia không (bỏ PAD/UNK)
+            same = (q[:, :, None] == d[:, None, :]) & (q[:, :, None] > 1) & (d[:, None, :] > 1)
+            eq = torch.cat([eq, same.any(2, keepdim=True).float()], -1)
+            ed = torch.cat([ed, same.any(1)[..., None].float()], -1)
+        a = self._rnn(self.enc, eq, ql)
+        b = self._rnn(self.enc, ed, dl)
         e = a @ b.transpose(1, 2)
         a_t = F.softmax(e.masked_fill(dm[:, None, :] == 0, -1e4), dim=2) @ b
         b_t = F.softmax(e.transpose(1, 2).masked_fill(qm[:, None, :] == 0, -1e4), dim=2) @ a
@@ -156,13 +196,15 @@ def dev_score(model, data, dev):
     return float(np.mean(vals)), vals
 
 
-def train_one(seed, data: Data, emb, out: Path, dev):
+def train_one(seed, data: Data, emb, out: Path, dev, tag="bilstm", oov_mask=None, use_em=False):
     random.seed(seed), np.random.seed(seed), torch.manual_seed(seed)
     rng = random.Random(seed)
-    model = ESIM(emb).to(dev)
+    model = ESIM(emb, oov_mask=oov_mask, use_em=use_em).to(dev)
     opt = torch.optim.Adam([p for p in model.parameters() if p.requires_grad], lr=LR)
-    log = {"seed": seed, "epochs": [], "config": {"QLEN": QLEN, "DLEN": DLEN, "GROUP": GROUP, "BATCH": BATCH,
-                                                    "LR": LR, "HIDDEN": HIDDEN, "DROPOUT": DROPOUT}}
+    log = {"seed": seed, "tag": tag, "epochs": [], "config": {
+        "QLEN": QLEN, "DLEN": DLEN, "GROUP": GROUP, "BATCH": BATCH, "LR": LR, "HIDDEN": HIDDEN, "DROPOUT": DROPOUT,
+        "EPOCHS": EPOCHS, "PATIENCE": PATIENCE, "EM": use_em, "OOV": OOV_MODE,
+        "OOV_TRAIN": bool(oov_mask is not None and OOV_TRAIN)}}
     best, best_state, bad = -1, None, 0
     for ep in range(EPOCHS if not SMOKE else 1):
         model.train()
@@ -194,35 +236,53 @@ def train_one(seed, data: Data, emb, out: Path, dev):
                 break
     model.load_state_dict(best_state)
     log["best_dev_ndcg10"] = best
-    (out / f"train_log_s{seed}.json").write_text(json.dumps(log, indent=1))
+    (out / f"train_log_{tag}_s{seed}.json" if tag != "bilstm" else out / f"train_log_s{seed}.json").write_text(json.dumps(log, indent=1))
     return model
+
+
+def load_emb(ed: Path, oov_mode: str):
+    words = json.loads((ed / "words.json").read_text())
+    vecs = np.load(ed / "emb.npy").astype(np.float32)
+    found = np.load(ed / "found.npy") if (ed / "found.npy").exists() else np.abs(vecs).sum(1) > 0
+    have = found | (np.load(ed / "imputed.npy") if oov_mode == "alacarte" and (ed / "imputed.npy").exists() else False)
+    rng = np.random.default_rng(0)
+    oov = rng.normal(0, 0.1, size=vecs.shape).astype(np.float32)
+    vecs = np.where(have[:, None], vecs, oov)
+    emb = torch.tensor(np.vstack([np.zeros((1, vecs.shape[1]), np.float32),
+                                  rng.normal(0, 0.1, (1, vecs.shape[1])).astype(np.float32), vecs]))
+    oov_mask = torch.tensor(np.concatenate([[False, True], ~found]))   # các dòng không có vector BioWordVec gốc
+    return words, emb, oov_mask, {"vocab": len(words), "found": int(found.sum()), "with_vector": int(have.sum())}
+
+
+def run_config(pack, out, dev, tag, seeds, oov_mode, use_em, lat_first=True):
+    global OOV_MODE
+    OOV_MODE = oov_mode
+    words, emb, oov_mask, st = load_emb(find_emb(), oov_mode)
+    data = Data(pack, Vocab(words))
+    (out / f"emb_stats_{tag}.json").write_text(json.dumps({**st, "oov_mode": oov_mode, "em": use_em}))
+    lat = open(out / "latency.jsonl", "a")
+    for seed in seeds:
+        model = train_one(seed, data, emb, out, dev, tag, oov_mask if (OOV_TRAIN or oov_mode == "alacarte") else None, use_em)
+        jobs = [(ds, split, "Q-q", False) for ds, split in TEST_SETS] + [("trec-covid", "test", v, m) for v, m in E2_VARIANTS]
+        if DEV_RUNS:
+            jobs += [(ds, split, "Q-q", False) for ds, split in DEV_SETS]
+        for ds, split, variant, meta in jobs:
+            name = run_name(f"{tag}_s{seed}", variant, meta)
+            run = rerank(model, data, ds, split, variant, meta, dev, lat if (seed == seeds[0] and lat_first) else None, name)
+            write_run(out / "runs" / ds / split / f"{name}.trec", run, name)
+        torch.save(model.state_dict(), out / f"{tag}_s{seed}.pt")
+    lat.close()
 
 
 def main():
     pack, out = Pack(), out_dir("bilstm")
     dev = "cuda" if torch.cuda.is_available() else "cpu"
-    ed = find_emb()
-    words = json.loads((ed / "words.json").read_text())
-    vecs = np.load(ed / "emb.npy")
-    found = np.load(ed / "found.npy") if (ed / "found.npy").exists() else np.abs(vecs).sum(1) > 0
-    rng = np.random.default_rng(0)
-    oov = rng.normal(0, 0.1, size=vecs.shape).astype(np.float32)
-    vecs = np.where(found[:, None], vecs, oov)
-    emb = torch.tensor(np.vstack([np.zeros((1, vecs.shape[1]), np.float32),
-                                  rng.normal(0, 0.1, (1, vecs.shape[1])).astype(np.float32), vecs]))
-    data = Data(pack, Vocab(words))
-    (out / "emb_stats.json").write_text(json.dumps({"vocab": len(words), "found": int(found.sum())}))
-    lat = open(out / "latency.jsonl", "a")
-    for seed in SEEDS:
-        model = train_one(seed, data, emb, out, dev)
-        jobs = [(ds, split, "Q-q", False) for ds, split in TEST_SETS] + [("trec-covid", "test", v, m) for v, m in E2_VARIANTS]
-        for ds, split, variant, meta in jobs:
-            name = run_name(f"bilstm_s{seed}", variant, meta)
-            run = rerank(model, data, ds, split, variant, meta, dev, lat if seed == SEEDS[0] else None, name)
-            write_run(out / "runs" / ds / split / f"{name}.trec", run, name)
-        torch.save(model.state_dict(), out / f"bilstm_s{seed}.pt")
-    lat.close()
-    (out / "DONE_bilstm").write_text(json.dumps({"seeds": SEEDS, "device": gpu_name(), "smoke": SMOKE}))
+    if ABLATION:   # bỏ từng thành phần của v2, seed 0
+        run_config(pack, out, dev, "bilstm2_noem", [SEEDS[0]], "alacarte", False, lat_first=False)
+        run_config(pack, out, dev, "bilstm2_nooov", [SEEDS[0]], "random", True, lat_first=False)
+    else:
+        run_config(pack, out, dev, TAG, SEEDS, OOV_MODE, USE_EM)
+    (out / f"DONE_{TAG if not ABLATION else 'ablation'}").write_text(json.dumps({"seeds": SEEDS, "device": gpu_name(), "smoke": SMOKE}))
 
 
 if __name__ == "__main__":

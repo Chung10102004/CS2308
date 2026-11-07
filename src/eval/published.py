@@ -27,6 +27,19 @@ ABDALLAH_ROWS = [
     ("Setwise Flan-T5-XXL (bubblesort)", "LLM setwise", 2024, {"trec-covid": 76.8, "nfcorpus": 34.6, "scifact": 75.4}, ABDALLAH + ", Table 3", ""),
 ]
 
+# Cách đưa văn bản vào reranker của từng dòng công bố (đã kiểm mã nguồn ngày 2026-11-06):
+# - 5 dòng có số trùng khớp với RankGPT Table 1 → RankGPT rank_gpt.py dòng 113–114: 'Title: {title} Content: {text}'
+# - các dòng chạy bằng Rankify (TransformerRanker / MonoT5) → chỉ `context.text` (không tiêu đề)
+# - các dòng còn lại: không rõ nguồn gốc cấu hình
+INPUT_FORMAT = {
+    "BM25": "— (không rerank)",
+    "monoBERT (340M)": "title+text (RankGPT)", "MonoT5-3B": "title+text (RankGPT)",
+    "Cohere Rerank-v2": "title+text (RankGPT)", "RankGPT gpt-3.5-turbo": "title+text (RankGPT)",
+    "RankGPT gpt-4": "title+text (RankGPT)",
+    "bge-reranker-base": "text (Rankify)", "bge-reranker-large": "text (Rankify)",
+    "bge-reranker-v2-m3": "text (Rankify)", "mxbai-rerank-base": "text (Rankify)", "MonoT5-base": "text (Rankify)",
+}
+
 # Mốc tái lập E0: hệ thống của nhóm -> dòng công bố tương ứng
 E0_ANCHORS = {
     "bm25": "BM25",

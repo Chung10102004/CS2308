@@ -7,7 +7,7 @@ CONFIRM ?= 0
 SKIP_LARGE ?= 0
 API_FLAGS := $(if $(filter 1,$(CONFIRM)),--confirm,) $(if $(filter 1,$(SKIP_LARGE)),--skip-large,)
 
-.PHONY: help setup data bm25 metadata pack local kaggle-upload kaggle-run kaggle-pull lambdamart eval tables figures \
+.PHONY: ensemble help setup data bm25 metadata pack local kaggle-upload kaggle-run kaggle-pull lambdamart eval tables figures \
         corpus errors report demo test check-api api-dry api-run all-after-api
 
 help:
@@ -41,7 +41,7 @@ kaggle-run: ## Chạy 4 task GPU trên Kaggle (tối đa 2 GPU cùng lúc) và t
 	$(PY) scripts/kaggle_pipeline.py --push crossenc; wait
 
 kaggle-pull: ## Tải lại output của mọi task Kaggle
-	for t in crossenc medcpt_feat biowordvec_cut bilstm; do $(PY) scripts/kaggle_job.py pull --task $$t; done
+	for t in crossenc medcpt_feat biowordvec_cut bilstm crossenc_rankify crossenc_dev qwen3 bilstm2 bilstm2_abl; do $(PY) scripts/kaggle_job.py pull --task $$t; done
 
 lambdamart: ## R1 LambdaMART (cần output medcpt_feat)
 	$(PY) -m src.rerank.lambdamart --mode all
@@ -58,7 +58,10 @@ figures: ## Hình → report/figures/
 corpus: ## Phân tích ngữ liệu → report/figures/fig_data_*.png
 	$(PY) scripts/corpus_analysis.py
 
-report: eval tables figures corpus errors ## Chấm lại + sinh lại toàn bộ bảng và hình
+ensemble: ## RRF ensemble, tổ hợp chọn trên dev (cần run dev của cross-encoder/Qwen3)
+	-$(PY) scripts/ensemble.py
+
+report: ensemble eval tables figures corpus errors ## Chấm lại + sinh lại toàn bộ bảng và hình
 
 errors: ## Ca tốt / ca không tốt so với BM25
 	$(PY) scripts/error_analysis.py

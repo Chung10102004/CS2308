@@ -62,9 +62,14 @@ def e0():
                 rows.append({"system": s.sid, "label": s.label, "ds": ds, "ours": None, "paper": pub[ds]})
                 continue
             ours = 100 * evaluate(qrels_for(ds), runs[0])["nDCG@10"]
-            rows.append({"system": s.sid, "label": s.label, "ds": ds, "ours": round(ours, 2), "paper": pub[ds],
-                         "diff": round(ours - pub[ds], 2), "tol": tol, "pass": abs(ours - pub[ds]) <= tol,
-                         "pyserini_2cr": PUB.PYSERINI_BM25_FLAT.get(ds) if s.sid == "R0" else None})
+            row = {"system": s.sid, "label": s.label, "ds": ds, "ours": round(ours, 2), "paper": pub[ds],
+                   "diff": round(ours - pub[ds], 2), "tol": tol, "pass": abs(ours - pub[ds]) <= tol,
+                   "pyserini_2cr": PUB.PYSERINI_BM25_FLAT.get(ds) if s.sid == "R0" else None}
+            rk = load_runs(s, ds, suffix=".rk")      # cấu hình giống Rankify: chỉ abstract, fp32
+            if rk:
+                o = 100 * evaluate(qrels_for(ds), rk[0])["nDCG@10"]
+                row.update({"ours_rk": round(o, 2), "diff_rk": round(o - pub[ds], 2), "pass_rk": abs(o - pub[ds]) <= tol})
+            rows.append(row)
     write_json(RESULTS / "e0" / "e0.json", rows)
     return rows
 
@@ -113,7 +118,7 @@ def e2():
     ds, q = "trec-covid", qrels_for("trec-covid")
     out = {"variants": {}, "bm25_first_stage": {}, "criteria": {}, "listwise_vs_pointwise": {}, "position_bias": {},
            "lambdamart_cv": {}, "mesh_boost": {}}
-    for sid in ("R2", "R3", "R4", "R5s", "R6"):
+    for sid in ("R2", "R2b", "R3", "R4", "R5s", "R6"):
         s = BY_ID[sid]
         row = {}
         for v, m in VARIANTS:
@@ -266,18 +271,21 @@ def e4():
     t4 = pricing["gpu"]["t4_usd_per_hour"]
     rows = {}
     lat = defaultdict(list)
-    for task in ("crossenc", "bilstm"):
+    name_map = {"medcpt_ce": "R3", "bge_v2_m3": "R4", "bge_base": "X1", "bge_large": "X2", "mxbai_base": "X3",
+                "monot5_base": "X4", "qwen3_4b": "R7"}
+    task_sid = {"crossenc": None, "bilstm": "R2", "bilstm2": "R2b", "qwen3": None}   # None: lấy theo trường model
+    gpus = {}
+    for task, fixed in task_sid.items():
         p = RESULTS / "kaggle" / task / "out" / "latency.jsonl"
         if p.exists():
             for r in read_jsonl(p):
                 if r["ds"] in BEIR3 and "." not in r["variant"] and r["n_docs"] >= 90:
-                    lat[r["model"]].append(r["ms"])
-    name_map = {"bm25": "R0", "medcpt_ce": "R3", "bge_v2_m3": "R4", "bilstm": "R2", "bge_base": "X1",
-                "bge_large": "X2", "mxbai_base": "X3", "monot5_base": "X4"}
-    for m, v in lat.items():
+                    sid = fixed or name_map.get(r["model"], r["model"])
+                    lat[sid].append(r["ms"])
+                    gpus[sid] = r.get("parallel_gpus", 1)
+    for sid, v in lat.items():
         v = np.array(v)
-        sid = name_map.get(m, m)
-        rows[sid] = {"kind": "local-gpu", "device": "Tesla T4 (Kaggle)", "n": len(v),
+        rows[sid] = {"kind": "local-gpu", "device": f"Tesla T4 (Kaggle) ×{gpus.get(sid, 1)} song song", "n": len(v),
                      "p50_ms": float(np.percentile(v, 50)), "p95_ms": float(np.percentile(v, 95)),
                      "p99_ms": float(np.percentile(v, 99)),
                      "usd_per_1k": float(v.mean() / 1000 / 3600 * t4 * 1000), "usd_note": f"ước lượng: giá thuê T4 {t4} USD/giờ"}

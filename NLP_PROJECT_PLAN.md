@@ -369,6 +369,10 @@ Các dòng trích từ bảng 2–3 (nDCG@10, ×100; đã kiểm với PDF ngày
 
 ### 10.3 Cách so
 - **Chỉ đặt cạnh bảng 10.1 sau khi E0 đạt.** Dòng của nhóm in đậm hoặc tô màu; dòng công bố giữ nguyên số và ghi nguồn.
+- **Cách nhập văn bản vào reranker (E0, đã kiểm 06/11/2026):**
+  - Rankify (toolkit của bài báo) chỉ đưa abstract; RankGPT gốc đưa "Title: … Content: …"; nhóm đưa "tiêu đề. abstract".
+  - Chạy lại 5 model theo cả hai cách: cách của nhóm khớp 13/15 dòng reranker của bài báo (±1 điểm). Hai dòng TREC-COVID (bge-reranker-v2-m3, MonoT5-base) chỉ khớp khi bỏ tiêu đề (lệch −0,53 và −0,11), trong khi bỏ tiêu đề làm lệch hầu hết các dòng còn lại.
+  - **Kết luận:** bảng công bố trộn cách nhập văn bản giữa các dòng. Nhóm giữ "tiêu đề. abstract" cho mọi dòng của mình và chú thích rằng trên TREC-COVID, một số dòng công bố có thể đã không dùng tiêu đề (chênh tới khoảng 4 điểm).
 - **NFCorpus:** BM25 trong bài báo là 30,75, nhưng Pyserini 2CR ghi 32,2 (flat).
   - Nếu E0 ra khoảng 32,2, vẫn dùng top-100 của nhóm cho mọi reranker.
   - Khi đặt cạnh bảng thì ghi chú độ lệch nền khoảng 1,4 điểm.
@@ -554,6 +558,8 @@ Deadline: **TODO, người dùng cung cấp**.
 | 2026-11-06 | E2/E3 trên TREC-COVID dùng CV 5-fold theo topic khi cần chọn tham số (λ MeSH, R1-M1) | TREC-COVID không có dev; không chỉnh trên topic đang chấm |
 | 2026-11-06 | E3 thêm nDCG@10 condensed và đường cong theo vòng 1..4 | Kho vòng 1 nhỏ hơn kho BEIR nhiều, nên nhãn vòng 1 cho Judged@10 chỉ khoảng 9% |
 | 2026-11-06 | Biến thể truy vấn ở E2 giữ cố định ứng viên (BM25 Q-q) và chỉ đổi văn bản đưa vào reranker | Tách riêng tác động lên reranker; BM25 với truy vấn đổi báo riêng |
+| 2026-11-07 | Giữ "tiêu đề. abstract" cho mọi reranker của nhóm (không chuyển sang "chỉ abstract" như Rankify) | Khớp 13/15 dòng công bố; hai dòng TREC-COVID còn lại khớp khi bỏ tiêu đề → bảng công bố tự trộn cách nhập (task thăm dò `crossenc_rankify`) |
+| 2026-11-07 | Thêm 3 cải tiến (người dùng chọn): BiLSTM-ESIM v2, Qwen3-Reranker-4B, RRF ensemble chọn trên dev | Cải thiện thành phần LSTM theo chẩn đoán; thêm LLM mã nguồn mở miễn phí; tổ hợp chỉ chọn trên dev, chỉ gồm reranker zero-shot (dev không bị dùng để huấn luyện) |
 
 ---
 
