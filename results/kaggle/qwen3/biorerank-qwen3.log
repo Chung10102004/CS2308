@@ -1,0 +1,20 @@
+[{"stream_name":"stdout","time":19.863782408,"data":"GPU 0: Tesla T4 (UUID: GPU-0708c06f-7c9b-6542-32b3-2260e75df090)\n"}
+,{"stream_name":"stdout","time":19.863844644,"data":"GPU 1: Tesla T4 (UUID: GPU-8d8432e1-389d-bab1-4dd7-aa8b8b3c1607)\n"}
+,{"stream_name":"stderr","time":19.874086883,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":19.87474297,"data":"  File \"/kaggle/src/script.py\", line 22, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":19.874759094,"data":"    importlib.import_module(\"src.kaggle_tasks.qwen3\").main()\n"}
+,{"stream_name":"stderr","time":19.874764405,"data":"    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":19.87476993,"data":"  File \"/usr/lib/python3.13/importlib/__init__.py\", line 88, in import_module\n"}
+,{"stream_name":"stderr","time":19.87477438,"data":"    return _bootstrap._gcd_import(name[level:], package, level)\n"}
+,{"stream_name":"stderr","time":19.8747791,"data":"           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":19.874783346,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1404, in _gcd_import\n"}
+,{"stream_name":"stderr","time":19.874787657,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1369, in _find_and_load\n"}
+,{"stream_name":"stderr","time":19.87479188,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1333, in _find_and_load_unlocked\n"}
+,{"stream_name":"stderr","time":19.874796619,"data":"ModuleNotFoundError: No module named 'src.kaggle_tasks.qwen3'\n"}
+,{"stream_name":"stderr","time":22.456875737,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":22.456926809,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":22.850886902,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":22.850914882,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":23.966781466,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":25.167695347,"data":"[NbConvertApp] Writing 278669 bytes to __results__.html\n"}
+]

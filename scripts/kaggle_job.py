@@ -61,6 +61,7 @@ def kaggle(*args, check=True, capture=False):
 def upload(msg="update"):
     if not (PACK / "PACK_MANIFEST.json").exists():
         packmod.build()
+    packmod.refresh_code()                      # luôn gửi code mới nhất (tránh lỗi kernel chạy code cũ)
     meta = {"title": "biorerank-pack", "id": DATASET, "licenses": [{"name": "other"}]}
     (PACK / "dataset-metadata.json").write_text(json.dumps(meta, indent=1))
     exists = kaggle("datasets", "status", DATASET, check=False, capture=True)
