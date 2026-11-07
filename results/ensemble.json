@@ -1,0 +1,57 @@
+{
+  "candidates_available": [
+    "bm25",
+    "medcpt_ce",
+    "bge_v2_m3",
+    "bge_base",
+    "bge_large",
+    "mxbai_base",
+    "monot5_base"
+  ],
+  "single_dev_ndcg10": {
+    "bm25": 0.4978544540373274,
+    "medcpt_ce": 0.5454209899434576,
+    "bge_v2_m3": 0.5281664509098329,
+    "bge_base": 0.5180307257382569,
+    "bge_large": 0.5304043572527236,
+    "mxbai_base": 0.5387304175566755,
+    "monot5_base": 0.5366856849733926
+  },
+  "chosen": [
+    "medcpt_ce",
+    "mxbai_base",
+    "bge_large"
+  ],
+  "dev_ndcg10": 0.5606231656924596,
+  "selection_trace": [
+    {
+      "members": [
+        "medcpt_ce"
+      ],
+      "dev_ndcg10": 0.5454209899434576
+    },
+    {
+      "members": [
+        "medcpt_ce",
+        "mxbai_base"
+      ],
+      "dev_ndcg10": 0.5547169413676354
+    },
+    {
+      "members": [
+        "medcpt_ce",
+        "mxbai_base",
+        "bge_large"
+      ],
+      "dev_ndcg10": 0.5606231656924596
+    }
+  ],
+  "k": 60,
+  "written_test": {
+    "trec-covid": true,
+    "nfcorpus": true,
+    "scifact": true,
+    "scifact-open": true
+  },
+  "note": "chọn hoàn toàn trên dev (NFCorpus dev + SciFact dev); TREC-COVID dùng zero-shot"
+}

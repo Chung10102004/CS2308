@@ -1,0 +1,28 @@
+[{"stream_name":"stdout","time":11.357750897,"data":"GPU 0: Tesla T4 (UUID: GPU-ed3edf89-a074-ef3a-e96a-9a85d13aee27)\n"}
+,{"stream_name":"stdout","time":11.357827858,"data":"GPU 1: Tesla T4 (UUID: GPU-1d939484-1adc-f914-3fb3-58b671a8bde6)\n"}
+,{"stream_name":"stderr","time":42.196318851,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":46.696876533,"data":"\rLoading weights:   0%|          | 0/201 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 201/201 [00:00\u003c00:00, 8486.56it/s]\n"}
+,{"stream_name":"stdout","time":178.007396147,"data":"medcpt_ce    nfcorpus      medcpt_ce              304 truy vấn\n"}
+,{"stream_name":"stdout","time":271.346711754,"data":"medcpt_ce    scifact       medcpt_ce              162 truy vấn\n"}
+,{"stream_name":"stderr","time":287.955148829,"data":"\rLoading weights:   0%|          | 0/393 [00:00\u003c?, ?it/s]\rLoading weights:  65%|██████▍   | 254/393 [00:00\u003c00:00, 2507.34it/s]\rLoading weights: 100%|██████████| 393/393 [00:00\u003c00:00, 2571.36it/s]\n"}
+,{"stream_name":"stdout","time":700.674623011,"data":"bge_v2_m3    nfcorpus      bge_v2_m3              304 truy vấn\n"}
+,{"stream_name":"stdout","time":1011.575509012,"data":"bge_v2_m3    scifact       bge_v2_m3              162 truy vấn\n"}
+,{"stream_name":"stderr","time":1022.564872359,"data":"\rLoading weights:   0%|          | 0/201 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 201/201 [00:00\u003c00:00, 2609.09it/s]\n"}
+,{"stream_name":"stdout","time":1162.741132393,"data":"bge_base     nfcorpus      bge_base               304 truy vấn\n"}
+,{"stream_name":"stdout","time":1267.688326999,"data":"bge_base     scifact       bge_base               162 truy vấn\n"}
+,{"stream_name":"stderr","time":1284.795713864,"data":"\rLoading weights:   0%|          | 0/393 [00:00\u003c?, ?it/s]\rLoading weights:  64%|██████▍   | 253/393 [00:00\u003c00:00, 2525.99it/s]\rLoading weights: 100%|██████████| 393/393 [00:00\u003c00:00, 2604.04it/s]\n"}
+,{"stream_name":"stdout","time":1692.633715303,"data":"bge_large    nfcorpus      bge_large              304 truy vấn\n"}
+,{"stream_name":"stdout","time":1998.582019174,"data":"bge_large    scifact       bge_large              162 truy vấn\n"}
+,{"stream_name":"stderr","time":2003.447682304,"data":"\rLoading weights:   0%|          | 0/202 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 202/202 [00:00\u003c00:00, 2686.18it/s]\n"}
+,{"stream_name":"stdout","time":2332.765329148,"data":"mxbai_base   nfcorpus      mxbai_base             304 truy vấn\n"}
+,{"stream_name":"stdout","time":2571.902278164,"data":"mxbai_base   scifact       mxbai_base             162 truy vấn\n"}
+,{"stream_name":"stderr","time":2579.456642993,"data":"\rLoading weights:   0%|          | 0/260 [00:00\u003c?, ?it/s]\rLoading weights: 100%|██████████| 260/260 [00:00\u003c00:00, 8225.55it/s]\n"}
+,{"stream_name":"stdout","time":3408.623279379,"data":"monot5_base  nfcorpus      monot5_base            304 truy vấn\n"}
+,{"stream_name":"stdout","time":4031.007409138,"data":"monot5_base  scifact       monot5_base            162 truy vấn\n"}
+,{"stream_name":"stderr","time":4037.103059019,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":4037.103087217,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":4037.367391099,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":4037.367425631,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":4038.177805539,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":4039.178769676,"data":"[NbConvertApp] Writing 278893 bytes to __results__.html\n"}
+]

@@ -1,0 +1,1 @@
+{"models": ["medcpt_ce", "bge_v2_m3", "bge_base", "bge_large", "mxbai_base", "monot5_base"], "smoke": false, "device": "Tesla T4"}
