@@ -10,5 +10,6 @@
 | R4 bge-reranker-v2-m3 | local-gpu | 2275 | 2459 | 2491 | 0.2201 | 62.08 |
 | X4 MonoT5-base | local-gpu | 4318 | 4641 | 4696 | 0.4181 | 60.79 |
 | R7 Qwen3-Reranker-4B | local-gpu | 25042 | 31521 | 34035 | 2.4843 | 67.24 |
+| R5s GPT-6 Luna listwise | api | 28914 | 43270 | 50510 | 5.6142 | 67.94 |
 
 Local: Tesla T4 trên Kaggle, mỗi truy vấn 100 ứng viên, quy USD theo giá thuê T4 trong configs/pricing.yaml (ước lượng). API: tổng chi phí thật từ log / số truy vấn; độ trễ là tổng các lệnh gọi tuần tự của một truy vấn.

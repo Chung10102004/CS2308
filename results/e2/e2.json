@@ -105,7 +105,10 @@
       }
     },
     "R5s": {
-      "Q-q": null,
+      "Q-q": {
+        "nDCG@10": 0.8545030544054035,
+        "sd": null
+      },
       "Q-kw": null,
       "Q-qn": null,
       "Q-q+M1": null,
@@ -146,17 +149,17 @@
     },
     "R5s": {
       "trec-covid": {
-        "generic": null,
+        "generic": 0.8545030544054035,
         "domain": null,
         "test": null
       },
       "nfcorpus": {
-        "generic": null,
+        "generic": 0.38604060735057805,
         "domain": null,
         "test": null
       },
       "scifact": {
-        "generic": null,
+        "generic": 0.7977048031929025,
         "domain": null,
         "test": null
       }

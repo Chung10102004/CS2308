@@ -1,0 +1,41 @@
+[
+  {
+    "experiment": "e1",
+    "dataset": "trec-covid",
+    "name": "gpt_small",
+    "queries": 50,
+    "model": "gpt-6-luna",
+    "calls": 450,
+    "cached_calls": 50,
+    "input_tokens": 2634682,
+    "output_tokens_est": 52000,
+    "usd": 0.2894682,
+    "usd_batch": 0.1447341
+  },
+  {
+    "experiment": "e1",
+    "dataset": "nfcorpus",
+    "name": "gpt_small",
+    "queries": 323,
+    "model": "gpt-6-luna",
+    "calls": 2035,
+    "cached_calls": 0,
+    "input_tokens": 14018012,
+    "output_tokens_est": 264550,
+    "usd": 1.5340762000000001,
+    "usd_batch": 0.7670381000000001
+  },
+  {
+    "experiment": "e1",
+    "dataset": "scifact",
+    "name": "gpt_small",
+    "queries": 300,
+    "model": "gpt-6-luna",
+    "calls": 2697,
+    "cached_calls": 0,
+    "input_tokens": 19302894,
+    "output_tokens_est": 350610,
+    "usd": 2.1055944,
+    "usd_batch": 1.0527972
+  }
+]

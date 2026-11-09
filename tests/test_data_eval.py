@@ -3,7 +3,7 @@ import pytest
 
 from src.utils.paths import RAW, RUNS
 
-pytestmark = pytest.mark.skipif(not (RAW / "beir" / "scifact" / "corpus.jsonl").exists(), reason="chưa tải dữ liệu")
+pytestmark = pytest.mark.skipif(not ((RAW / "beir" / "scifact" / "corpus.jsonl").exists() or (RAW / "beir" / "scifact.zip").exists()), reason="chưa tải dữ liệu")
 
 
 def test_trec_covid_question_is_beir_query():

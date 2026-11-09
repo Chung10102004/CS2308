@@ -18,6 +18,9 @@
 | R4 bge-reranker-v2-m3 | TREC-COVID | 78.57 | 72.69–84.30 | 92.22 | 2.13 | 10.91 | 98.2 |
 | R4 bge-reranker-v2-m3 | NFCorpus | 33.69 | 30.38–37.16 | 54.81 | 15.97 | 24.57 | 30.6 |
 | R4 bge-reranker-v2-m3 | SciFact | 73.99 | 69.64–78.23 | 71.36 | 84.16 | 92.53 | 9.4 |
+| R5s GPT-6 Luna listwise | TREC-COVID | 85.45 | 80.96–89.63 | 96.67 | 2.35 | 10.91 | 97.0 |
+| R5s GPT-6 Luna listwise | NFCorpus | 38.60 | 35.11–42.24 | 60.76 | 17.65 | 24.57 | 34.3 |
+| R5s GPT-6 Luna listwise | SciFact | 79.77 | 75.87–83.57 | 77.55 | 88.57 | 92.53 | 10.0 |
 | R7 Qwen3-Reranker-4B | TREC-COVID | 85.00 | 79.51–90.04 | 97.40 | 2.29 | 10.91 | 98.8 |
 | R7 Qwen3-Reranker-4B | NFCorpus | 37.37 | 33.89–40.90 | 59.91 | 17.28 | 24.57 | 33.4 |
 | R7 Qwen3-Reranker-4B | SciFact | 79.35 | 75.53–83.05 | 76.24 | 90.76 | 92.53 | 10.2 |

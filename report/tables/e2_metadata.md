@@ -5,7 +5,7 @@
 | R2b BiLSTM-ESIM v2 (à la carte + khớp từ) | 56.54 | 52.72 | 64.18 | 57.05 | 54.03 | 64.63 |
 | R3 MedCPT Cross-Encoder | 68.79 | 75.43 | 68.52 | 72.08 | 75.30 | 68.81 |
 | R4 bge-reranker-v2-m3 | 78.57 | 78.17 | 79.04 | 78.52 | 78.00 | 78.84 |
-| R5s GPT-6 Luna listwise | — | — | — | — | — | — |
+| R5s GPT-6 Luna listwise | 85.45 | — | — | — | — | — |
 | R6 Jev listwise | — | — | — | — | — | — |
 | R1 LambdaMART (CV 5-fold trên TREC-COVID) | 69.03 | — | — | 70.84 | — | — |
 
@@ -17,9 +17,9 @@ TREC-COVID, nDCG@10 × 100. Q-kw = trường `query` (từ khóa), Q-q = `questi
 | R6 | TREC-COVID | — | — | — | — |
 | R6 | NFCorpus | — | — | — | — |
 | R6 | SciFact | — | — | — | — |
-| R5s | TREC-COVID | — | — | — | — |
-| R5s | NFCorpus | — | — | — | — |
-| R5s | SciFact | — | — | — | — |
+| R5s | TREC-COVID | 85.45 | — | — | — |
+| R5s | NFCorpus | 38.60 | — | — | — |
+| R5s | SciFact | 79.77 | — | — | — |
 
 ### Jev listwise và pointwise
 | Bộ | Jev listwise | Jev pointwise |

@@ -3,7 +3,7 @@
 > Đồ án cuối kỳ môn **Chuyên đề nghiên cứu xử lý ngôn ngữ tự nhiên**.
 > Đề tài khung: *RAG trên domain nhỏ, QA*. Trọng tâm là **khâu rerank** của RAG. Pipeline RAG chỉ dùng để **demo**.
 > Người thực hiện code: Claude (toàn bộ). Các việc chỉ con người làm được nằm ở [mục 15](#15-việc-nhóm-phải-tự-làm).
-> Trạng thái: **kế hoạch, chưa có code**. Cập nhật lần cuối: 06/11/2026.
+> Trạng thái hiện tại (09/11/2026): **đã có code và kết quả local; GPT-6 Luna E1 đã hoàn tất**. Theo lựa chọn mới của người dùng, bỏ GPT lớn/Jev và chỉ tiếp tục phần không phát sinh phí API. Các mục dưới đây giữ thiết kế ban đầu để đối chiếu; trạng thái mới nhất nằm trong `HUONG_DAN.md`.
 > Bản cũ (BioASQ-MetaRR, có chấm tay): `NLP_PROJECT_PLAN_v1.md`. Lý do đổi: [mục 17](#17-nhật-ký-quyết-định).
 
 ---
@@ -475,10 +475,14 @@ Deadline: **TODO, người dùng cung cấp**.
 - [x] Metric, bootstrap + Holm, Kendall τ, Judged@10, `published.py`.
 
 ### Giai đoạn 3 — Reranker API (chờ key)
+- [x] Cập nhật 09/11/2026: GPT-6 Luna E1 đã chạy 673 truy vấn, chi phí token 3,7784 USD; kết quả và log đã kiểm chứng.
+- [ ] E2 GPT, E3 GPT trên SciFact-Open và E4 k/cascade: chưa chạy. Người dùng chọn chỉ tiếp tục phần không phát sinh phí API; ước tính bổ sung khoảng 10,48 USD chưa được duyệt chi.
 - [x] Code R5 (RankGPT, Responses API, structured outputs) và R6 (Jev); test bằng client giả; dry-run ước tính khoảng 41 USD (khoảng 19 USD nếu bỏ GPT-6.1 Sol).
 - [ ] Chạy thật `make api-run CONFIRM=1` → **E1 hoàn thành**; E2 (2×2 tiêu chí, listwise/pointwise, thiên vị vị trí, biến thể truy vấn).
 
 ### Giai đoạn 4 — Nhãn thiếu, chi phí, demo
+- [x] Cập nhật 09/11/2026: bộ đọc BEIR/NIST/SciFact-Open đã phục hồi và có test; E3 TREC-COVID thêm GPT bằng run E1 có sẵn; phân tích lỗi đã bổ sung GPT.
+- [x] Demo offline trên ba bộ, phát lại 673 truy vấn, không đọc key và không gọi API.
 - [x] Index SciFact-Open 500K + BM25 top-100; code E3 (nhãn gốc / đã soát; TREC-COVID r = 1..4, condensed).
 - [ ] E3 đầy đủ khi có run của mọi reranker.
 - [x] Code E4 (độ trễ từ log Kaggle/API, USD/1.000 truy vấn, Pareto).
@@ -539,6 +543,9 @@ Deadline: **TODO, người dùng cung cấp**.
 
 | Ngày | Quyết định | Lý do |
 |---|---|---|
+| 2026-11-09 | Chỉ dùng GPT-6 Luna cho API; bỏ GPT lớn/Jev. E1 hoàn tất, 673 truy vấn, 3,7784 USD | Lựa chọn trực tiếp của người dùng |
+| 2026-11-09 | Chỉ tiếp tục công việc không phát sinh phí API. Các thí nghiệm GPT mở rộng chỉ được ước tính, chưa chạy | Người dùng từ chối trần API bổ sung 15 USD |
+| 2026-11-09 | Phục hồi bộ đọc dữ liệu và thêm demo offline; sửa Git ignore thành `/data/` | Tránh bỏ sót mã `src/data/`; demo không gọi API |
 | 2026-10-25 | Đề tài: RAG y tế, có thành phần LSTM | Theo yêu cầu của môn |
 | 2026-10-26 | Bỏ ViHealthQA và PubMedQA, chọn BioASQ Task 13b | (v1) Nhiều bài đúng mỗi câu, có snippet và metadata MeSH |
 | 2026-11-06 | (v1) Trọng tâm là dữ liệu nhóm tự xây (BioASQ-MetaRR) | Theo định hướng của người dùng lúc đó. **Đã thay**, xem các dòng dưới |

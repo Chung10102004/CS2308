@@ -1,12 +1,12 @@
 # So sánh các thế hệ reranker cho truy xuất y sinh trên benchmark có nhãn sẵn
 
-> **Nháp do Claude viết — nhóm cần đọc, sửa và chịu trách nhiệm nội dung.**
+> **Bản thảo có hỗ trợ của công cụ AI — nhóm cần đọc, rà soát và chịu trách nhiệm nội dung trước khi nộp.**
 > Mọi con số lấy từ `results/` (sinh bằng `make report`) hoặc từ bảng của bài báo được trích (`src/eval/published.py`).
-> Chỗ đánh dấu ⟦…⟧ sẽ điền sau khi chạy xong phần GPU/API.
+> Phạm vi cập nhật ngày 09/11/2026: chỉ dùng GPT-6 Luna cho API; không chạy thêm API sau E1. Các phân tích bổ sung tận dụng kết quả đã lưu.
 
 ## Tóm tắt
 
-⟦Viết sau khi có đủ kết quả E1–E4.⟧
+Đồ án đánh giá các mô hình xếp hạng lại tài liệu y sinh trên TREC-COVID, NFCorpus và SciFact, giữ nguyên danh sách ứng viên BM25 top-100 để so sánh công bằng. Các hệ thống gồm LambdaMART, BiLSTM-ESIM, cross-encoder chuyên y sinh và tổng quát, Qwen3-Reranker-4B và GPT-6 Luna. Toàn bộ đánh giá dùng nhãn chuẩn có sẵn, không dùng LLM làm người chấm. Trên 673 truy vấn, GPT-6 Luna đạt nDCG@10 × 100 lần lượt 85,45 / 38,60 / 79,77, hơn BM25 và bge-reranker-v2-m3 có ý nghĩa sau hiệu chỉnh Holm; trung bình ba bộ là 67,94. BiLSTM giúp trên SciFact nhưng không vượt BM25 trên hai bộ còn lại, cho thấy lợi ích của reranking phụ thuộc dữ liệu và cách biểu diễn. Phân tích SciFact-Open với 11 hệ thống cho thấy nhãn bổ sung làm đảo thứ tự 6 cặp hệ thống; phân tích TREC-COVID theo vòng được mở rộng thêm GPT bằng kết quả E1 đã lưu. Chi phí token ghi nhận của GPT là 3,7784 USD. Demo offline minh họa thứ hạng trước/sau mà không phát sinh lượt gọi API. Các thử nghiệm GPT với metadata, xáo thứ tự, SciFact-Open và cascade được ghi rõ là chưa chạy.
 
 ## 1. Giới thiệu
 
@@ -16,7 +16,7 @@ Có nhiều thế hệ reranker: learning-to-rank trên đặc trưng thủ côn
 
 Đồ án trả lời bốn câu hỏi:
 
-- **RQ1:** Trên cùng danh sách BM25 top-100, các reranker của nhóm (LambdaMART, BiLSTM-ESIM, MedCPT cross-encoder, GPT-6 và Jev) đứng ở đâu so với 40 biến thể đã công bố?
+- **RQ1:** Trên cùng danh sách BM25 top-100, các reranker của nhóm (LambdaMART, BiLSTM-ESIM, MedCPT cross-encoder, Qwen3 và GPT-6 Luna) đứng ở đâu so với các dòng công bố được chọn từ Abdallah et al. (2025)?
 - **RQ2:** Câu hỏi đầy đủ, mô tả nhu cầu (narrative) và metadata tài liệu (MeSH, loại bài, năm) giúp reranker nào?
 - **RQ3:** Chấm bằng nhãn thiếu thì kết luận so sánh có đổi không?
 - **RQ4:** Chi phí và độ trễ của mỗi lựa chọn là bao nhiêu?
@@ -99,8 +99,8 @@ Ghi chú về bảng:
 | R2 | BiLSTM-ESIM | Mục 4.3 |
 | R3 | MedCPT Cross-Encoder | Zero-shot |
 | R4 | bge-reranker-v2-m3 | Zero-shot, dùng làm mốc tái lập |
-| R5 | GPT-6 Luna (listwise, toàn bộ top-100) và GPT-6.1 Sol (chỉ top-30 của Luna) | Prompt hoán vị của RankGPT; cửa sổ 20, bước 10; đoạn văn cắt 300 từ; đầu ra JSON qua structured outputs |
-| R6 | Jev qua `jev-reranker` | Listwise và pointwise, `threshold=0` |
+| R5s | GPT-6 Luna (listwise, toàn bộ top-100) | Prompt hoán vị của RankGPT; cửa sổ 20, bước 10; đoạn văn cắt 300 từ; `reasoning_effort=none`; đầu ra JSON qua structured outputs |
+| R7 | Qwen3-Reranker-4B | Mô hình mã nguồn mở, kết quả suy luận lưu từ Kaggle |
 
 ### 4.3 BiLSTM-ESIM (thành phần LSTM)
 
@@ -203,9 +203,11 @@ Model này chạy trên 2 GPU T4 của Kaggle, không tốn tiền API. Lưu ý:
 - Khi có Qwen3, dev của Qwen3 đơn lẻ là 0,5745, và thêm bất kỳ hệ thống nào đều làm dev giảm (tốt nhất là +MedCPT-CE, 0,5711).
 - Vậy ensemble không giúp. Nhóm báo cáo đúng như vậy, không chọn tổ hợp bằng test.
 
-⟦BiLSTM-ESIM v2: chờ đủ 3 seed cho hai bản ablation⟧
+Hai bản ablation của BiLSTM-ESIM v2 (bỏ kênh khớp từ hoặc bỏ vector OOV à la carte) hiện mới có một seed mỗi bản. Kết quả ở bảng `improvements.md` chỉ có tính thăm dò; không dùng chúng để kết luận thành phần nào tốt hơn một cách ổn định. Bản v1 và bản v2 đầy đủ có ba seed.
 
-⟦R5, R6 — chạy `make api-run`⟧
+**GPT-6 Luna (R5s), chạy API ngày 09/11/2026.** Với `reasoning_effort=none`, cửa sổ 20 tài liệu, bước 10 trên cùng danh sách BM25 top-100, mô hình đạt nDCG@10 × 100 lần lượt **85,45 / 38,60 / 79,77** trên TREC-COVID / NFCorpus / SciFact; trung bình **67,94**. Mức tăng so với BM25 là **+25,98 / +6,43 / +11,88 điểm**. Mô hình hơn BM25 và bge-reranker-v2-m3 có ý nghĩa trên cả ba bộ (paired bootstrap 10.000 lần, hiệu chỉnh Holm, p < 0,05). Đợt chạy E1 gồm 673 truy vấn, trong đó 15 truy vấn NFCorpus không có ứng viên vẫn được tính 0 khi đánh giá; toàn bộ tài liệu ứng viên được giữ nguyên. Log ghi 5.182 lượt gọi, không có lỗi phản hồi/parse được ghi nhận. Chi tiết: `results/e1/luna_run_summary.json`.
+
+Đợt API chỉ chạy GPT-6 Luna trong E1. GPT lớn và Jev đã được loại khỏi phạm vi thực hiện. Phân tích nhãn theo vòng TREC-COVID và chi phí được tính tiếp từ kết quả E1 mà không gọi API mới; các thử nghiệm GPT cần đầu vào mới chưa chạy.
 
 ### 5.3 Metadata và tiêu chí (E2) — `report/tables/e2_metadata.md`
 
@@ -225,25 +227,25 @@ Model này chạy trên 2 GPU T4 của Kaggle, không tốn tiền API. Lưu ý:
   - gần như không đổi với bge-reranker-v2-m3 (78,57 → 78,52) và BiLSTM (55,38 → 55,04);
   - với LambdaMART CV 5-fold: 69,03 → 70,84.
 - **Boost hậu kỳ theo độ trùng MeSH** (λ chọn bằng CV 5-fold) **không giúp hệ thống nào**: Δ từ −0,94 đến 0,00, không có ý nghĩa. MeSH của câu hỏi lấy bằng Automatic Term Mapping có nhiễu, và chỉ 40% bài ứng viên có MeSH.
-- ⟦2×2 tiêu chí, listwise/pointwise, thiên vị vị trí — cần API⟧
+- Chưa chạy các biến thể GPT về metadata, tiêu chí y khoa và xáo thứ tự ứng viên. Dòng Q-q và tiêu chí chung của GPT trong bảng E2 chỉ tái sử dụng E1, không phải một lần chạy độc lập. Không suy ra tác động metadata hay độ ổn định vị trí của GPT từ các kết quả này.
 
 ### 5.4 Nhãn thiếu (E3) — `report/tables/e3_labels.md`, hình `fig_e3_*`
 
 - **TREC-COVID:** với nhãn tới hết vòng 1, BM25 chỉ có Judged@10 ≈ 9% và nDCG@10 = 5,7, so với 57,8 khi dùng nhãn đầy đủ. Đây là trường hợp nhãn nông cực đoan, vì kho vòng 1 nhỏ hơn nhiều so với kho bản tháng 7.
 - **nDCG@10 condensed** (bỏ bài chưa có nhãn) cho BM25 là 37,5 / 48,7 / 61,5 / 63,7 khi dùng nhãn tới hết vòng 1 / 2 / 3 / 4.
-- **TREC-COVID, Kendall τ giữa thứ hạng 9 hệ thống** khi chấm bằng nhãn nông so với nhãn đầy đủ (30 topic):
+- **TREC-COVID, Kendall τ giữa thứ hạng 12 hệ thống**, gồm GPT-6 Luna, khi chấm bằng nhãn nông so với nhãn đầy đủ (30 topic):
 
   | Nhãn tới hết vòng | τ (nDCG@10) | Cặp hệ thống đổi chỗ | τ (condensed) |
   |---|---:|---:|---:|
-  | 1 | 0,28 | 13/36 | 0,67 |
-  | 2 | 0,28 | 13/36 | 0,67 |
-  | 3 | 0,56 | 8/36 | 0,78 |
-  | 4 | 0,94 | 1/36 | 0,89 |
+  | 1 | 0,52 | 16/66 | 0,61 |
+  | 2 | 0,48 | 17/66 | 0,64 |
+  | 3 | 0,70 | 10/66 | 0,79 |
+  | 4 | 0,94 | 2/66 | 0,94 |
 
-  Như vậy với nhãn nông, nDCG@10 thông thường đảo thứ tự hơn một phần ba số cặp. Bản condensed giảm đáng kể việc đảo này.
-- **SciFact-Open** (190 claim có bằng chứng ở cả hai bộ nhãn): τ = 0,72, 5 cặp hệ thống đổi chỗ.
+  Với nhãn tới vòng 1–2, khoảng một phần tư số cặp hệ thống đảo thứ tự; condensed cải thiện mức tương đồng ở ba vòng đầu. Riêng GPT-6 Luna trên 30 topic này, nDCG@10 thường ở vòng 1 là 9,36, condensed 41,13, so với 83,62 khi dùng nhãn đầy đủ. Đây là ảnh hưởng của thay đổi bộ nhãn trên cùng kết quả đã lưu, không phải mô hình được chạy lại.
+- **SciFact-Open** (190 claim có bằng chứng ở cả hai bộ nhãn; 11 hệ thống, chưa có GPT): τ = 0,78, 6 cặp hệ thống đổi chỗ.
   - Mọi cross-encoder được cộng nhiều hơn BM25 (+1,44), LambdaMART (+2,11) và BiLSTM-ESIM (+2,07) khi chấm bằng nhãn đã soát: từ +3,50 (MedCPT-CE) đến +6,76 (bge-reranker-large).
-  - LambdaMART tụt từ hạng 3 xuống hạng 5; bge-reranker-large lên từ 6 lên 4.
+  - LambdaMART tụt từ hạng 4 xuống hạng 6; bge-reranker-large lên từ 7 lên 5.
   - Kết quả này khớp với nhận định của BEIR (phân tích Hole@10): nhãn gom từ hệ thống từ vựng phạt oan các hệ thống ngữ nghĩa.
 
 ### 5.5 Chi phí và tốc độ (E4) — `report/tables/e4_cost.md`, hình `fig_e4_pareto.png`
@@ -259,23 +261,39 @@ Model này chạy trên 2 GPU T4 của Kaggle, không tốn tiền API. Lưu ý:
 | bge-reranker-large | 2.247 | 0,217 | 60,75 |
 | bge-reranker-v2-m3 | 2.275 | 0,220 | 62,08 |
 | MonoT5-base (fp32) | 4.318 | 0,418 | 60,79 |
+| Qwen3-Reranker-4B (2 T4) | 25.042 | 2,484 | 67,24 |
+| GPT-6 Luna (API) | 28.914 | 5,614 | 67,94 |
 
-Biên Pareto của nhóm local gồm BM25, MedCPT-CE và mxbai-rerank-base; các model còn lại đều có một model khác vừa rẻ hơn vừa tốt hơn.
+Biên Pareto theo chi phí và chất lượng trung bình của các hệ thống local gồm BM25, MedCPT-CE, mxbai-rerank-base và Qwen3-Reranker-4B. GPT-6 Luna bổ sung một điểm có chất lượng cao hơn và chi phí cao hơn; chênh lệch nhỏ với Qwen3 chưa được kiểm định riêng. Giá GPU là quy đổi ước lượng, còn chi phí API tính theo token từ log; hai cách tính cần được phân biệt khi diễn giải.
 
-⟦R5, R6: chi phí thật từ `results/api_logs/`⟧
+**GPT-6 Luna, E1:** chi phí tính từ token sử dụng và bảng giá trong cấu hình là **3,7784 USD** cho 673 truy vấn, tương đương **5,6142 USD / 1.000 truy vấn**. Độ trễ tuần tự mỗi truy vấn: p50 **28,9 giây**, p95 **43,3 giây**, p99 **50,5 giây**; đây là tổng thời gian các cửa sổ API, không phải tổng thời gian chạy cả bộ khi xử lý song song. Số liệu lấy từ `results/api_logs/gpt_small__*.jsonl` và `results/e4/e4.json`; chưa bao gồm các lệnh kiểm tra kết nối rất nhỏ. Jev chưa chạy.
 
 ## 6. So với kết quả công bố
 
 Đặt cạnh 15 dòng của Abdallah et al. (2025) (bảng `e1_main.md`, hình `fig_e1_ranking.png`, cùng BM25 top-100):
 
-- **SciFact.** MedCPT-CE (79,58) đứng đầu toàn bảng, trên InRanker-3B (78,31) và MonoT5-3B (76,57) dù chỉ khoảng 110M tham số. LambdaMART (75,97) và BiLSTM-ESIM (72,30) đứng trên RankGPT gpt-3.5 (70,43).
-- **NFCorpus.** Mọi reranker nằm trong khoảng hẹp 31–39 (nhãn tự động, truy vấn rất ngắn). Tốt nhất của nhóm là LambdaMART (35,67) và mxbai (35,48), ngang Cohere Rerank-v2 (36,36). Nhóm so bằng mức tăng so với BM25 vì nền BM25 lệch +1,43.
-- **TREC-COVID.** mxbai-rerank-base đạt 83,06, gần với số của bài (84,00); bge-reranker-v2-m3 đạt 78,57. Các dòng mạnh nhất của bài (RankGPT gpt-4 85,51, ListT5-3B 84,70) vẫn cao hơn mọi reranker local của nhóm. Lưu ý chênh lệch do cách nhập văn bản ở mục 5.1.
+- **SciFact.** GPT-6 Luna (79,77) có điểm cao nhất trong bảng hiện tại, tiếp theo là MedCPT-CE (79,58) và Qwen3-Reranker-4B (79,35). Chênh lệch nhỏ giữa ba mô hình này chưa được kiểm định riêng nên không kết luận GPT vượt trội. MedCPT-CE chỉ khoảng 110M tham số vẫn trên InRanker-3B (78,31) và MonoT5-3B (76,57). LambdaMART (75,97) và BiLSTM-ESIM (72,30) đứng trên RankGPT gpt-3.5 (70,43).
+- **NFCorpus.** GPT-6 Luna đạt 38,60, cao nhất trong các mô hình nhóm đã chạy, so với Qwen3-Reranker-4B 37,37. Dòng công bố MonoT5-3B đạt 38,97 và RankGPT gpt-4 đạt 38,47. Nhóm ưu tiên so bằng mức tăng so với BM25 vì nền BM25 lệch +1,43; không coi chênh lệch nhỏ với dòng công bố là bằng chứng vượt trội.
+- **TREC-COVID.** GPT-6 Luna đạt 85,45, gần điểm công bố RankGPT gpt-4 (85,51); Qwen3-Reranker-4B đạt 85,00 và mxbai-rerank-base đạt 83,06. Điểm công bố ListT5-3B là 84,70. Lưu ý chênh lệch do cách nhập văn bản ở mục 5.1; chưa kiểm định riêng GPT-6 Luna với Qwen3.
 - **LLM mã nguồn mở so với LLM qua API năm 2023.** Qwen3-Reranker-4B (chạy trên 2 GPU T4) đạt trung bình 3 bộ cao hơn RankGPT gpt-4 (67,24 so với 66,31). Thua ở TREC-COVID (−0,51) và NFCorpus (−1,10), nhưng hơn rõ ở SciFact (+4,40).
-- ⟦GPT-6, Jev⟧
+- **GPT-6 Luna:** trung bình ba bộ 67,94 so với Qwen3-Reranker-4B 67,24. Đây là so sánh điểm mô tả; kiểm định ở bảng E1 chỉ thực hiện với BM25 và bge-reranker-v2-m3. Jev chưa chạy.
 
 ## 7. Phân tích ca tốt / ca không tốt
-⟦Chọn 3–5 truy vấn mỗi nhóm từ `results/e1/e1_per_query.json`: reranker hơn BM25 nhiều nhất / kém nhất; ca Jev và GPT bất đồng; ca "sai" theo nhãn gốc nhưng đúng theo SciFact-Open.⟧
+Các ca được chọn theo chênh lệch nDCG@10 từng truy vấn, không được dùng để chỉnh prompt hay chọn mô hình. Bảng đầy đủ nằm ở `report/tables/error_cases.md`; thống kê có thể truy lại từ `results/error_analysis.json` và `results/e1/e1_per_query.json`.
+
+| Bộ | GPT hơn BM25 | GPT kém BM25 | Bằng nhau |
+|---|---:|---:|---:|
+| TREC-COVID | 45 | 3 | 2 |
+| NFCorpus | 142 | 40 | 141 |
+| SciFact | 91 | 18 | 191 |
+
+- **TREC-COVID, topic 9 — tác động tại Canada:** GPT tăng 64,2 điểm nDCG@10; bài đầu chuyển từ một tài liệu có nhãn 0 sang “Assessing the burden of COVID-19 in Canada” có nhãn liên quan. Ví dụ cho thấy chỉ trùng tên quốc gia và chủ đề COVID chưa bảo đảm kết quả đứng đầu đáp ứng đúng nhu cầu.
+- **TREC-COVID, topic 6 — xét nghiệm nhanh:** GPT tăng 58,3 điểm; bài đầu BM25 có nhãn không liên quan, trong khi bài đầu sau rerank bàn về các xét nghiệm chẩn đoán và có nhãn liên quan.
+- **TREC-COVID, topic 47 — kết cục sức khỏe ở trẻ em:** GPT giảm 7,5 điểm; tài liệu đầu mới chưa có nhãn. Không thể kết luận tài liệu này sai chỉ dựa vào điểm giảm. Đây cũng là lý do cần phân tích nhãn thiếu ở E3.
+- **NFCorpus, truy vấn “coffee”:** GPT giảm 20,2 điểm; bài đầu thay từ “Coffee, tea, and mortality.” có nhãn liên quan sang một bài tổng quan chưa có nhãn. Truy vấn rất ngắn không nói rõ khía cạnh quan tâm, đồng thời bộ nhãn chưa bao phủ mọi bài có thể hữu ích.
+- **SciFact, claim 831 — NF2/Merlin:** GPT tăng 100 điểm so với BM25; bài đầu sau rerank có nhãn bằng chứng. Trên SciFact vẫn có 18 claim bị giảm điểm, nên mức tăng trung bình không có nghĩa mọi truy vấn đều được cải thiện.
+
+Các diễn giải trên dựa vào câu hỏi, tiêu đề và nhãn có sẵn; chúng không bổ sung phán quyết liên quan mới cho các tài liệu chưa được chấm.
 
 Ví dụ từ demo (TREC-COVID, câu hỏi "what is the origin of COVID-19"):
 
@@ -284,15 +302,20 @@ Ví dụ từ demo (TREC-COVID, câu hỏi "what is the origin of COVID-19"):
 - Nhưng MedCPT-CE cũng giữ bài "Anesthesia and COVID-19" ở vị trí 2, một bài không bàn về nguồn gốc virus. Đây là ví dụ cho kiểu lỗi chỉ khớp chủ đề chung.
 
 ## 8. Demo RAG
-`make demo`: nhập câu hỏi, chạy BM25 top-k, chọn reranker, xem top-5 trước và sau rerank (kèm số bậc tăng/giảm), rồi GPT trả lời có trích dẫn [doc_id]. Demo không dùng để đánh giá định lượng.
+Demo đã kiểm tra trong đợt này chạy bằng `python -m src.demo.offline_app` tại `http://127.0.0.1:7860`. Người dùng chọn một trong ba bộ và một trong 673 câu hỏi đã đánh giá, xem top-5 BM25 cạnh top-5 GPT-6 Luna, số bậc thay đổi, nhãn chuẩn và nDCG@10 từng truy vấn. Demo đọc kết quả đã lưu, không gọi API và không sinh câu trả lời mới. Chế độ RAG trực tiếp trong `src/demo/rag_app.py` vẫn là mã tham khảo; chưa được kiểm chứng từ đầu đến cuối trong môi trường hiện tại và không thuộc đợt không phát sinh phí này.
 
 ## 9. Kết luận và hạn chế
+Giữ cố định ứng viên cho phép tách tác động của reranker khỏi bước tìm kiếm ban đầu. GPT-6 Luna có chất lượng trung bình cao nhất trong các hệ thống nhóm đã chạy, trong khi MedCPT-CE và mxbai-rerank-base tạo các lựa chọn local có chi phí quy đổi thấp hơn. BiLSTM-ESIM cho kết quả âm trên hai bộ, nhưng kết quả này giúp nhận diện hạn chế của embedding cố định, từ ngoài từ vựng và chuyển miền. Phân tích nhãn thiếu cho thấy điểm và thứ hạng hệ thống phụ thuộc đáng kể vào độ phủ nhãn; vì vậy cần báo cả thiết lập nhãn, không chỉ một điểm nDCG.
+
+Các hạn chế của bản hiện tại:
 - **Nhiễm dữ liệu:** các bộ công khai từ 2020–2022, nên GPT có thể đã thấy chúng.
 - **Ít topic:** TREC-COVID chỉ có 50 topic, nên khoảng tin cậy rộng.
 - **Nhãn vẫn còn lỗ:** pool của SciFact-Open chỉ từ 4 hệ thống, và repo không phát hành cặp âm.
 - **Nhãn NFCorpus** sinh tự động từ link, nên có nhiễu.
 - **Lệch nền NFCorpus** so với bài báo (+1,43 điểm).
-- **Giá Jev** lấy từ nguồn thứ cấp.
+- **Phạm vi GPT:** chưa chạy thử nghiệm metadata/tiêu chí/xáo thứ tự, SciFact-Open hoặc cascade và thay đổi số ứng viên; không có kết luận GPT cho các phần này.
+- **Ablation:** hai biến thể tách thành phần BiLSTM v2 chỉ có một seed. Chưa hoàn tất các seed còn lại vì thiếu embedding/checkpoint gốc và quyền truy cập GPU Kaggle trong checkout hiện tại.
+- **Tái chạy toàn bộ pipeline:** bộ đọc dữ liệu, đánh giá và demo offline đã phục hồi; metadata xử lý sẵn, ID chia train/dev gốc và các file trọng số/embedding chưa có đầy đủ trong checkout. Kết quả huấn luyện lịch sử được giữ nguyên; chưa tuyên bố tái lập lại toàn bộ quá trình huấn luyện.
 - **Sai khác với RankGPT:** prompt GPT dùng đầu ra JSON thay cho định dạng "[2] > [1]" của bản gốc.
 
 ## Tài liệu tham khảo

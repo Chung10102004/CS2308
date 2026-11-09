@@ -55,6 +55,17 @@
 | không tốt | what drugs have been active against SARS-CoV or SARS-CoV-2 in animal s | -10.2 | ✓ Remdesivir, the antiviral hope against SARS-CoV-2/ Remdesivi | ✓ Identification of antiviral drug candidates against SARS-CoV |
 | không tốt | what type of hand sanitizer is needed to destroy Covid-19? | -7.8 | ✓ Hand Sanitizers: A Review of Ingredients, Mechanisms of Acti | ✓ Hand Sanitizers: A Review of Ingredients, Mechanisms of Acti |
 
+## trec-covid — R5s GPT-6 Luna listwise: hơn BM25 ở 45 truy vấn, kém ở 3, bằng ở 2
+
+| Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
+|---|---|---:|---|---|
+| tốt | how has COVID-19 affected Canada | +64.2 | ✗ Has the COVID-19 Pandemic Affected MPs’ Representational Act | ✓ Assessing the burden of COVID-19 in Canada |
+| tốt | Does SARS-CoV-2 have any subtypes, and if so what are they? | +62.3 | ✗ Masking the general population might attenuate COVID-19 outb | ✓ A Novel Synonymous Mutation of SARS-CoV-2: Is This Possible  |
+| tốt | what types of rapid testing for Covid-19 have been developed? | +58.3 | ✗ Coronavirus disease 2019 in children: Surprising findings in | ✓ Current and emerging diagnostic tests available for the nove |
+| không tốt | what are the health outcomes for children who contract COVID-19? | -7.5 | ✓ Coronavirus (COVID-19) infection in children at a specialist | ? What we know so far about Coronavirus Disease 2019 in childr |
+| không tốt | What is the protein structure of the SARS-CoV-2 spike? | -3.5 | ✓ Structural Proteins in Severe Acute Respiratory Syndrome Cor | ✓ Distinct conformational states of SARS-CoV-2 spike protein |
+| không tốt | what kinds of complications related to COVID-19 are associated with di | -0.6 | ✓ Diabetes and COVID‐19: psychosocial consequences of the COVI | ✓ Baseline characteristics and risk factors for short-term out |
+
 ## trec-covid — R7 Qwen3-Reranker-4B: hơn BM25 ở 44 truy vấn, kém ở 3, bằng ở 3
 
 | Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
@@ -165,6 +176,17 @@
 | không tốt | liver disease | -39.5 | ✓ The association of coffee intake with liver cancer incidence | ? Saturated free fatty acid sodium palmitate-induced lipoapopt |
 | không tốt | factory farming practices | -35.6 | ✓ Prevalence of Yersinia enterocolitica in market weight hogs  | ? Occupation and risk of lymphoma: a multicentre prospective c |
 
+## nfcorpus — R5s GPT-6 Luna listwise: hơn BM25 ở 142 truy vấn, kém ở 40, bằng ở 141
+
+| Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
+|---|---|---:|---|---|
+| tốt | Too Much Iodine Can Be as Bad as Too Little | +85.6 | ? Preventing and arresting coronary atherosclerosis. | ✓ Iodine-induced neonatal hypothyroidism secondary to maternal |
+| tốt | American Dental Association | +52.8 | ? Mercury exposure and risks from dental amalgam in the US pop | ✓ The use of dental radiographs: update and recommendations. |
+| tốt | Anti-Angiogenesis: Cutting Off Tumor Supply Lines | +49.5 | ? Anti-angiogenic activity of inositol hexaphosphate (IP6). | ✓ Tumor Angiogenesis as a Target for Dietary Cancer Prevention |
+| không tốt | The Actual Benefit of Diet vs. Drugs | -48.7 | ✓ Are preventive drugs preventive enough? A study of patients' | ? Reductions in Cardiovascular Disease Projected from Modest R |
+| không tốt | pork | -29.0 | ✓ Beef, pork, and milk allergy (cross reactivity with each oth | ? Flaxseed fed pork: n-3 fatty acid enrichment and contributio |
+| không tốt | coffee | -20.2 | ✓ Coffee, tea, and mortality. | ? Coffee and its consumption: benefits and risks. |
+
 ## nfcorpus — R7 Qwen3-Reranker-4B: hơn BM25 ở 132 truy vấn, kém ở 51, bằng ở 140
 
 | Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
@@ -274,6 +296,17 @@
 | không tốt | Microarray results from culture-amplified mixtures of serotypes correl | -100.0 | ✓ The PneuCarriage Project: A Multi-Centre Comparative Study t | ? Empirical Bayesian models for analysing molecular serotyping |
 | không tốt | In domesticated populations of Saccharomyces cerevisiae, whole chromos | -56.9 | ✓ Domestication and Divergence of Saccharomyces cerevisiae Bee | ? S-phase-promoting cyclin-dependent kinases prevent re-replic |
 | không tốt | The combination of H3K4me3 and H3K79me2 is found in quiescent hair fol | -50.0 | ✓ Genome-wide maps of histone modifications unwind in vivo chr | ? Chromatin modifying enzymes as modulators of reprogramming |
+
+## scifact — R5s GPT-6 Luna listwise: hơn BM25 ở 91 truy vấn, kém ở 18, bằng ở 191
+
+| Loại | Truy vấn | Δ nDCG@10 | Bài đầu của BM25 | Bài đầu của reranker |
+|---|---|---:|---|---|
+| tốt | NF2 (Merlin) prevents phosphorylation and subsequent cytoplasmic seque | +100.0 | ? TEAD mediates YAP-dependent gene induction and growth contro | ✓ A genetic screen identifies an LKB1–MARK signalling axis con |
+| tốt | Less than 10% of the gabonese children with Schimmelpenning-Feuerstein | +100.0 | ? Increased Microerythrocyte Count in Homozygous α+-Thalassaem | ✓ Assessment of Volume Depletion in Children with Malaria |
+| tốt | Cellular aging closely links to an older appearance. | +100.0 | ? The intersection between aging and cardiovascular disease. | ✓ Perceived age as clinically useful biomarker of ageing: coho |
+| không tốt | LDL cholesterol has no involvement in the development of cardiovascula | -100.0 | ✓ LDL-cholesterol concentrations: a genome-wide association st | ? High cardiovascular mortality in Russia cannot be explained  |
+| không tốt | Mitochondria are uninvolved in apoptosis. | -100.0 | ✓ Mitochondria: Dynamic Organelles in Disease, Aging, and Deve | ? Vesicular Glycolysis Provides On-Board Energy for Fast Axona |
+| không tốt | Venules have a thinner or absent smooth layer compared to arterioles. | -50.0 | ✓ Scaffold-based three-dimensional human fibroblast culture pr | ? Pulmonary vascular lesions in end-stage idiopathic pulmonary |
 
 ## scifact — R7 Qwen3-Reranker-4B: hơn BM25 ở 93 truy vấn, kém ở 26, bằng ở 181
 

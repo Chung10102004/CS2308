@@ -4,6 +4,8 @@
   python scripts/run_api.py --confirm                 # chạy thật (make api-run CONFIRM=1)
   python scripts/run_api.py --only e1 --confirm       # chỉ một nhóm: e1 | e2 | e3 | e4
   python scripts/run_api.py --skip-large              # bỏ gpt_large (đắt nhất)
+  python scripts/run_api.py --only e2 e3 e4 --systems gpt_small --dry-run
+Mặc định chỉ chọn GPT-6 Luna và không chạy thật; cần --execute hoặc --confirm.
 Kết quả: results/runs/<bộ>/<split>/<tên>.trec, log chi phí: results/api_logs/<tên>__<bộ>.jsonl
 Chạy lại an toàn: mọi lệnh gọi đã xong nằm trong cache (data/cache/*.sqlite), không bị tính tiền lần hai.
 """
@@ -106,6 +108,8 @@ def gpt_criteria_for(job: Job):
 
 
 def get_items(job: Job):
+    if job.meta and not any(d.get("meta") for d in candidates.pack().corpus(job.ds).values()):
+        raise FileNotFoundError(f"Missing document metadata for {job.ds}; refusing an M1 experiment with abstract-only input.")
     if job.order_from and not (RUNS / job.ds / job.split / f"{job.order_from}.trec").exists():
         return None
     return candidates.items(job.ds, job.split, job.variant, job.meta, job.depth, job.order_from, job.shuffle_seed, job.limit)
@@ -148,11 +152,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--confirm", action="store_true")
+    ap.add_argument("--execute", action="store_true", help="Chạy thật; mặc định chỉ ước tính")
+    ap.add_argument("--systems", nargs="+", choices=["gpt_small", "gpt_large", "jev", "jev_pw"], default=["gpt_small"])
+    ap.add_argument("--max-usd", type=float, help="Chặn trước khi chạy nếu ước tính vượt số USD này")
     ap.add_argument("--only", nargs="*", choices=["e1", "e2", "e3", "e4"])
     ap.add_argument("--skip-large", action="store_true")
     a = ap.parse_args()
     models = load_yaml("models.yaml")
-    J = [j for j in jobs(a.skip_large) if not a.only or j.exp in a.only]
+    J = [j for j in jobs(a.skip_large) if j.system in a.systems and (not a.only or j.exp in a.only)]
     print(f"{'nhóm':4s} {'run':26s} {'bộ':13s} {'lệnh gọi':>8s} {'đã cache':>8s} {'USD':>8s}")
     total = 0.0
     by_exp = {}
@@ -166,8 +173,11 @@ def main():
         print(f"Tổng {k}: {v:.2f} USD")
     print(f"TỔNG ƯỚC TÍNH: {total:.2f} USD (giá: configs/pricing.yaml, ngày {Pricing().cfg['openai']['retrieved']})")
     print("Ghi chú: output/reasoning token của GPT và số request chia nhóm của Jev là ước lượng.")
-    if a.dry_run:
+    if a.dry_run or not (a.execute or a.confirm):
+        print("Chỉ ước tính: chưa gọi API mô hình. Dùng --execute hoặc --confirm để chạy thật.")
         return
+    if a.max_usd is not None and total > a.max_usd:
+        raise cost_guard.BudgetExceeded(f"Ước tính {total:.2f} USD vượt --max-usd={a.max_usd:.2f}; chưa gọi API.")
     cost_guard.check(total, a.confirm, "run_api")
     for j in J:
         run(j, models)

@@ -21,7 +21,7 @@
 | **nhóm** R2b | **BiLSTM-ESIM v2 (à la carte + khớp từ)** | LSTM | title+text | **56.54 ± 0.37**▾ | **26.73 ± 1.61**▾ | **70.15 ± 1.44** | **51.14** |
 | **nhóm** R3 | **MedCPT Cross-Encoder** | Cross-encoder (y sinh) | title+text | **68.79**†▾ | **34.68**† | **79.58**†‡ | **61.02** |
 | **nhóm** R4 | **bge-reranker-v2-m3** | Cross-encoder (tổng quát) | title+text | **78.57**† | **33.69** | **73.99**† | **62.08** |
-| **nhóm** R5s | **GPT-6 Luna listwise** | LLM listwise | title+text | — | — | — | — |
+| **nhóm** R5s | **GPT-6 Luna listwise** | LLM listwise | title+text | **85.45**†‡ | **38.60**†‡ | **79.77**†‡ | **67.94** |
 | **nhóm** R5l | **GPT-6.1 Sol listwise (top-30)** | LLM listwise | title+text | — | — | — | — |
 | **nhóm** R6 | **Jev listwise** | Mô hình quyết định | title+text | — | — | — | — |
 | **nhóm** R7 | **Qwen3-Reranker-4B** | LLM (mã nguồn mở) | title+text | **85.00**†‡ | **37.37**†‡ | **79.35**†‡ | **67.24** |

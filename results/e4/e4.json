@@ -98,6 +98,18 @@
     "usd_note": "ước lượng: giá thuê T4 0.35 USD/giờ",
     "mean_ndcg10_beir3": 0.6724407575372441
   },
+  "R5s": {
+    "kind": "api",
+    "n": 673,
+    "p50_ms": 28913.53690007236,
+    "p95_ms": 43269.56131992628,
+    "p99_ms": 50510.098631966386,
+    "usd_per_1k": 5.614225557206539,
+    "requests_per_query": 7.699851411589896,
+    "errors": 0,
+    "usd_note": "giá trong configs/pricing.yaml; latency tuần tự (không tính song song)",
+    "mean_ndcg10_beir3": 0.6794161549829614
+  },
   "R0": {
     "kind": "local-cpu",
     "p50_ms": null,

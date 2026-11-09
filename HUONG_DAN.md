@@ -1,89 +1,77 @@
-# Hướng dẫn chạy BioRerank
+# Hướng dẫn BioRerank
 
-Mọi lệnh chạy trong thư mục `DOAN/`. Plan đầy đủ của đồ án nằm ở `NLP_PROJECT_PLAN.md`.
+Cập nhật 09/11/2026. Chỉ dùng **GPT-6 Luna** cho API. Người dùng đã chọn **không phát sinh thêm phí API** sau E1.
 
-## Đã làm sẵn (không cần bạn làm gì)
+## Demo offline trên Windows
 
-| Phần | Trạng thái | Kết quả nằm ở |
-|---|---|---|
-| Môi trường `.venv`, thư viện đã ghim phiên bản | xong | `requirements.txt` |
-| Tải dữ liệu, chia tập, kiểm rò rỉ | xong | `data/`, `results/data_report/` |
-| BM25 top-100 (R0), E0 phần BM25 | xong | `results/runs/`, `results/e0/` |
-| Metadata TREC-COVID (CORD-19 + PubMed) | xong | `data/processed/trec-covid/` |
-| Phân tích ngữ liệu | xong | `report/figures/fig_data_*.png`, `results/data_report/corpus_stats.json` |
-| Reranker GPU trên Kaggle: R2 BiLSTM-ESIM, R3 MedCPT-CE, R4 bge-v2-m3, 4 reranker phụ | xem `report/tables/` | `results/kaggle/`, `results/runs/` |
-| R1 LambdaMART | xong | `results/runs/*/test/lambdamart_*.trec` |
-| Bảng, hình, demo, nháp tiểu luận | xong phần không cần API | `report/` |
-| Code R5 (GPT) và R6 (Jev), có test bằng client giả | xong, **chưa chạy thật** | `src/rerank/gpt_listwise.py`, `src/rerank/jev.py` |
+Trong PowerShell tại thư mục project:
 
-## Việc của bạn: 4 bước
-
-### 1. Điền key vào `API.json`
-
-```json
-{
-  "OPENAI_API_KEY": "sk-...",
-  "TYPESAFE_API_KEY": "...",
-  "NCBI_API_KEY": "",
-  "NCBI_EMAIL": ""
-}
+```powershell
+.\.venv\Scripts\python.exe -X utf8 -m src.demo.offline_app
 ```
 
-- Hai key đầu là bắt buộc. Hai key NCBI không bắt buộc.
-- `API.json` đã nằm trong `.gitignore` nên không bị commit.
+Mở <http://127.0.0.1:7860>. Chọn bộ dữ liệu và câu hỏi đã đánh giá để xem top-5 trước/sau, mức đổi hạng, nhãn chuẩn và nDCG@10. Demo không đọc key, không gọi API và không sinh câu trả lời mới. Dừng bằng Ctrl+C.
 
-### 2. Kiểm tra key
+Demo phát lại kết quả của 673 truy vấn, không hỗ trợ câu hỏi tự do. Chế độ RAG trực tiếp cũ trong `src/demo/rag_app.py` chưa được kiểm thử đầy đủ trong môi trường hiện tại.
 
-```bash
-make check-api
-```
+## Kết quả
 
-Lệnh này làm ba việc:
-
-- báo key nào còn thiếu;
-- xác nhận các model `gpt-6-luna` và `gpt-6.1-sol` (khai trong `configs/models.yaml`) dùng được với key của bạn;
-- gọi thử Jev một lần (chi phí không đáng kể).
-
-Muốn kiểm Jev kỹ hơn trên NanoHotpotQA (kỳ vọng nDCG@10 ≈ 0,969) thì chạy `.venv/bin/python scripts/check_api.py --jev-nano`.
-
-### 3. Xem ước tính chi phí rồi quyết định
-
-```bash
-make api-dry                 # đầy đủ, ước tính khoảng 41 USD
-make api-dry SKIP_LARGE=1    # bỏ GPT-6.1 Sol, ước tính khoảng 19 USD
-```
-
-Bảng in ra liệt kê từng run: số lệnh gọi, số lệnh đã có trong cache, USD.
-
-- Phần đắt nhất là `gpt_large` (GPT-6.1 Sol) ở E1, khoảng 22 USD.
-- Nếu bỏ phần này, bảng chính sẽ không có dòng đối ứng với RankGPT gpt-4. Mọi phần khác giữ nguyên.
-
-Giá lấy từ trang chính thức ngày 06/11/2026 và nằm trong `configs/pricing.yaml`. Giá Jev mới lấy từ nguồn thứ cấp, cần đối chiếu trên trang TypeSafe.
-
-### 4. Chạy
-
-```bash
-make api-run CONFIRM=1                 # đầy đủ
-make api-run CONFIRM=1 SKIP_LARGE=1    # bỏ GPT-6.1 Sol
-```
-
-- Nếu tổng ước tính trên 5 USD mà không có `CONFIRM=1` thì lệnh sẽ dừng.
-- Mọi lệnh gọi đều được cache trong `data/cache/*.sqlite`. Nếu bị ngắt giữa chừng, chạy lại sẽ tiếp tục từ chỗ dừng và không tính tiền lần hai.
-- Chạy xong, lệnh tự chấm lại và sinh lại toàn bộ bảng (`report/tables/`) và hình (`report/figures/`).
-- Chi phí thật của từng run được ghi trong `results/api_logs/*.jsonl`. Nên đối chiếu với dashboard thanh toán.
-
-## Lệnh khác
-
-| Lệnh | Việc |
+| Phần | Nơi lưu / trạng thái |
 |---|---|
-| `make demo` | Demo RAG tại http://127.0.0.1:7860. BM25 và MedCPT chạy không cần key; GPT và Jev cần key |
-| `make report` | Chấm lại mọi run và sinh lại bảng, hình |
-| `make test` | Unit test, không tốn tiền |
-| `make kaggle-run` | Chạy lại các task GPU trên Kaggle (dùng tài khoản Kaggle đã đăng nhập) |
-| `make help` | Liệt kê mọi lệnh |
+| Mô hình local và GPU | `results/runs/`, `results/kaggle/` |
+| GPT-6 Luna E1 | 673 truy vấn, 5.182 lượt gọi; `results/e1/luna_run_summary.json` |
+| Chất lượng GPT | 85,45 / 38,60 / 79,77; `report/tables/e1_main.md` |
+| Chi phí GPT E1 | 3,7784 USD theo log token, chưa gồm các lệnh thử kết nối rất nhỏ |
+| E2 local và baseline GPT | `report/tables/e2_metadata.md` |
+| E3 SciFact-Open | 11 hệ thống local; `report/tables/e3_labels.md` |
+| E3 TREC-COVID | 12 hệ thống, gồm GPT; tính từ run đã lưu, không gọi lại mô hình |
+| Phân tích lỗi | `report/tables/error_cases.md`, `results/error_analysis.json` |
+| Tiểu luận | `report/draft/tieu_luan.md`, bản phát hành `report/BioRerank.md` |
 
-## Bạn vẫn cần tự làm
+Dữ liệu công khai được phục hồi trong `data/raw/`; pack trong `data/kaggle_pack/` chỉ chứa ứng viên cần cho các run đã lưu. Không dùng pack ứng viên để dựng index toàn kho hoặc thay pack huấn luyện gốc.
 
-- Đọc, sửa và chịu trách nhiệm nội dung tiểu luận (`report/draft/`) và slide.
-- Kiểm tra quy định của môn về việc dùng công cụ AI.
-- Báo deadline.
+## Chấm lại không gọi mô hình
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 scripts/run_experiment.py --only e1 e3 e4
+.\.venv\Scripts\python.exe -X utf8 scripts/error_analysis.py
+.\.venv\Scripts\python.exe -X utf8 -m pytest -q
+```
+
+Các bài API dùng client giả. Nếu sandbox chặn thư mục tạm của pytest, chạy trong terminal có quyền ghi thư mục tạm. E2 metadata lịch sử được giữ nguyên; không chạy lại bước MeSH khi metadata xử lý sẵn chưa có.
+
+## Các lượt API bổ sung chưa được duyệt
+
+- E2 GPT: tiêu chí y khoa, biến thể truy vấn/metadata, xáo thứ tự ứng viên.
+- E3 GPT trên SciFact-Open. TREC-COVID đã phân tích thêm từ E1.
+- E4 GPT: k=10/20/50 và cascade sau BGE.
+
+Ước tính bổ sung khoảng **10,48 USD**, chưa gồm dự phòng; chi tiết trong `results/cost_estimates/luna_remaining.json`. Ba lượt metadata vẫn dùng proxy token. Không cộng lại 3,78 USD của E1. Đây không phải khoản được phép chi.
+
+`scripts/run_api.py` mặc định chỉ chọn `gpt_small` (GPT-6 Luna) và **chỉ ước tính**. Cần `--execute` hoặc `--confirm` để chạy thật; `--max-usd` chặn trước nếu ước tính vượt trần. Không dùng cờ chạy thật khi chưa có quyết định mới của người dùng. M1 báo thiếu dữ liệu nếu metadata chưa có, thay vì chạy abstract-only rồi ghi nhầm là có metadata.
+
+## Tài nguyên còn thiếu để tái huấn luyện đầy đủ
+
+- Metadata TREC-COVID xử lý sẵn: `data/processed/trec-covid/doc_meta.json`, `topic_mesh.json`.
+- ID chia train/dev gốc và pack huấn luyện/đặc trưng gốc.
+- Embedding BioWordVec/à la carte, checkpoint và quyền truy cập Kaggle GPU. Hai ablation v2 mới có seed 0; chưa có seed 1/2.
+
+Không thay các file này bằng dữ liệu giả. Kết quả lịch sử được giữ nguyên và được ghi rõ nguồn trong báo cáo. Đợt hiện tại chưa tái lập lại toàn bộ quá trình huấn luyện.
+
+`API.json`, `.env` và thư mục dữ liệu gốc được Git bỏ qua. Không gửi key vào chat hoặc đưa vào báo cáo; demo offline không cần key.
+
+## Slide HTML
+
+Mở `report/slides/BioRerank.html` trong trình duyệt. File chứa 17 trang và toàn bộ CSS/JavaScript/dữ liệu ví dụ; không tải CDN hoặc gọi API. Bản trình chiếu đã được kiểm tra qua máy chủ HTTP local. Công cụ xem tự động của phiên này không cho mở giao thức `file://`.
+
+- Phím ←/→, Page Up/Page Down hoặc Space: chuyển trang; Home/End: đầu/cuối.
+- O: mục lục; N: ghi chú; F: toàn màn hình (tùy trình duyệt cho phép).
+- Trang 14 có ba ví dụ BM25/GPT lấy từ kết quả đã lưu.
+
+Tạo lại HTML khi số liệu thay đổi:
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 scripts/build_slides.py
+```
+
+Không cần PowerPoint. Có thể dùng chức năng in của trình duyệt nếu cần bản giấy; CSS đã có chế độ in từng trang.

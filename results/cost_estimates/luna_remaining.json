@@ -1,0 +1,221 @@
+{
+  "created_at": "2026-11-09T08:21:01.859754+00:00",
+  "model": "gpt-6-luna",
+  "reasoning_effort": "none",
+  "paid_calls_made_by_estimator": 0,
+  "rates_per_million_tokens_usd": {
+    "input": 0.1,
+    "cached_input": 0.01,
+    "output": 0.5
+  },
+  "groups_usd": {
+    "e2": 7.966167900000001,
+    "e3": 2.013199,
+    "e4": 0.4972601
+  },
+  "experiments_subtotal_usd": 10.476627,
+  "demo_allowance_usd": 0.1,
+  "contingency_fraction": 0.25,
+  "suggested_additional_budget_usd": 13.22,
+  "previous_e1_cost_usd": 3.7783738,
+  "notes": [
+    "Input token order is approximated by the initial candidate order; sliding-window reordering can change token lengths.",
+    "Output budget is 130 tokens per API response as in the existing estimator, rather than a guarantee.",
+    "Excludes tax, exchange-rate/card fees, Codex/chat subscription usage, electricity, and any separately purchased GPU compute.",
+    "Local report/demo preparation adds no model API calls. BiLSTM compute assumes existing free Kaggle quota; account access and quota are not verified.",
+    "SciFact-Open now uses restored real candidate text; only three metadata variants still use an abstract-only proxy."
+  ],
+  "jobs": [
+    {
+      "experiment": "e2",
+      "dataset": "trec-covid",
+      "name": "gpt_small.crit",
+      "queries": 50,
+      "calls": 450,
+      "cached_calls": 0,
+      "estimated_usd": 0.3275134,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "nfcorpus",
+      "name": "gpt_small.crit",
+      "queries": 323,
+      "calls": 2035,
+      "cached_calls": 0,
+      "estimated_usd": 1.5418092,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "scifact",
+      "name": "gpt_small.crit",
+      "queries": 300,
+      "calls": 2697,
+      "cached_calls": 0,
+      "estimated_usd": 2.115843,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "trec-covid",
+      "name": "gpt_small.Q-kw",
+      "queries": 50,
+      "calls": 450,
+      "cached_calls": 0,
+      "estimated_usd": 0.3250582,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "trec-covid",
+      "name": "gpt_small.Q-qn",
+      "queries": 50,
+      "calls": 450,
+      "cached_calls": 0,
+      "estimated_usd": 0.328597,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "trec-covid",
+      "name": "gpt_small.M1",
+      "queries": 50,
+      "calls": 450,
+      "cached_calls": 0,
+      "estimated_usd": 0.32590420000000003,
+      "basis": "PROVISIONAL: real query/candidates, abstract-only token proxy, no cache discount; metadata must be restored before execution"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "trec-covid",
+      "name": "gpt_small.Q-kw.M1",
+      "queries": 50,
+      "calls": 450,
+      "cached_calls": 0,
+      "estimated_usd": 0.3250582,
+      "basis": "PROVISIONAL: real query/candidates, abstract-only token proxy, no cache discount; metadata must be restored before execution"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "trec-covid",
+      "name": "gpt_small.Q-qn.M1",
+      "queries": 50,
+      "calls": 450,
+      "cached_calls": 0,
+      "estimated_usd": 0.328597,
+      "basis": "PROVISIONAL: real query/candidates, abstract-only token proxy, no cache discount; metadata must be restored before execution"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "trec-covid",
+      "name": "gpt_small.shuf1",
+      "queries": 50,
+      "calls": 450,
+      "cached_calls": 0,
+      "estimated_usd": 0.3260847,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "nfcorpus",
+      "name": "gpt_small.shuf1",
+      "queries": 100,
+      "calls": 608,
+      "cached_calls": 11,
+      "estimated_usd": 0.4564957,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "trec-covid",
+      "name": "gpt_small.shuf2",
+      "queries": 50,
+      "calls": 450,
+      "cached_calls": 0,
+      "estimated_usd": 0.3259942,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "nfcorpus",
+      "name": "gpt_small.shuf2",
+      "queries": 100,
+      "calls": 608,
+      "cached_calls": 12,
+      "estimated_usd": 0.4563819,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "trec-covid",
+      "name": "gpt_small.shuf3",
+      "queries": 50,
+      "calls": 450,
+      "cached_calls": 0,
+      "estimated_usd": 0.3259493,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e2",
+      "dataset": "nfcorpus",
+      "name": "gpt_small.shuf3",
+      "queries": 100,
+      "calls": 608,
+      "cached_calls": 8,
+      "estimated_usd": 0.4568819,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e3",
+      "dataset": "scifact-open",
+      "name": "gpt_small",
+      "queries": 279,
+      "calls": 2511,
+      "cached_calls": 0,
+      "estimated_usd": 2.013199,
+      "basis": "token estimate on restored public SciFact-Open candidate documents; SQLite cache checked"
+    },
+    {
+      "experiment": "e4",
+      "dataset": "nfcorpus",
+      "name": "cascade_bge_gpt_small20",
+      "queries": 323,
+      "calls": 323,
+      "cached_calls": 41,
+      "estimated_usd": 0.2101357,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e4",
+      "dataset": "nfcorpus",
+      "name": "gpt_small.k10",
+      "queries": 100,
+      "calls": 100,
+      "cached_calls": 25,
+      "estimated_usd": 0.032528600000000005,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e4",
+      "dataset": "nfcorpus",
+      "name": "gpt_small.k20",
+      "queries": 100,
+      "calls": 100,
+      "cached_calls": 34,
+      "estimated_usd": 0.0523587,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    },
+    {
+      "experiment": "e4",
+      "dataset": "nfcorpus",
+      "name": "gpt_small.k50",
+      "queries": 100,
+      "calls": 296,
+      "cached_calls": 38,
+      "estimated_usd": 0.2022371,
+      "basis": "token estimate on actual inputs; SQLite cache checked"
+    }
+  ],
+  "execution_status": "USER DECLINED ADDITIONAL PAID API CALLS; estimates only"
+}
