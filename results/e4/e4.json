@@ -110,6 +110,18 @@
     "usd_note": "giá trong configs/pricing.yaml; latency tuần tự (không tính song song)",
     "mean_ndcg10_beir3": 0.6794161549829614
   },
+  "R6": {
+    "kind": "api",
+    "n": 673,
+    "p50_ms": 1084.445328999891,
+    "p95_ms": 1390.7153392000052,
+    "p99_ms": 1603.6148228799448,
+    "usd_per_1k": 1.6176208885586925,
+    "requests_per_query": 1.8469539375928679,
+    "errors": 0,
+    "usd_note": "giá trong configs/pricing.yaml; latency tuần tự (không tính song song)",
+    "mean_ndcg10_beir3": 0.6726537552076638
+  },
   "R0": {
     "kind": "local-cpu",
     "p50_ms": null,

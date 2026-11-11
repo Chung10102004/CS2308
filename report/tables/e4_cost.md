@@ -9,6 +9,7 @@
 | X2 bge-reranker-large | local-gpu | 2247 | 2427 | 2467 | 0.2172 | 60.75 |
 | R4 bge-reranker-v2-m3 | local-gpu | 2275 | 2459 | 2491 | 0.2201 | 62.08 |
 | X4 MonoT5-base | local-gpu | 4318 | 4641 | 4696 | 0.4181 | 60.79 |
+| R6 Jev listwise | api | 1084 | 1391 | 1604 | 1.6176 | 67.27 |
 | R7 Qwen3-Reranker-4B | local-gpu | 25042 | 31521 | 34035 | 2.4843 | 67.24 |
 | R5s GPT-6 Luna listwise | api | 28914 | 43270 | 50510 | 5.6142 | 67.94 |
 

@@ -116,7 +116,10 @@
       "Q-qn+M1": null
     },
     "R6": {
-      "Q-q": null,
+      "Q-q": {
+        "nDCG@10": 0.8441431176428749,
+        "sd": null
+      },
       "Q-kw": null,
       "Q-qn": null,
       "Q-q+M1": null,
@@ -132,17 +135,17 @@
   "criteria": {
     "R6": {
       "trec-covid": {
-        "generic": null,
+        "generic": 0.8441431176428749,
         "domain": null,
         "test": null
       },
       "nfcorpus": {
-        "generic": null,
+        "generic": 0.3824220403156936,
         "domain": null,
         "test": null
       },
       "scifact": {
-        "generic": null,
+        "generic": 0.791396107664423,
         "domain": null,
         "test": null
       }
@@ -167,15 +170,15 @@
   },
   "listwise_vs_pointwise": {
     "trec-covid": {
-      "listwise": null,
+      "listwise": 0.8441431176428749,
       "pointwise": null
     },
     "nfcorpus": {
-      "listwise": null,
+      "listwise": 0.3824220403156936,
       "pointwise": null
     },
     "scifact": {
-      "listwise": null,
+      "listwise": 0.791396107664423,
       "pointwise": null
     }
   },
@@ -322,6 +325,48 @@
         "ci95": [
           -0.0019086236459685435,
           0.0004631564909160346
+        ],
+        "n": 50
+      }
+    },
+    "R5s": {
+      "base": 0.8545030544054035,
+      "boosted_cv": 0.8486893355912727,
+      "delta": -0.005813718814130842,
+      "lambdas": [
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "test": {
+        "delta": -0.005813718814130946,
+        "p": 0.1354864513548645,
+        "ci95": [
+          -0.015514443242195721,
+          6.744848662945557e-05
+        ],
+        "n": 50
+      }
+    },
+    "R6": {
+      "base": 0.8441431176428749,
+      "boosted_cv": 0.8441431176428746,
+      "delta": -2.220446049250313e-16,
+      "lambdas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "test": {
+        "delta": 0.0,
+        "p": 1.0,
+        "ci95": [
+          0.0,
+          0.0
         ],
         "n": 50
       }

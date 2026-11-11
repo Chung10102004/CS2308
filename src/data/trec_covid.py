@@ -1,69 +1,105 @@
-"""Official NIST topics and cumulative, iteration-aware relevance judgments."""
-import xml.etree.ElementTree as ET
+"""Topic của NIST (query/question/narrative) và qrels theo từng vòng của TREC-COVID.
+
+Nguồn: https://ir.nist.gov/trec-covid/data.html
+- topics-rnd{1..5}.xml: trường query (từ khóa), question (câu hỏi), narrative (mô tả mức liên quan)
+- qrels-covid_d5_j0.5-5.txt: "topic iteration cord_uid judgment"; iteration = vòng chấm (có vòng lẻ 0.5, 1.5, …)
+"""
+import functools
+import subprocess
+from collections import defaultdict
+from pathlib import Path
+
+from lxml import etree
 
 from ..utils.paths import RAW
-from . import beir_loader
+from .beir_loader import load_corpus, load_qrels, load_queries
 
-
-def topics(round_number=5):
-    path = RAW / "trec-covid" / f"topics-rnd{round_number}.xml"
-    root = ET.parse(path).getroot()
-    return {t.attrib["number"]: {child.tag: (child.text or "").strip() for child in t} for t in root.findall("topic")}
-
-
-def query_variants():
-    rows = topics(5)
-    return {"Q-q": {q: t["question"] for q, t in rows.items()},
-            "Q-kw": {q: t["query"] for q, t in rows.items()},
-            "Q-qn": {q: t["question"] + " " + t["narrative"] for q, t in rows.items()}}
-
-
-def check_beir_matches_question():
-    rows = topics(5)
-    queries = beir_loader.load_queries("trec-covid", "test")
-    return {"n_topics": len(rows), "beir_equals_question": sum(queries.get(q) == t["question"] for q, t in rows.items())}
-
-
-def full_qrels_round1_topics():
-    keep = set(topics(1))
-    return {q: docs for q, docs in beir_loader.load_qrels("trec-covid", "test").items() if q in keep}
-
-
-def _judgments():
-    path = RAW / "trec-covid/qrels-covid_d5_j0.5-5.txt"
-    with path.open(encoding="utf-8") as f:
-        for line in f:
-            qid, iteration, did, rel = line.split()
-            yield qid, float(iteration), did, int(rel)
-
-
-def round_qrels(level):
-    full = full_qrels_round1_topics()
-    result = {q: {} for q in full}
-    for qid, iteration, did, rel in _judgments():
-        if iteration <= level and did in full.get(qid, {}):
-            if did in result[qid] and result[qid][did] != rel:
-                raise ValueError(f"Conflicting judgments for {qid}/{did}")
-            result[qid][did] = rel
-    return result
-
-
-def rounds_report():
-    full, shallow = full_qrels_round1_topics(), round_qrels(1)
-    return {"n_judgments": sum(1 for _ in _judgments()), "n_topics_round1": len(full),
-            "shallow_pairs": sum(map(len, shallow.values())),
-            "shallow_relevant": sum(r > 0 for docs in shallow.values() for r in docs.values()),
-            "full_pairs_round1_topics": sum(map(len, full.values())),
-            "full_relevant_round1_topics": sum(r > 0 for docs in full.values() for r in docs.values())}
+NIST = "https://ir.nist.gov/trec-covid/data/"
+ROOT = RAW / "trec_covid"
+QRELS_FILE = "qrels-covid_d5_j0.5-5.txt"
 
 
 def download():
-    import requests
-    folder = RAW / "trec-covid"
-    folder.mkdir(parents=True, exist_ok=True)
-    for name in [f"topics-rnd{r}.xml" for r in range(1, 6)] + ["qrels-covid_d5_j0.5-5.txt"]:
-        path = folder / name
-        if not path.exists():
-            response = requests.get(f"https://ir.nist.gov/trec-covid/data/{name}", timeout=60)
-            response.raise_for_status()
-            path.write_bytes(response.content)
+    ROOT.mkdir(parents=True, exist_ok=True)
+    for f in [f"topics-rnd{r}.xml" for r in range(1, 6)] + [QRELS_FILE]:
+        if not (ROOT / f).exists():
+            subprocess.run(["curl", "-sSL", "-o", str(ROOT / f), NIST + f], check=True)
+
+
+@functools.lru_cache(maxsize=None)
+def topics(rnd: int = 5) -> dict:
+    """qid -> {"query", "question", "narrative"}."""
+    tree = etree.parse(str(ROOT / f"topics-rnd{rnd}.xml"))
+    out = {}
+    for t in tree.getroot().iter("topic"):
+        out[t.get("number")] = {k: (t.findtext(k) or "").strip() for k in ("query", "question", "narrative")}
+    return out
+
+
+def query_variants() -> dict:
+    """Ba dạng truy vấn của E2: Q-kw (từ khóa), Q-q (câu hỏi, mặc định BEIR), Q-qn (câu hỏi + narrative)."""
+    t = topics(5)
+    return {
+        "Q-kw": {q: v["query"] for q, v in t.items()},
+        "Q-q": {q: v["question"] for q, v in t.items()},
+        "Q-qn": {q: f'{v["question"]} {v["narrative"]}' for q, v in t.items()},
+    }
+
+
+def check_beir_matches_question() -> dict:
+    """Xác minh: truy vấn của BEIR TREC-COVID chính là trường `question` của NIST."""
+    beir, t = load_queries("trec-covid"), topics(5)
+    same = sum(beir.get(q, "").strip().lower() == v["question"].strip().lower() for q, v in t.items())
+    return {"n_topics": len(t), "beir_equals_question": same}
+
+
+@functools.lru_cache(maxsize=None)
+def nist_qrels_with_rounds():
+    """Danh sách (topic, iteration, docid, rel) theo đúng thứ tự file."""
+    rows = []
+    with open(ROOT / QRELS_FILE, encoding="utf-8") as f:
+        for line in f:
+            p = line.split()
+            if len(p) == 4:
+                rows.append((p[0], float(p[1]), p[2], int(p[3])))
+    return rows
+
+
+def round_qrels(max_iteration: float = 1.0) -> dict:
+    """Nhãn nông: chỉ các cặp được chấm tới hết vòng `max_iteration`, trên các topic có từ vòng 1,
+    giới hạn trong kho BEIR. Nếu một cặp được chấm lại thì lấy nhãn mới nhất trong phạm vi đó."""
+    r1_topics = set(topics(1))
+    corpus = load_corpus("trec-covid")
+    q = defaultdict(dict)
+    for topic, it, did, rel in sorted(nist_qrels_with_rounds(), key=lambda x: x[1]):
+        if topic in r1_topics and it <= max_iteration and did in corpus:
+            q[topic][did] = rel
+    return dict(q)
+
+
+def full_qrels_round1_topics() -> dict:
+    """Nhãn đầy đủ (qrels test của BEIR) giới hạn trên các topic có từ vòng 1."""
+    r1 = set(topics(1))
+    return {qid: v for qid, v in load_qrels("trec-covid", "test").items() if qid in r1}
+
+
+def rounds_report() -> dict:
+    rows = nist_qrels_with_rounds()
+    by_it = defaultdict(int)
+    pairs = defaultdict(set)
+    for topic, it, did, rel in rows:
+        by_it[it] += 1
+        pairs[(topic, did)].add(rel)
+    rejudged = sum(1 for v in pairs.values() if len(v) > 1)
+    shallow, full = round_qrels(1.0), full_qrels_round1_topics()
+    return {
+        "n_judgments": len(rows),
+        "judgments_by_iteration": {str(k): v for k, v in sorted(by_it.items())},
+        "n_topics_round1": len(topics(1)),
+        "round1_topics": sorted(topics(1), key=int),
+        "pairs_with_conflicting_labels": rejudged,
+        "shallow_pairs": sum(len(v) for v in shallow.values()),
+        "shallow_relevant": sum(r > 0 for v in shallow.values() for r in v.values()),
+        "full_pairs_round1_topics": sum(len(v) for v in full.values()),
+        "full_relevant_round1_topics": sum(r > 0 for v in full.values() for r in v.values()),
+    }

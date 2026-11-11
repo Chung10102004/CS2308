@@ -23,12 +23,12 @@
 | **nhóm** R4 | **bge-reranker-v2-m3** | Cross-encoder (tổng quát) | title+text | **78.57**† | **33.69** | **73.99**† | **62.08** |
 | **nhóm** R5s | **GPT-6 Luna listwise** | LLM listwise | title+text | **85.45**†‡ | **38.60**†‡ | **79.77**†‡ | **67.94** |
 | **nhóm** R5l | **GPT-6.1 Sol listwise (top-30)** | LLM listwise | title+text | — | — | — | — |
-| **nhóm** R6 | **Jev listwise** | Mô hình quyết định | title+text | — | — | — | — |
+| **nhóm** R6 | **Jev listwise** | Mô hình quyết định | title+text | **84.41**† | **38.24**†‡ | **79.14**†‡ | **67.27** |
 | **nhóm** R7 | **Qwen3-Reranker-4B** | LLM (mã nguồn mở) | title+text | **85.00**†‡ | **37.37**†‡ | **79.35**†‡ | **67.24** |
 | **nhóm** R8 | **RRF ensemble (chọn trên dev)** | Ensemble | title+text | — | — | — | — |
 | **nhóm** X1 | **bge-reranker-base** | Cross-encoder (tổng quát) | title+text | **68.61**†▾ | **31.55**▾ | **71.55**† | **57.24** |
 | **nhóm** X2 | **bge-reranker-large** | Cross-encoder (tổng quát) | title+text | **74.23**† | **33.83** | **74.20**† | **60.75** |
-| **nhóm** X3 | **mxbai-rerank-base** | Cross-encoder (tổng quát) | title+text | **83.06**†‡ | **35.48**† | **72.03**† | **63.52** |
+| **nhóm** X3 | **mxbai-rerank-base** | Cross-encoder (tổng quát) | title+text | **83.06**† | **35.48**† | **72.03**† | **63.52** |
 | **nhóm** X4 | **MonoT5-base** | Seq2seq | title+text | **74.08**† | **35.06**† | **73.24**† | **60.79** |
 
 nDCG@10 × 100, cùng BM25 (Pyserini flat) top-100. Dòng *công bố*: Abdallah et al. 2025, How Good are LLM-based Rerankers? (EMNLP Findings), arXiv:2508.16757 (bảng 2–3). Dòng **nhóm**: số của nhóm; nhiều seed thì ghi trung bình ± SD (3 seed). † hơn BM25, ‡ hơn bge-reranker-v2-m3, ▾ kém bge-reranker-v2-m3 — paired bootstrap 10.000 lần, hiệu chỉnh Holm, p < 0,05. RankGPT gpt-4 và GPT-6.1 Sol của nhóm chỉ xếp lại top-30 của model nhỏ. Cột *Đầu vào reranker*: dòng chép từ RankGPT dùng 'Title: … Content: …' (rank_gpt.py), dòng chạy bằng Rankify chỉ dùng abstract (TransformerRanker/MonoT5 đưa `context.text`); nhóm dùng 'tiêu đề. abstract'. Ảnh hưởng của khác biệt này: bảng E0.

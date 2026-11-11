@@ -1,72 +1,67 @@
-"""SciFact-Open evidence labels; provenance is retained, never inferred."""
-import json
-import tarfile
+"""SciFact-Open (Wadden et al., 2022): 279 claim, kho 500K abstract, nhãn gốc và nhãn sau khi gom pool.
 
+claims.jsonl: evidence[doc_id] = {"provenance": "citation"|"pooling", "label", "sentences", "model_ranks"}
+- qrels_orig = các cặp provenance == "citation" (nhãn gốc của SciFact)
+- qrels_open = toàn bộ cặp (nhãn đã được chuyên gia soát lại)
+"""
+import functools
+import subprocess
+
+from ..utils.io import read_jsonl
 from ..utils.paths import RAW
 
 URL = "https://scifact.s3.us-west-2.amazonaws.com/scifact-open/latest/scifact_open.tar.gz"
+ROOT = RAW / "scifact_open"
 
 
-def claims():
-    path = RAW / "scifact-open/claims.jsonl"
-    with path.open(encoding="utf-8") as f:
-        return {str(row["id"]): row for row in (json.loads(line) for line in f if line.strip())}
+def download():
+    if (ROOT / "data" / "claims.jsonl").exists():
+        return
+    ROOT.mkdir(parents=True, exist_ok=True)
+    tgz = ROOT / "scifact_open.tar.gz"
+    subprocess.run(["curl", "-sSL", "-o", str(tgz), URL], check=True)
+    subprocess.run(["tar", "-xzf", str(tgz), "-C", str(ROOT)], check=True)
 
 
-def queries():
-    return {q: row["claim"] for q, row in claims().items()}
+@functools.lru_cache(maxsize=None)
+def claims() -> dict:
+    return {str(r["id"]): r for r in read_jsonl(ROOT / "data" / "claims.jsonl")}
 
 
-def qrels(scope="open"):
-    if scope not in ("orig", "open"):
-        raise ValueError("SciFact-Open qrels scope must be orig or open")
+def queries() -> dict:
+    return {qid: r["claim"] for qid, r in claims().items()}
+
+
+def qrels(kind: str = "open") -> dict:
+    if kind not in ("orig", "open"):
+        raise ValueError(f"kind phải là 'orig' hoặc 'open', nhận {kind!r}")
     out = {}
-    for qid, row in claims().items():
-        evidence = {str(did): 1 for did, label in row["evidence"].items() if scope == "open" or label["provenance"] == "citation"}
-        if evidence:
-            out[qid] = evidence
+    for qid, r in claims().items():
+        ev = {str(d): 1 for d, e in r["evidence"].items() if kind == "open" or e["provenance"] == "citation"}
+        if ev:
+            out[qid] = ev
     return out
 
 
 def corpus_iter():
-    """Stream the entire original corpus, never a candidate-only subset."""
-    path = RAW / "scifact-open/scifact_open.tar.gz"
-    with tarfile.open(path, "r|gz") as archive:
-        for member in archive:
-            if member.name == "data/corpus.jsonl":
-                for line in archive.extractfile(member):
-                    row = json.loads(line)
-                    abstract = row.get("abstract", [])
-                    yield str(row["doc_id"]), row.get("title", ""), " ".join(abstract) if isinstance(abstract, list) else abstract
-                return
-    raise FileNotFoundError("data/corpus.jsonl missing from SciFact-Open archive")
+    """Sinh (docid, title, abstract) cho 500K bài; abstract là danh sách câu."""
+    for r in read_jsonl(ROOT / "data" / "corpus.jsonl"):
+        yield str(r["doc_id"]), r.get("title") or "", " ".join(r.get("abstract") or [])
 
 
-def report():
-    rows = claims()
-    orig, opened = qrels("orig"), qrels("open")
-    n_orig = sum(map(len, orig.values()))
-    n_open = sum(map(len, opened.values()))
-    return {"n_claims": len(rows), "evidence_citation": n_orig, "evidence_pooling": n_open - n_orig,
-            "evidence_total": n_open, "claims_with_citation": len(orig), "claims_with_evidence": len(opened),
-            "claims_with_added_evidence": sum(len(opened.get(q, {})) > len(orig.get(q, {})) for q in rows)}
-
-
-def download():
-    import requests
-    folder = RAW / "scifact-open"
-    folder.mkdir(parents=True, exist_ok=True)
-    archive = folder / "scifact_open.tar.gz"
-    if not archive.exists():
-        partial = archive.with_suffix(".gz.part")
-        with requests.get(URL, stream=True, timeout=(15, 180)) as response:
-            response.raise_for_status()
-            with partial.open("wb") as f:
-                for chunk in response.iter_content(1024 * 1024):
-                    f.write(chunk)
-        partial.replace(archive)
-    with tarfile.open(archive, "r:gz") as source:
-        for name in ("claims.jsonl", "claims_metadata.jsonl"):
-            target = folder / name
-            if not target.exists():
-                target.write_bytes(source.extractfile("data/" + name).read())
+def report() -> dict:
+    c = claims()
+    n_cit = sum(e["provenance"] == "citation" for r in c.values() for e in r["evidence"].values())
+    n_pool = sum(e["provenance"] == "pooling" for r in c.values() for e in r["evidence"].values())
+    qo, qn = qrels("orig"), qrels("open")
+    return {
+        "n_claims": len(c),
+        "evidence_citation": n_cit,
+        "evidence_pooling": n_pool,
+        "evidence_total": n_cit + n_pool,
+        "claims_with_evidence_orig": len(qo),
+        "claims_with_evidence_open": len(qn),
+        "claims_in_both": len(set(qo) & set(qn)),
+        "claims_gaining_evidence": sum(len(qn[q]) > len(qo.get(q, {})) for q in qn),
+        "note_negatives": "repo không phát hành cặp đã chấm nhưng không phải bằng chứng (chỉ có claims/corpus/retrievals/predictions)",
+    }
